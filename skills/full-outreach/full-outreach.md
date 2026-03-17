@@ -125,16 +125,12 @@ Write one message per contact in the chosen channel format.
 
 ### Step 4 — Present and iterate
 
-Present each message clearly:
+For each contact, present:
+- The contact's name, title, and company
+- The hook you chose (what personalization angle you used and why)
+- The full message
 
-```
-━━━ [Full Name] — [Title] at [Company] ━━━
-Hook: [what you used as personalization angle]
-
-[The message]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+Use the most readable format. Do NOT use Markdown tables or ASCII art blocks.
 
 After presenting all messages, ask:
 - "Want me to adjust the tone on any of these?"
