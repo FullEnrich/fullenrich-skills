@@ -41,22 +41,9 @@ Read the uploaded file. Identify the columns and map them to FullEnrich fields:
 - `company`, `domain` ← company name or website domain
 - `email` ← existing email column (if present, flag for "fill empty only" logic)
 
-Show the user a preview:
-
-```
-━━━ CSV Preview (first 5 rows) ━━━
-
-Found [X] contacts with [Y] columns.
-Detected fields: [list of mapped fields]
-
-| Row | LinkedIn URL          | Name         | Company   |
-|-----|-----------------------|--------------|-----------|
-| 1   | linkedin.com/in/john  | John Doe     | Acme Corp |
-| 2   | linkedin.com/in/jane  | Jane Smith   | —         |
-| ...                                                     |
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+Show the user a preview of the first 5 rows with the detected columns.
+State: "[X] contacts found with [Y] columns. Detected fields: [list]."
+Use the most readable format. Do NOT use Markdown tables with | and ---.
 
 Ask:
 - "Does this look right? Are the columns correctly detected?"
@@ -103,10 +90,9 @@ Wait until status = "FINISHED".
 
 Call `export_contacts` with format "csv" to get ALL enriched data.
 
-Read the enriched data and present as a table in chat:
-
-| Full Name | Company | LinkedIn | Email | Phone | Status |
-|-----------|---------|----------|-------|-------|--------|
+Read the enriched data and present to the user with these columns:
+Full Name, Company, LinkedIn, Email, Phone, Status.
+Use the most readable format. Do NOT use Markdown tables with | and ---.
 
 For each contact, show the enrichment status:
 - ✓ DELIVERABLE — valid email
@@ -117,18 +103,7 @@ For each contact, show the enrichment status:
 
 **Merge rule:** if the original CSV had an email column with existing data, NEVER overwrite it. Only fill empty cells.
 
-After the table, show summary:
-
-```
-━━━ Enrichment Summary ━━━
-
-Total contacts: [X]
-Emails found: [Y] ([Y/X]%)
-Phones found: [Z] ([Z/X]%)
-Not found: [W]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+After the results, show a summary with: total contacts, emails found (count + %), phones found (count + %), not found count.
 
 Then offer: "Want me to generate a downloadable CSV with all the enriched data?"
 
