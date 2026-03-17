@@ -186,9 +186,9 @@ Always explain why. Common reasons:
 
 After presenting the table, always offer:
 1. "Want me to enrich more contacts from this search?"
-2. "Want me to export these results as a CSV file?"
+2. "Want me to push these contacts to your CRM?" *(→ Full CRM skill)*
 3. "Want me to adjust the filters and search again?"
-4. "Want me to draft a personalized outreach email for each contact?"
+4. "Want me to draft personalized outreach for each contact?" *(→ Full Outreach skill)*
 
 ---
 
