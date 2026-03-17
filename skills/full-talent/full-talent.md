@@ -131,46 +131,21 @@ Partial matches. Only contact if Tier 1 and 2 don't convert.
 
 ### Step 5 — Present results
 
-```
-━━━ SOURCING RESULTS ━━━━━━━━━━━━━━━━━━━━
+Present results in 3 sections. Use the most readable format. Do NOT use Markdown tables with | and ---.
 
-📊 Summary
-Total sourced: [X]
-Tier 1: [Y] | Tier 2: [Z] | Tier 3: [W]
-Email found: [%] | Phone found: [%]
+**Summary:** Total sourced, Tier 1/2/3 counts, email found %, phone found %.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**TIER 1 — Call first:** List with columns: Name, Title, Company, Years in Role, Email, Phone.
+For each Tier 1 candidate, add a mini profile below:
+- Career path (previous → current role)
+- Education
+- Key skills
+- Why this person (1-2 sentences explaining the fit — be specific)
+- Recommended outreach channel and why
 
-🟢 TIER 1 — Call first
+**TIER 2 — Worth considering:** Same columns as Tier 1, no mini profiles.
 
-| Name | Title | Company | Years in Role | Email | Phone |
-|------|-------|---------|---------------|-------|-------|
-
-━━━ Tier 1 Candidate Profiles ━━━
-
-[Full Name] — [Title] at [Company]
-📋 Career: [Previous role] → [Current role] ([X years])
-🎓 Education: [University, degree]
-🔧 Skills: [relevant skills]
-💡 Why this person: [1-2 sentences explaining the fit — be specific]
-📞 Recommended channel: [Email / LinkedIn / Phone] — [why]
-
-[repeat for each Tier 1]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🟡 TIER 2 — Worth considering
-
-| Name | Title | Company | Years in Role | Email | Phone |
-|------|-------|---------|---------------|-------|-------|
-
-🟠 TIER 3 — Backup
-
-| Name | Title | Company | Years in Role | Email | Phone |
-|------|-------|---------|---------------|-------|-------|
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+**TIER 3 — Backup:** Same columns, no mini profiles.
 
 ### Step 6 — Outreach recommendation
 
