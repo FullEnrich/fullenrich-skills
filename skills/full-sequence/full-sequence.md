@@ -140,35 +140,14 @@ For each touchpoint, write the message in the appropriate channel format:
 - Touch 2-3: medium personalization (reference to their industry/role)
 - Touch 4-5: lighter personalization (focus on value prop + social proof)
 
-Present each message in sequence order:
+Present each message in sequence order. For each touchpoint show:
+- Touch number, day, and channel (Email / LinkedIn DM / Phone)
+- Subject line (for emails)
+- The full message body
 
-```
-━━━ SEQUENCE: [Name] ━━━━━━━━━━━━━━━━━━━━
+End with: "STOP RULE: If the prospect replies at ANY point, the sequence stops immediately."
 
-📧 TOUCH 1 — Day 1 (Email)
-Subject: [subject]
-[message body]
-
-📧 TOUCH 2 — Day 3 (Email)
-Subject: [subject]
-[message body]
-
-💬 TOUCH 3 — Day 7 (LinkedIn DM)
-[message body]
-
-📧 TOUCH 4 — Day 11 (Email)
-Subject: [subject]
-[message body]
-
-👋 TOUCH 5 — Day 18 (Breakup Email)
-Subject: [subject]
-[message body]
-
-⚠️ STOP RULE: If the prospect replies at ANY point, the sequence stops
-immediately. Switch to conversation mode.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+Use the most readable format. Do NOT use Markdown tables or ASCII art blocks.
 
 Remind the user: "Remember to configure your sequencer to stop the sequence when a prospect replies."
 
@@ -184,18 +163,7 @@ Once the user approves:
 4. Add contacts to the sequence
 5. Report results:
 
-```
-━━━ SEQUENCE DEPLOYED ━━━━━━━━━━━━━━━━━━━
-
-Tool: [Sequencer name]
-Sequence name: [name]
-Touchpoints: [X]
-Channels: [email, LinkedIn, phone]
-Contacts added: [Y]
-First touch sends: [date/time or "when you activate"]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+Present a deployment summary with: sequencer tool name, sequence name, number of touchpoints, channels used, contacts added, first touch send date/time.
 
 ---
 
