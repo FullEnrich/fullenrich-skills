@@ -134,63 +134,25 @@ If FullEnrich data is thin or the user needs fresh signals, search the web for:
 
 Structure the brief clearly:
 
-```
-━━━ MEETING BRIEF ━━━━━━━━━━━━━━━━━━━━━━━
+Present the brief with these sections. Use the most readable format. Do NOT use Markdown tables with | and ---.
 
-👤 PERSON
-Name:       [Full Name]
-Title:      [Current Title]
-Company:    [Company Name]
-Seniority:  [Level]
-Location:   [City, Country]
-LinkedIn:   [URL]
-Email:      [if available]
-Phone:      [if available]
+**PERSON:** Name, title, company, seniority, location, LinkedIn URL, email (if available), phone (if available).
 
-📋 CAREER PATH
-• [Current] — [Title] at [Company] (since [year])
-• [Previous] — [Title] at [Company] ([years])
-• [Previous] — [Title] at [Company] ([years])
+**CAREER PATH:** All positions from current to oldest, with company name and tenure.
 
-🎓 EDUCATION
-• [Degree] — [University] ([year])
+**EDUCATION:** University, degree, field of study.
 
-🔧 KEY SKILLS
-[skill 1] · [skill 2] · [skill 3] · [skill 4]
+**KEY SKILLS:** List of professional competencies.
 
-🏢 COMPANY CONTEXT
-• What they do: [1-2 sentences]
-• Industry: [industry]
-• Size: [headcount] employees
-• HQ: [location]
-• Recent signals: [funding, hiring, news — if found]
+**COMPANY CONTEXT:** What they do (1-2 sentences), industry, headcount, HQ location, recent signals (funding, hiring, news — if found).
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**MEETING STRATEGY (based on meeting type):** How to open (specific opener), their likely priority, your angle, what to watch out for.
 
-🎯 MEETING STRATEGY ([meeting type])
-• How to open: [specific opener based on their profile + meeting type]
-• Their likely priority: [what this person probably cares about given their role]
-• Your angle: [how to connect their situation to your objective]
-• Watch out for: [potential objection or sensitive topic based on context]
+**TALKING POINTS:** 3 points tailored to the person's profile + the user's objective.
 
-💬 TALKING POINTS
-1. [Point specific to the person's background + your objective]
-2. [Point specific to the company's situation or recent signals]
-3. [Point connecting their pain to your value — using THEIR language]
+**QUESTIONS TO ASK:** 4 questions that show homework and can't be Googled.
 
-❓ QUESTIONS TO ASK
-1. [Question based on their career transition / current role]
-2. [Question about their company's priorities / challenges]
-3. [Question that opens the door to your objective]
-4. [Question that shows you did your homework and can't be Googled]
-
-⚡ QUICK TIPS
-• [Tactical tip based on seniority level]
-• [Tactical tip based on meeting type]
-• [What NOT to do in this specific meeting]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+**QUICK TIPS:** 2-3 tactical tips based on seniority level and meeting type, including what NOT to do.
 
 ### Step 6 — Offer enrichment if needed
 
