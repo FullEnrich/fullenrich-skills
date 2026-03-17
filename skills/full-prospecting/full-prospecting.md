@@ -161,11 +161,10 @@ Step 4 → CONFIRMATION (show cost estimate, wait for "yes")
 Step 5 → enrich_search_contact (once, same filters, set limit)
 Step 6 → get_enrichment_results (poll progress only, every 20s)
 Step 7 → export_contacts (format: csv, get ALL results)
-Step 8 → Present results in table:
+Step 8 → Present results to user with these columns:
+         Full Name, Title, Company, Headcount, Location, LinkedIn, Email, Phone
+         Use the most readable format. Do NOT use Markdown tables with | and ---.
 ```
-
-| Full Name | Title | Company | Headcount | Location | LinkedIn | Email | Phone |
-|-----------|-------|---------|-----------|----------|----------|-------|-------|
 
 NEVER skip steps. NEVER repeat step 5.
 
