@@ -15,6 +15,14 @@
 
 ## Flow
 
+### Step 0 — Understand context
+
+Before parsing, ask:
+1. "Where did these contacts come from?" (LinkedIn export, CRM export, Sales Navigator, manual list, another tool)
+2. "What do you plan to do with the enriched data?" (outreach, CRM import, internal research, event follow-up)
+
+This takes 30 seconds and shapes the recommendations (e.g. if it's for CRM import, suggest Full CRM skill after enrichment).
+
 ### Step 1 — Parse and preview the CSV
 
 Read the uploaded file. Identify the columns and map them to FullEnrich fields:
