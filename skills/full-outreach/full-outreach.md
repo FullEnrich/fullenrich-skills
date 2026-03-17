@@ -147,8 +147,8 @@ After presenting all messages, ask:
 
 After the user approves the messages, offer:
 1. "Want me to create messages for more contacts?"
-2. "Want me to write follow-up messages (day 3, day 7) for these contacts?" *(→ future Sequence skill)*
-3. "Want me to push these to your outreach tool?" *(→ future Sequence Orchestration skill)*
+2. "Want me to build a full multi-touch sequence around these messages?" *(→ Full Sequence skill)*
+3. "Want me to push these to your outreach sequencer?" *(→ Full Sequence skill)*
 4. "Want me to adjust the angle and try a different approach?"
 
 ---
