@@ -103,6 +103,10 @@ This context shapes everything: the talking points, the questions, the tactical 
 
 ### Step 3 — Pull contact data from FullEnrich
 
+**Do NOT start this step until Step 2 is complete.** The meeting type affects what data you prioritize.
+
+**If the meeting is imminent (< 15 minutes):** Skip Step 4 (web search) entirely. Go straight to the brief with whatever FullEnrich data is available. Speed > completeness.
+
 Use `search_people` with the contact's identifiers (name + company, LinkedIn URL, or email).
 Use `include_descriptions: true` to get full profile.
 
