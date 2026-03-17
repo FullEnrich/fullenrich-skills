@@ -46,7 +46,10 @@ Identify which CRM MCP the user has connected by checking available tools. Commo
 
 Once identified, explore the CRM's schema to understand available fields (contact properties, custom fields, required fields). Also read the CRM's MCP documentation and tool descriptions to understand capabilities, best practices, and any limitations (e.g. batch size limits, required fields, field types).
 
-Show the user: "I see you have [CRM name] connected. Let me check your contact fields and how the integration works."
+If no CRM is detected from tool names, ask directly: "Which CRM are you using? I'll check if it's connected."
+Do NOT assume identification succeeded silently. Always confirm: "I see [CRM name] connected via its MCP. Is that right?"
+
+If the CRM MCP returns an authentication error at any point, stop immediately and ask the user to reconnect their CRM in their agent settings.
 
 ### Step 2 — Propose field mapping
 
