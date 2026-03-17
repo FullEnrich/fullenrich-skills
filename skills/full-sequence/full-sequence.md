@@ -164,8 +164,13 @@ Subject: [subject]
 Subject: [subject]
 [message body]
 
+⚠️ STOP RULE: If the prospect replies at ANY point, the sequence stops
+immediately. Switch to conversation mode.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
+
+Remind the user: "Remember to configure your sequencer to stop the sequence when a prospect replies."
 
 Ask: "Want me to adjust any of these messages? Change the timing? Add or remove a touchpoint?"
 
