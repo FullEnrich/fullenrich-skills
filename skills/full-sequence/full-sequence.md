@@ -10,7 +10,7 @@
 - "Build me a 5-touch sequence for these 20 enriched contacts"
 - "I have cold emails from earlier, now help me build the full sequence with follow-ups"
 - "Design an outreach campaign: email first, then LinkedIn, then phone"
-- "Create a sequence and push it to Lemlist"
+- "Create a sequence and push it to my sequencer"
 
 ---
 
@@ -100,9 +100,11 @@ Once identified, read the sequencer's MCP documentation and tool descriptions to
 
 If no sequencer connected → "No sequencer detected. I'll design everything here and you can import manually. Or connect your tool's MCP and I'll push directly."
 
+If the sequencer MCP returns an authentication error at any point, stop immediately and ask the user to reconnect their sequencer in their agent settings.
+
 ### Step 3 — Design the sequence architecture
 
-Based on the intake, design the full sequence structure. Present it in TWO visual formats using Claude's interactive visuals:
+Based on the intake, design the full sequence structure. Present it in TWO visual formats using Claude's interactive visuals (if supported by the client). If interactive visuals are not available, use structured Markdown tables or ASCII diagrams as fallback:
 
 **Visual 1 — Flowchart (decision logic)**
 
