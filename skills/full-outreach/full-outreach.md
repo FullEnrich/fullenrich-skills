@@ -143,6 +143,23 @@ After presenting all messages, ask:
 
 ---
 
+## Response Data Schema
+
+When reading contact data from FullEnrich:
+- Work email: `contact_info.most_probable_work_email.email`
+- Phone: `contact_info.most_probable_phone.number`
+
+**Email statuses to know:**
+- **DELIVERABLE** = safe to send to
+- **PROBABLY_VALID** = OK but monitor bounces
+- **CATCH_ALL** = domain accepts anything, verify before sending
+- **INVALID** = do NOT draft a message for this email
+- **CREDITS_INSUFFICIENT** = no data found (NOT a credit problem)
+
+If a contact has an INVALID or CATCH_ALL email, flag it: "This email may not be reliable. Want me to skip this contact or use LinkedIn instead?"
+
+---
+
 ## Next Actions
 
 After the user approves the messages, offer:
