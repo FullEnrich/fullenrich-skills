@@ -33,9 +33,9 @@ Identify which CRM MCP the user has connected by checking available tools. Commo
 - Attio → tools with `attio` in the name
 - Pipedrive → tools with `pipedrive` in the name
 
-Once identified, explore the CRM's schema to understand available fields (contact properties, custom fields, required fields).
+Once identified, explore the CRM's schema to understand available fields (contact properties, custom fields, required fields). Also read the CRM's MCP documentation and tool descriptions to understand capabilities, best practices, and any limitations (e.g. batch size limits, required fields, field types).
 
-Show the user: "I see you have [CRM name] connected. Let me check your contact fields."
+Show the user: "I see you have [CRM name] connected. Let me check your contact fields and how the integration works."
 
 ### Step 2 — Propose field mapping
 
