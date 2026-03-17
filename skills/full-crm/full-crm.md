@@ -53,25 +53,11 @@ If the CRM MCP returns an authentication error at any point, stop immediately an
 
 ### Step 2 — Propose field mapping
 
-Map FullEnrich enriched data to CRM fields. Propose an automatic mapping:
+Map FullEnrich enriched data to CRM fields. Propose an automatic mapping showing:
+- Each FullEnrich field → corresponding CRM field
+- Fields to map: Full Name, Work Email, Phone, Job Title, Company Name, LinkedIn URL, Location, Industry, Company Headcount
 
-```
-━━━ Proposed Field Mapping ━━━
-
-FullEnrich                  →  [CRM Name]
-─────────────────────────────────────────
-Full Name                   →  [First Name] + [Last Name]
-Work Email                  →  [Email]
-Phone                       →  [Phone Number]
-Job Title                   →  [Job Title]
-Company Name                →  [Company / Account]
-LinkedIn URL                →  [LinkedIn URL / custom field]
-Location                    →  [City] + [Country]
-Industry                    →  [Industry]
-Company Headcount           →  [Company Size / custom field]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+Use the most readable format based on the actual fields in the CRM. Do NOT use Markdown tables or ASCII art.
 
 Ask the user:
 - "Does this mapping look right?"
@@ -87,23 +73,12 @@ Before pushing, check if any contacts already exist in the CRM. Match on:
 2. LinkedIn URL (secondary match)
 3. Full name + company name (fallback match)
 
-If duplicates found, present them:
+If duplicates found, present each one with:
+- Contact name, title, company
+- CRM record data vs enriched data (side by side)
+- Recommendation: UPDATE (fill empty fields), ASK (data differs), or SKIP
 
-```
-━━━ Duplicates Found ━━━
-
-[Name] — [Title] at [Company]
-  CRM record:    email: john@company.com | phone: (missing)
-  Enriched data: email: john@company.com | phone: +33 6 12 34 56 78
-  → Recommendation: UPDATE (fill missing phone)
-
-[Name] — [Title] at [Company]
-  CRM record:    email: jane@other.com | phone: +1 555 0123
-  Enriched data: email: jane@other.com | phone: +1 555 0456
-  → Recommendation: ASK (phone differs)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+Use the most readable format. Do NOT use ASCII art blocks.
 
 For each duplicate, ask the user:
 - **Fill empty fields** → update the CRM record with new data where fields are empty. NEVER overwrite existing data without asking.
@@ -112,19 +87,7 @@ For each duplicate, ask the user:
 
 ### Step 4 — Confirmation and push
 
-Show a summary before pushing:
-
-```
-━━━ Push Summary ━━━
-
-CRM: [CRM Name]
-New contacts to create: [X]
-Existing contacts to update: [Y]
-Contacts skipped (duplicates): [Z]
-Total: [X + Y + Z]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+Show a summary before pushing with: CRM name, new contacts to create, existing contacts to update, skipped contacts, total.
 
 Ask: "Ready to push? This will create [X] new contacts and update [Y] existing ones in [CRM name]."
 
@@ -139,18 +102,7 @@ Push contacts to the CRM using the CRM's MCP tools. For each contact:
 
 ### Step 6 — Report results
 
-After push completes, present a summary:
-
-```
-━━━ Push Complete ━━━
-
-✓ Created: [X] new contacts
-✓ Updated: [Y] existing contacts
-✗ Failed: [Z] contacts (if any)
-⊘ Skipped: [W] contacts
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+After push completes, present a summary with: created count, updated count, failed count (with reasons), skipped count.
 
 If any failed, explain why and offer to retry.
 
