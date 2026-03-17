@@ -201,3 +201,4 @@ After presenting the table, always offer:
 - **CREDITS_INSUFFICIENT:** Means "no data found", NOT "no credits". Explain clearly.
 - **Export format:** CSV is 10x lighter than JSON. Always use CSV unless user asks for JSON.
 - **If export fails** due to file size, provide the download URL.
+- **Graceful handoff:** If the user asks for something outside this skill's scope (e.g. "write me an email", "push to CRM", "upload a CSV"), point them to the right skill: Full Outreach, Full CRM, Full CSV, Full Talent, Full Meeting, or Full Sequence.
