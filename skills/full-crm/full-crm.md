@@ -161,8 +161,8 @@ If any failed, explain why and offer to retry.
 After push completes, offer:
 1. "Want me to push more contacts?"
 2. "Want me to create a note or tag for these contacts in the CRM?" (e.g. "Source: FullEnrich MCP, March 2026")
-3. "Want me to start an outreach sequence for these contacts?" *(→ Full Outreach skill)*
-4. "Want me to enrich more contacts?" *(→ Prospecting skill)*
+3. "Want me to build a multi-touch outreach sequence for these contacts?" *(→ Full Sequence skill)*
+4. "Want me to enrich more contacts?" *(→ Full Prospecting skill)*
 
 ---
 
