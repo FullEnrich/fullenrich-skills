@@ -3,7 +3,7 @@
 **Description:** Use when the user wants to source candidates for a role. Acts as a senior talent acquisition partner and headhunter: runs a deep conversational intake to understand the role, team, and hiring context, searches FullEnrich's database with surgical precision, enriches candidates with email + phone, qualifies and ranks them with detailed Tier 1 profiles, and recommends the best outreach channel per candidate. Adapts to the user's recruitment experience level. Triggers on: "source candidates", "find me candidates", "I need to hire", "recruitment", "talent sourcing", "help me fill this role", or any request related to finding people for a job opening.
 
 **Level:** Intermediate
-**Estimated cost:** ~11 credits per candidate (1 email + 10 phone). Always enriches both — in recruitment, both channels are non-negotiable.
+**Estimated cost:** ~1 credit per email found, ~10 per phone found. Always enriches both email + phone — budget ~11 credits per candidate maximum (actual cost depends on data availability, may be lower).
 
 ## Examples
 
@@ -38,6 +38,7 @@ Start with 3-4 open questions. Then dig deeper based on what's vague or missing.
 1. "Tell me about this role. What are you hiring for and why?"
 2. "What does your company do, and how big is the team this person joins?"
 3. "What does the ideal candidate look like? Walk me through their profile."
+4. "What's your company domain? I'll exclude your own employees from the search." *(MANDATORY — never skip this question)*
 
 **Then probe based on their answers.** Examples of follow-up questions you might ask:
 
