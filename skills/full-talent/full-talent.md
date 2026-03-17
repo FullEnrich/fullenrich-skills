@@ -65,23 +65,10 @@ Start with 3-4 open questions. Then dig deeper based on what's vague or missing.
 
 ### Step 2 — Confirm search strategy
 
-Before searching, summarize what you understood and get confirmation:
+Before searching, summarize what you understood and get confirmation. Include:
+role (title + scope), must-have skills, nice-to-have skills, location, target company profile (size, industry, stage), exclusions, volume, enrichment fields (email + phone).
 
-```
-━━━ SEARCH STRATEGY ━━━━━━━━━━━━━━━━━━━━━
-
-Role: [title + scope summary]
-Must-haves: [skills/experience]
-Nice-to-haves: [secondary criteria]
-Location: [geo + flexibility]
-Target company profile: [size, industry, stage]
-Exclusions: [companies to avoid]
-Volume: [X] candidates
-Enrichment: email + phone
-
-Does this look right, or should we adjust?
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+Ask: "Does this look right, or should we adjust?"
 
 **WAIT for confirmation before searching.**
 

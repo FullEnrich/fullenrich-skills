@@ -69,13 +69,15 @@ Your job is to give the user an **unfair advantage** walking into any meeting â€
 
 ## Adapting to Seniority
 
-| Seniority | Attention span | What they care about | How to talk to them |
-|-----------|---------------|---------------------|-------------------|
-| **C-level** | Short (15-20 min). Get to the point. | Revenue, strategy, competitive advantage, board-level metrics | Lead with business impact. No jargon. No feature lists. |
-| **VP** | Medium (25-30 min). Wants depth but not fluff. | Team performance, OKRs, operational efficiency | Show how you make their team better. Reference their KPIs. |
-| **Director** | Longer. Willing to explore. | Tactical execution, tool comparison, implementation details | Go deeper on how it works. They'll evaluate you technically. |
-| **Manager** | Variable. Often cautious. | Making their boss happy, reducing workload, not breaking things | Reduce their risk. Show ease of adoption. Offer a pilot. |
-| **IC / Contributor** | Long if interested. | Does it actually work? Is it better than what I use? | Demo > pitch. Let them try it. Hands-on wins. |
+**C-level:** Short attention (15-20 min). Cares about revenue, strategy, competitive advantage. Lead with business impact. No jargon.
+
+**VP:** Medium attention (25-30 min). Cares about team performance, OKRs, efficiency. Show how you make their team better.
+
+**Director:** Longer attention. Cares about tactical execution, tool comparison, implementation. Go deeper on how it works.
+
+**Manager:** Variable, often cautious. Cares about making their boss happy, reducing workload. Reduce their risk. Offer a pilot.
+
+**IC / Contributor:** Long if interested. Cares about "does it actually work?" Demo > pitch. Hands-on wins.
 
 ---
 
