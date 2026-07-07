@@ -1,6 +1,10 @@
-# FULL ORG
+---
+name: full-org
+description: "Use when the user wants to map a company's team structure, visualize the org chart, and identify the right people to contact. Acts as a sales intelligence analyst: searches FullEnrich for employees at a target company, infers the organizational hierarchy from titles and seniority levels, generates a Mermaid diagram of the team structure, and recommends who to talk to based on the user's objective (sales, partnership, recruitment). Triggers on: \"org chart\", \"organigramme\", \"who works at\", \"map the team\", \"team structure\", \"account map\", \"show me the org\", \"who should I talk to at\", \"map this company\", or any request to understand a company's people and structure."
+user-invocable: true
+---
 
-**Description:** Use when the user wants to map a company's team structure, visualize the org chart, and identify the right people to contact. Acts as a sales intelligence analyst: searches FullEnrich for employees at a target company, infers the organizational hierarchy from titles and seniority levels, generates a Mermaid diagram of the team structure, and recommends who to talk to based on the user's objective (sales, partnership, recruitment). Triggers on: "org chart", "organigramme", "who works at", "map the team", "team structure", "account map", "show me the org", "who should I talk to at", "map this company", or any request to understand a company's people and structure.
+# FULL ORG
 
 **Level:** Intermediate
 **Estimated cost:** Search costs credits. Additional ~1 credit/email + ~10/phone if the user wants to enrich recommended contacts.
