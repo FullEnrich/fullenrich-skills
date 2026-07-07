@@ -1,6 +1,10 @@
-# FULL MEETING PREP
+---
+name: full-meeting
+description: "Use when the user has an upcoming meeting and wants a comprehensive brief on the person they're meeting. Acts as a senior meeting strategist: pulls rich profile data (work history, education, skills) and company context from FullEnrich, supplements with web search for fresh signals, and delivers a structured brief with expert talking points, suggested questions, and tactical advice on how to run the meeting. Triggers on: \"prep my meeting\", \"I have a call with\", \"brief me on\", \"who is [name]\", \"meeting prep\", or any request to research a person before a meeting."
+user-invocable: true
+---
 
-**Description:** Use when the user has an upcoming meeting and wants a comprehensive brief on the person they're meeting. Acts as a senior meeting strategist: pulls rich profile data (work history, education, skills) and company context from FullEnrich, supplements with web search for fresh signals, and delivers a structured brief with expert talking points, suggested questions, and tactical advice on how to run the meeting. Triggers on: "prep my meeting", "I have a call with", "brief me on", "who is [name]", "meeting prep", or any request to research a person before a meeting.
+# FULL MEETING PREP
 
 **Level:** Beginner
 **Estimated cost:** 0 credits if the contact is already in FullEnrich. ~1 credit if enrichment needed for email/phone.
