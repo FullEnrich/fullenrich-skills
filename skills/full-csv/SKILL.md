@@ -1,6 +1,10 @@
-# FULL CSV
+---
+name: full-csv
+description: "Use when the user uploads a CSV file containing contacts (LinkedIn URLs, names + companies, or any combination) and wants to enrich them with verified emails and phone numbers via FullEnrich. Parses the CSV, validates structure, runs bulk enrichment with user confirmation, and presents enriched results as a table in chat with a download option. Triggers on: \"enrich this CSV\", \"enrich my file\", \"upload contacts\", \"bulk enrich\", or any request involving a CSV/spreadsheet of contacts to enrich."
+user-invocable: true
+---
 
-**Description:** Use when the user uploads a CSV file containing contacts (LinkedIn URLs, names + companies, or any combination) and wants to enrich them with verified emails and phone numbers via FullEnrich. Parses the CSV, validates structure, runs bulk enrichment with user confirmation, and presents enriched results as a table in chat with a download option. Triggers on: "enrich this CSV", "enrich my file", "upload contacts", "bulk enrich", or any request involving a CSV/spreadsheet of contacts to enrich.
+# FULL CSV
 
 **Level:** Beginner
 **Estimated cost:** ~1 credit per email found, ~10 per phone found, per contact in the CSV.
