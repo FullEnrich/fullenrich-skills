@@ -1,6 +1,10 @@
-# FULL LOOKALIKE
+---
+name: full-lookalike
+description: "Use when the user has a LinkedIn profile and wants to find similar people \u2014 same type of role, seniority, industry, and company size. Acts as a Sales Ops / RevOps specialist: analyzes the source profile, extracts the key attributes that define the persona, searches FullEnrich for matching profiles, and presents ranked lookalikes with a clear explanation of why each one is similar. Works for both \"duplicate a success\" (find more people like a converted prospect) and \"expand an ICP\" (find more people matching a target persona). Triggers on: \"find similar profiles\", \"lookalike\", \"find people like\", \"more profiles like this\", \"find me someone similar\", \"clone this prospect\", \"people who look like\", \"same profile as\", \"ICP expansion\", or any request involving a LinkedIn URL with the intent to find matching people."
+user-invocable: true
+---
 
-**Description:** Use when the user has a LinkedIn profile and wants to find similar people — same type of role, seniority, industry, and company size. Acts as a Sales Ops / RevOps specialist: analyzes the source profile, extracts the key attributes that define the persona, searches FullEnrich for matching profiles, and presents ranked lookalikes with a clear explanation of why each one is similar. Works for both "duplicate a success" (find more people like a converted prospect) and "expand an ICP" (find more people matching a target persona). Triggers on: "find similar profiles", "lookalike", "find people like", "more profiles like this", "find me someone similar", "clone this prospect", "people who look like", "same profile as", "ICP expansion", or any request involving a LinkedIn URL with the intent to find matching people.
+# FULL LOOKALIKE
 
 **Level:** Intermediate
 **Estimated cost:** Search costs credits. Additional ~1 credit/email + ~10/phone per contact if the user wants to enrich the lookalikes.
