@@ -1,0 +1,20 @@
+{
+  "name": "fullenrich",
+  "description": "FullEnrich plugins for Claude Code — B2B contact enrichment, prospecting, and outreach skills.",
+  "owner": {
+    "name": "FullEnrich",
+    "url": "https://fullenrich.com"
+  },
+  "plugins": [
+    {
+      "name": "fullenrich",
+      "source": ".",
+      "description": "B2B contact enrichment for AI agents: find prospects, enrich verified emails and phone numbers, prep meetings, source candidates, and sync to your CRM.",
+      "author": {
+        "name": "FullEnrich"
+      },
+      "category": "sales",
+      "homepage": "https://docs.fullenrich.com"
+    }
+  ]
+}
