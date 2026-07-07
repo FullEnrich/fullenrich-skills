@@ -7,7 +7,7 @@ user-invocable: true
 # FULL LOOKALIKE
 
 **Level:** Intermediate
-**Estimated cost:** Search costs credits. Additional ~1 credit/email + ~10/phone per contact if the user wants to enrich the lookalikes.
+**Estimated cost:** Search previews are free (within the MCP preview limit). Exporting results costs credits. Additional ~1 credit/email + ~10/phone per contact if the user wants to enrich the lookalikes.
 
 ## Examples
 

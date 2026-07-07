@@ -9,7 +9,7 @@ B2B contact enrichment for AI agents. This plugin connects Claude Code to [FullE
 /plugin install fullenrich@fullenrich
 ```
 
-On first use, Claude Code will prompt you to authenticate with your FullEnrich account (OAuth). You need a FullEnrich workspace with credits — enrichment costs ~1 credit per email found and ~10 per phone found. Searching and enriching consume credits; the skills always tell you the estimated cost before spending.
+On first use, Claude Code will prompt you to authenticate with your FullEnrich account (OAuth). You need a FullEnrich workspace with credits. Search previews are free (within the MCP preview limit); exporting search results and enriching contacts cost credits — ~1 credit per email found, ~10 per phone found. The skills always tell you the estimated cost before spending.
 
 ## Skills
 
@@ -25,7 +25,7 @@ On first use, Claude Code will prompt you to authenticate with your FullEnrich a
 | `full-org` | Map a company's team structure and identify who to contact |
 | `full-crm` | Push enriched contacts to HubSpot, Salesforce, Attio, Pipedrive, or any CRM with an MCP |
 
-Invoke them directly (e.g. `/fullenrich:full-prospecting`) or just describe what you want — Claude picks the right skill.
+Invoke them directly (e.g. `/full-prospecting`) or just describe what you want — Claude picks the right skill.
 
 ## Example prompts
 
