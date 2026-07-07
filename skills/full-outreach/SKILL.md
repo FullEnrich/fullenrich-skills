@@ -1,6 +1,10 @@
-# FULL OUTREACH
+---
+name: full-outreach
+description: "Use when the user wants to craft hyper-personalized outreach messages for B2B contacts. Acts as a senior outreach strategist: captures the user's voice and value prop through a discovery questionnaire, pulls rich contact data (work history, education, skills) from FullEnrich, and drafts cold emails, LinkedIn DMs, or cold call scripts that feel hand-written. Triggers on: \"write outreach\", \"draft a cold email\", \"help me reach out\", \"write a message for\", \"prepare outreach\", \"let's do some outreach\", or any request to contact prospects with personalized messaging."
+user-invocable: true
+---
 
-**Description:** Use when the user wants to craft hyper-personalized outreach messages for B2B contacts. Acts as a senior outreach strategist: captures the user's voice and value prop through a discovery questionnaire, pulls rich contact data (work history, education, skills) from FullEnrich, and drafts cold emails, LinkedIn DMs, or cold call scripts that feel hand-written. Triggers on: "write outreach", "draft a cold email", "help me reach out", "write a message for", "prepare outreach", "let's do some outreach", or any request to contact prospects with personalized messaging.
+# FULL OUTREACH
 
 **Level:** Intermediate
 **Estimated cost:** Depends on whether contacts need to be found and enriched first. If the user already has enriched contacts, this skill costs 0 credits.
