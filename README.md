@@ -1,6 +1,6 @@
 # FullEnrich for Claude Code
 
-B2B contact enrichment for AI agents. This plugin connects Claude Code to [FullEnrich](https://fullenrich.com) — waterfall enrichment across 15+ data providers — and ships 9 guided skills for prospecting, enrichment, outreach, and recruiting.
+B2B contact enrichment for AI agents. This plugin connects Claude Cowork and Claude Code to [FullEnrich](https://fullenrich.com) — waterfall enrichment across 25+ data providers — and ships 9 guided skills for prospecting, enrichment, outreach, and recruiting.
 
 ## Installation
 
@@ -9,7 +9,7 @@ B2B contact enrichment for AI agents. This plugin connects Claude Code to [FullE
 /plugin install fullenrich@fullenrich
 ```
 
-On first use, Claude Code will prompt you to authenticate with your FullEnrich account (OAuth). You need a FullEnrich workspace with credits. Search previews are free (within the MCP preview limit); exporting search results and enriching contacts cost credits — ~1 credit per email found, ~10 per phone found. The skills always tell you the estimated cost before spending.
+On first use, Claude will need you to authenticate with your FullEnrich account (OAuth). You need a FullEnrich workspace with credits. Search previews are free (within the MCP preview limit); exporting search results and enriching contacts cost credits — ~1 credit per email found, ~10 per phone found. The skills always tell you the estimated cost before spending.
 
 ## Skills
 
