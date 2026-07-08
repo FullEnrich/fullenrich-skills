@@ -91,27 +91,31 @@ Typical enrichable fields include:
 
 ## Available tools
 
-FullEnrich MCP currently exposes 10 tools:
+FullEnrich MCP currently exposes 13 tools:
 
 | Tool | Description |
 |------|-------------|
-| `authenticate` | Connect a FullEnrich account to the current MCP session |
-| `check_credits` | Return the current credit balance before running paid actions |
-| `search_contact` | Search for people with structured contact and company filters |
-| `search_company` | Search for companies with structured company filters |
-| `enrich_contact` | Enrich one known contact for work email, phone, or personal email |
-| `enrich_contact_async` | Start async enrichment for one contact |
+| `get_credits` | Return the current credit balance before running paid actions |
+| `list_industries` | List valid industry codes and labels (use before filtering by industry) |
+| `list_seniorities` | List valid seniority levels for people filters |
+| `list_functions_subfunctions` | List valid function and subfunction codes for people filters |
+| `search_people` | Search for people with structured contact and company filters |
+| `search_companies` | Search for companies with structured company filters |
+| `search_contact_by_email` | Find a contact from an email address (reverse lookup) |
+| `enrich_search_contact` | Enrich contacts matching search filters with verified emails and phones |
 | `enrich_bulk` | Enrich multiple known contacts in one batch flow |
 | `get_enrichment_results` | Poll status and fetch results for async or bulk enrichment |
-| `export_contacts` | Export contact results to CSV or JSON |
-| `export_companies` | Export company results to CSV or JSON |
+| `export_contacts` | Export contact results to CSV |
+| `export_companies` | Export company results to CSV |
+| `export_enrichment_results` | Export enrichment job results to CSV or JSON |
 
 ## Credits, confirmations, and safety
 
 The MCP is designed so users can explore before spending.
 
 - Checking credits is a free action.
-- Search and search-based exports can consume credits depending on the workflow and returned results, so users should see balance before larger runs.
+- Search previews are free for the contacts displayed by the MCP, within its preview limit.
+- Exporting search results costs credits, so users should see balance before larger runs.
 - Enrichment is the main paid action and should be confirmed by the user before execution.
 - Human confirmation is recommended for any workflow that spends credits or triggers larger batch actions.
 

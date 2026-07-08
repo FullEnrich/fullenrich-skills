@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "fullenrich": {
+      "type": "http",
+      "url": "https://mcp.fullenrich.com/mcp"
+    }
+  }
+}

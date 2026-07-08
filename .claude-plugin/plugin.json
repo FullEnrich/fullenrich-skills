@@ -1,0 +1,21 @@
+{
+  "name": "fullenrich",
+  "description": "B2B contact enrichment for AI agents. Find prospects, enrich verified emails and phone numbers via waterfall enrichment (15+ data providers), prep meetings, source candidates, and sync to your CRM — straight from Claude Code. Includes 9 guided skills: prospecting, CSV enrichment, outreach, sequences, meeting prep, talent sourcing, lookalikes, org charts, and CRM sync.",
+  "version": "1.0.0",
+  "author": {
+    "name": "FullEnrich",
+    "url": "https://fullenrich.com"
+  },
+  "homepage": "https://docs.fullenrich.com",
+  "repository": "https://github.com/FullEnrich/fullenrich-skills",
+  "keywords": [
+    "enrichment",
+    "b2b",
+    "sales",
+    "prospecting",
+    "email-finder",
+    "phone-finder",
+    "crm",
+    "mcp"
+  ]
+}

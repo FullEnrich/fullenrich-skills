@@ -1,6 +1,10 @@
-# FULL PROSPECTING
+---
+name: full-prospecting
+description: "Use when the user wants to find and enrich B2B contacts matching an ICP. Triggers on: \"find me contacts\", \"build a prospect list\", \"search for people\", \"enrich leads\", or any request describing a target audience by title, industry, location, or company size."
+user-invocable: true
+---
 
-**Description:** Use when the user wants to find and enrich B2B contacts matching an ICP. Triggers on: "find me contacts", "build a prospect list", "search for people", "enrich leads", or any request describing a target audience by title, industry, location, or company size.
+# FULL PROSPECTING
 
 **Level:** Beginner
 **Estimated cost:** ~1 credit per email found, ~10 per phone found.

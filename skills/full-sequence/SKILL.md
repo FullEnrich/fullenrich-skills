@@ -1,6 +1,10 @@
-# FULL SEQUENCE
+---
+name: full-sequence
+description: "Use when the user wants to design and deploy a multi-touch outreach sequence. Acts as a senior outbound strategist: designs the sequence architecture (touchpoints, timing, channels, conditional branches), writes every message, visualizes the flow with interactive diagrams, and pushes to the user's connected sequencer. Adapts to existing messages from Full Outreach or creates everything from scratch. Triggers on: \"create a sequence\", \"build my outreach sequence\", \"design a campaign\", \"set up a drip\", \"multi-touch\", \"follow-up sequence\", or any request to orchestrate multi-step outreach across channels."
+user-invocable: true
+---
 
-**Description:** Use when the user wants to design and deploy a multi-touch outreach sequence. Acts as a senior outbound strategist: designs the sequence architecture (touchpoints, timing, channels, conditional branches), writes every message, visualizes the flow with interactive diagrams, and pushes to the user's connected sequencer. Adapts to existing messages from Full Outreach or creates everything from scratch. Triggers on: "create a sequence", "build my outreach sequence", "design a campaign", "set up a drip", "multi-touch", "follow-up sequence", or any request to orchestrate multi-step outreach across channels.
+# FULL SEQUENCE
 
 **Level:** Advanced
 **Estimated cost:** 0 credits (assumes contacts are already enriched). Sequencer API calls depend on the tool's own limits.
