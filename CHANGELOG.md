@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 — 2026-07-08
+
+- Fix provider count in plugin manifest (25+ data providers, aligned with README)
+- Add MIT license
+
 ## 1.0.0 — 2026-07-07
 
 - Initial release as an installable Claude plugin
