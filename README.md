@@ -1,15 +1,33 @@
-# FullEnrich for Claude Code
+# FullEnrich MCP — B2B contact enrichment for AI agents
 
-B2B contact enrichment for AI agents. This plugin connects Claude Cowork and Claude Code to [FullEnrich](https://fullenrich.com) — waterfall enrichment across 25+ data providers — and ships 9 guided skills for prospecting, enrichment, outreach, and recruiting.
+[![License: MIT](https://img.shields.io/github/license/FullEnrich/fullenrich-skills)](./LICENSE)
+[![Version](https://img.shields.io/github/v/tag/FullEnrich/fullenrich-skills?label=version)](./CHANGELOG.md)
 
-## Installation
+[FullEnrich](https://fullenrich.com) finds verified B2B contact data (emails and mobile phone numbers) through waterfall enrichment across 25+ data providers. This repository is the official FullEnrich integration for AI agents: a remote MCP server and a Claude Code plugin with 9 guided skills for prospecting, enrichment, outreach, and recruiting.
+
+## Install
+
+As a Claude Code plugin (recommended: connects the MCP server and adds the 9 skills):
 
 ```
 /plugin marketplace add FullEnrich/fullenrich-skills
 /plugin install fullenrich@fullenrich
 ```
 
-On first use, Claude will need you to authenticate with your FullEnrich account (OAuth). You need a FullEnrich workspace with credits. Search previews are free (within the MCP preview limit); exporting search results and enriching contacts cost credits — ~1 credit per email found, ~10 per phone found. The skills always tell you the estimated cost before spending.
+Or connect the MCP server directly from any MCP-compatible client:
+
+```
+https://mcp.fullenrich.com/mcp
+```
+
+On first use, authenticate with your FullEnrich account (OAuth). You need a FullEnrich workspace with credits.
+
+## Why FullEnrich
+
+- **Waterfall enrichment across 25+ providers.** Each contact is looked up provider by provider until a verified email or phone number is found. Coverage is higher than any single data source.
+- **Credits refunded on invalid data.** You pay for a verified contact, not a query. If a contact comes back invalid, the credits are refunded.
+- **Free preview, paid enrichment.** Search previews are free (within the MCP preview limit). Exporting search results and enriching contacts cost credits: about 1 credit per email found, 10 per phone found. The skills always state the estimated cost before spending.
+- **Remote MCP server with OAuth 2.1.** No API key to copy around. The server at `https://mcp.fullenrich.com/mcp` uses the standard OAuth 2.1 flow and works from any MCP client (Claude, Cursor, Windsurf, custom agents).
 
 ## Skills
 
@@ -25,7 +43,7 @@ On first use, Claude will need you to authenticate with your FullEnrich account 
 | `full-org` | Map a company's team structure and identify who to contact |
 | `full-crm` | Push enriched contacts to HubSpot, Salesforce, Attio, Pipedrive, or any CRM with an MCP |
 
-Invoke them directly (e.g. `/full-prospecting`) or just describe what you want — Claude picks the right skill.
+Invoke them directly (e.g. `/full-prospecting`) or just describe what you want and Claude picks the right skill.
 
 ## Example prompts
 
@@ -37,6 +55,7 @@ Invoke them directly (e.g. `/full-prospecting`) or just describe what you want �
 ## What's in this repo
 
 - `.claude-plugin/plugin.json` — plugin manifest
+- `.claude-plugin/marketplace.json` — self-hosted plugin marketplace
 - `.mcp.json` — connects the FullEnrich MCP server (`https://mcp.fullenrich.com/mcp`)
 - `skills/` — the 9 skills
 - `fullenrich-mcp-documentation.md` — MCP server tool reference
@@ -44,5 +63,7 @@ Invoke them directly (e.g. `/full-prospecting`) or just describe what you want �
 ## Links
 
 - [FullEnrich](https://fullenrich.com)
+- [Help center](https://help.fullenrich.com)
+- [Pricing](https://fullenrich.com/pricing)
 - [Documentation](https://docs.fullenrich.com)
 - [MCP server reference](./fullenrich-mcp-documentation.md)
