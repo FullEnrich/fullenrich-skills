@@ -2,6 +2,7 @@
 
 require "json"
 require "minitest/autorun"
+require "yaml"
 
 class DistributionContractTest < Minitest::Test
   ROOT = File.expand_path("..", __dir__)
@@ -23,6 +24,14 @@ class DistributionContractTest < Minitest::Test
     full-prospecting
     full-sequence
     full-talent
+  ].freeze
+  AGENT_SKILLS_FRONTMATTER_KEYS = %w[
+    allowed-tools
+    compatibility
+    description
+    license
+    metadata
+    name
   ].freeze
   MCP_ENDPOINT = "https://mcp.fullenrich.com/mcp"
   AGENT_PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
@@ -60,6 +69,16 @@ class DistributionContractTest < Minitest::Test
       .sort
 
     assert_equal EXPECTED_SKILLS, actual_skills
+  end
+
+  def test_all_skill_frontmatter_uses_only_agent_skills_standard_keys
+    unsupported_keys = EXPECTED_SKILLS.each_with_object({}) do |skill_name, result|
+      extra_keys = skill_frontmatter(skill_name).keys.map(&:to_s) - AGENT_SKILLS_FRONTMATTER_KEYS
+      result[skill_name] = extra_keys unless extra_keys.empty?
+    end
+
+    assert_empty unsupported_keys,
+      "Unsupported Agent Skills frontmatter keys: #{unsupported_keys.inspect}"
   end
 
   def test_portable_json_manifests_parse
@@ -127,6 +146,13 @@ class DistributionContractTest < Minitest::Test
     assert_equal MCP_REGISTRY_SCHEMA, read_json("server.json").fetch("$schema")
   end
 
+  def test_registry_manifest_does_not_claim_the_skills_repo_as_server_source
+    server = read_json("server.json")
+
+    refute server.key?("repository"),
+      "server.json must not identify the public skills repository as the private MCP server source"
+  end
+
   def test_registry_manifest_declares_the_expected_remote
     server = read_json("server.json")
 
@@ -155,6 +181,14 @@ class DistributionContractTest < Minitest::Test
   def read_json(relative_path)
     assert_path_exists relative_path
     JSON.parse(File.read(File.join(ROOT, relative_path)))
+  end
+
+  def skill_frontmatter(skill_name)
+    contents = File.read(File.join(ROOT, "skills", skill_name, "SKILL.md"))
+    match = contents.match(/\A---\s*\n(.*?)\n---\s*(?:\n|\z)/m)
+
+    refute_nil match, "Expected skills/#{skill_name}/SKILL.md to start with YAML frontmatter"
+    YAML.safe_load(match[1], permitted_classes: [], aliases: false) || {}
   end
 
   def direct_crm_claim?(value)

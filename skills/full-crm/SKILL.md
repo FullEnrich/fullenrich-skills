@@ -1,7 +1,6 @@
 ---
 name: full-crm
 description: "Use when the user wants to push enriched contacts into their CRM. Acts as a CRM-agnostic sync assistant: detects the user's connected CRM (HubSpot, Salesforce, Attio, Pipedrive, or any CRM with an MCP), proposes field mapping, handles duplicate detection, and pushes enriched data with user confirmation. Triggers on: \"push to CRM\", \"sync contacts\", \"update my CRM\", \"add these to HubSpot\", \"push to Salesforce\", or any request to send enriched contacts to a CRM system."
-user-invocable: true
 ---
 
 # FULL CRM
