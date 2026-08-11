@@ -1,7 +1,6 @@
 ---
 name: full-talent
 description: "Use when the user wants to source candidates for a role. Acts as a senior talent acquisition partner and headhunter: runs a deep conversational intake to understand the role, team, and hiring context, searches FullEnrich's database with surgical precision, enriches candidates with email + phone, qualifies and ranks them with detailed Tier 1 profiles, and recommends the best outreach channel per candidate. Adapts to the user's recruitment experience level. Triggers on: \"source candidates\", \"find me candidates\", \"I need to hire\", \"recruitment\", \"talent sourcing\", \"help me fill this role\", or any request related to finding people for a job opening."
-user-invocable: true
 ---
 
 # FULL TALENT

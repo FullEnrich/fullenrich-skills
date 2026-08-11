@@ -7,20 +7,63 @@
 
 ## Install
 
-As a Claude Code plugin (recommended: connects the MCP server and adds the 9 skills):
+### Claude Code
+
+Install the plugin to connect the MCP server and add the 9 skills:
 
 ```
 /plugin marketplace add FullEnrich/fullenrich-skills
 /plugin install fullenrich@fullenrich
 ```
 
-Or connect the MCP server directly from any MCP-compatible client:
+### Cursor local install
+
+Cursor loads root Agent Plugins from `~/.cursor/plugins/local`. Clone this repository directly into the local plugin directory:
+
+```sh
+mkdir -p ~/.cursor/plugins/local
+git clone https://github.com/FullEnrich/fullenrich-skills ~/.cursor/plugins/local/fullenrich
+```
+
+Alternatively, copy the complete repository directly into `~/.cursor/plugins/local/fullenrich`.
+
+Restart Cursor or run `Developer: Reload Window`, then verify that the 9 skills and the `fullenrich` MCP server appear. The package is not yet listed in the Cursor Marketplace or published to the official MCP Registry.
+
+### Gemini CLI
+
+After this package is released, install the extension from the public repository:
+
+```sh
+gemini extensions install https://github.com/FullEnrich/fullenrich-skills
+```
+
+Gemini CLI loads the remote MCP server and the 9 skills. Authenticate with FullEnrich on the first MCP connection. The package is not yet listed in the Gemini CLI extension gallery; gallery discovery also requires the `gemini-cli-extension` GitHub topic.
+
+Antigravity CLI can convert the installed extension, including its skills and MCP configuration, into a native plugin:
+
+```sh
+agy plugin import gemini
+```
+
+### Other Agent Plugins clients
+
+The repository root follows Agent Plugins 1.0. Point a compatible client's local plugin loader at this directory. Installation remains client-specific.
+
+### MCP only
+
+Connect the public endpoint from any MCP-compatible client:
 
 ```
 https://mcp.fullenrich.com/mcp
 ```
 
 On first use, authenticate with your FullEnrich account (OAuth). You need a FullEnrich workspace with credits.
+
+## Capability boundary
+
+FullEnrich MCP searches B2B people and companies, enriches contacts, and exports results as CSV or JSON. It has no CRM write tools.
+
+The `full-crm` skill can orchestrate a separately connected CRM MCP. It checks field mapping and duplicates, then requires explicit confirmation before the separate CRM connector creates or updates records.
 
 ## Why FullEnrich
 
@@ -41,7 +84,7 @@ On first use, authenticate with your FullEnrich account (OAuth). You need a Full
 | `full-talent` | Source, enrich, and rank candidates for a role |
 | `full-lookalike` | Find people similar to a given LinkedIn profile (ICP expansion) |
 | `full-org` | Map a company's team structure and identify who to contact |
-| `full-crm` | Push enriched contacts to HubSpot, Salesforce, Attio, Pipedrive, or any CRM with an MCP |
+| `full-crm` | Coordinate a separately connected CRM MCP, with explicit confirmation before any create or update |
 
 Invoke them directly (e.g. `/full-prospecting`) or just describe what you want and Claude picks the right skill.
 
@@ -54,6 +97,10 @@ Invoke them directly (e.g. `/full-prospecting`) or just describe what you want a
 
 ## What's in this repo
 
+- `plugin.json` — portable Agent Plugins 1.0 manifest
+- `mcp.json` — portable MCP connection for `https://mcp.fullenrich.com/mcp`
+- `server.json` — unpublished MCP Registry metadata
+- `gemini-extension.json` — Gemini CLI extension manifest
 - `.claude-plugin/plugin.json` — plugin manifest
 - `.claude-plugin/marketplace.json` — self-hosted plugin marketplace
 - `.mcp.json` — connects the FullEnrich MCP server (`https://mcp.fullenrich.com/mcp`)
@@ -66,4 +113,7 @@ Invoke them directly (e.g. `/full-prospecting`) or just describe what you want a
 - [Help center](https://help.fullenrich.com)
 - [Pricing](https://fullenrich.com/pricing)
 - [Documentation](https://docs.fullenrich.com)
+- [Privacy policy](https://fullenrich.com/privacy-policy)
+- [Trust Center](https://fullenrich.com/trust)
+- [Support](mailto:support@fullenrich.com)
 - [MCP server reference](./fullenrich-mcp-documentation.md)

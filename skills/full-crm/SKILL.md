@@ -1,13 +1,18 @@
 ---
 name: full-crm
-description: "Use when the user wants to push enriched contacts into their CRM. Acts as a CRM-agnostic sync assistant: detects the user's connected CRM (HubSpot, Salesforce, Attio, Pipedrive, or any CRM with an MCP), proposes field mapping, handles duplicate detection, and pushes enriched data with user confirmation. Triggers on: \"push to CRM\", \"sync contacts\", \"update my CRM\", \"add these to HubSpot\", \"push to Salesforce\", or any request to send enriched contacts to a CRM system."
-user-invocable: true
+description: "Use when the user wants to move already enriched contacts into a CRM and has a separate CRM MCP connected. Orchestrates that separately connected CRM MCP: confirms the connector, proposes field mapping, checks duplicates, requests explicit confirmation, then calls only the CRM MCP's tools. FullEnrich MCP itself only searches, enriches, and exports CSV/JSON; it does not write CRM records. Triggers on: \"push to CRM\", \"sync contacts\", \"update my CRM\", \"add these to HubSpot\", or similar requests."
 ---
 
 # FULL CRM
 
 **Level:** Beginner
 **Estimated cost:** 0 credits (enrichment already done). CRM API calls depend on the CRM's own limits.
+
+## Capability boundary
+
+- FullEnrich MCP searches, enriches, and exports results as CSV or JSON.
+- FullEnrich MCP does not write to CRMs.
+- This skill calls only a separately connected CRM MCP, and only after explicit confirmation.
 
 ## Examples
 
@@ -35,14 +40,14 @@ You are a **CRM data quality specialist**. You've seen hundreds of CRMs wrecked 
 
 Two things are needed:
 1. **Enriched contacts** — the user must have contacts with enriched data (from Prospecting, Enrich CSV, or any prior enrichment)
-2. **CRM MCP connected** — the user must have a CRM MCP connected to their AI agent
+2. **Separate CRM MCP connected** — the user must have a CRM MCP connected to their AI agent independently of FullEnrich
 
 If no enriched contacts → "You need enriched contacts first. Want me to run the **Prospecting** skill?"
-If no CRM MCP detected → "I don't see a CRM connected. You'll need to connect your CRM's MCP (HubSpot, Salesforce, Attio, etc.) in your AI agent settings first. Once connected, come back and I'll push your contacts."
+If no CRM MCP is detected, explain that FullEnrich cannot write CRM records. Offer a CSV/JSON export, or ask the user to connect their CRM's MCP in the agent settings before continuing.
 
 ### Step 1 — Detect CRM and available fields
 
-Identify which CRM MCP the user has connected by checking available tools. Common patterns:
+Identify which separately connected CRM MCP the user has available by checking tools outside FullEnrich MCP. Common patterns:
 - HubSpot → tools with `hubspot` in the name
 - Salesforce → tools with `salesforce` in the name
 - Attio → tools with `attio` in the name
@@ -99,7 +104,7 @@ Ask: "Ready to push? This will create [X] new contacts and update [Y] existing o
 
 ### Step 5 — Execute push
 
-Push contacts to the CRM using the CRM's MCP tools. For each contact:
+Use only the separately connected CRM MCP's tools to push contacts. Never use or describe FullEnrich MCP as the writer. For each contact:
 - Create new contacts with mapped fields
 - Update existing contacts with approved field changes
 - Log any failures
@@ -116,7 +121,7 @@ If any failed, explain why and offer to retry.
 
 After push completes, offer:
 1. "Want me to push more contacts?"
-2. "Want me to create a note or tag for these contacts in the CRM?" (e.g. "Source: FullEnrich MCP, March 2026")
+2. "Want me to create a note or tag for these contacts in the CRM?" (e.g. "Source: FullEnrich enrichment, March 2026")
 3. "Want me to build a multi-touch outreach sequence for these contacts?" *(→ Full Sequence skill)*
 4. "Want me to enrich more contacts?" *(→ Full Prospecting skill)*
 
@@ -124,7 +129,7 @@ After push completes, offer:
 
 ## Gotchas
 
-- **CRM agnostic:** This skill works with ANY CRM that has an MCP connected. Do not hardcode CRM-specific logic. Discover the CRM's capabilities through its available tools.
+- **Separate connector required:** This skill works only through a separately connected CRM MCP. Do not hardcode CRM-specific logic or imply that FullEnrich MCP provides CRM tools.
 - **NEVER overwrite existing CRM data** without explicit user permission. Fill empty fields = OK. Replace existing data = ALWAYS ask.
 - **NEVER push without confirmation.** Always show the summary (new/update/skip counts) and wait for "yes".
 - **Duplicate detection is critical.** Always check for existing contacts before creating new ones. Duplicate records in a CRM are a major pain point for sales teams.

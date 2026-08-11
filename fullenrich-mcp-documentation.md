@@ -1,6 +1,6 @@
 # FullEnrich MCP
 
-10 MCP tools for B2B contact search, enrichment, and export inside AI agents.
+13 MCP tools for B2B contact search, enrichment, and export inside AI agents.
 
 ---
 

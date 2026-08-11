@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2 — 2026-08-10
+
+- Add the portable Agent Plugins and MCP Registry package
+- Add the Gemini CLI extension manifest
+- Align skill metadata with Agent Skills and clarify the separate CRM connector boundary
+
 ## 1.0.1 — 2026-07-08
 
 - Fix provider count in plugin manifest (25+ data providers, aligned with README)
