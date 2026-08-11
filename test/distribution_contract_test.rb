@@ -18,6 +18,11 @@ class DistributionContractTest < Minitest::Test
     .claude-plugin/plugin.json
     .claude-plugin/marketplace.json
   ]).freeze
+  VERSIONED_MANIFESTS = %w[
+    plugin.json
+    server.json
+    .claude-plugin/plugin.json
+  ].freeze
   EXPECTED_SKILLS = %w[
     full-crm
     full-csv
@@ -38,6 +43,7 @@ class DistributionContractTest < Minitest::Test
     name
   ].freeze
   MCP_ENDPOINT = "https://mcp.fullenrich.com/mcp"
+  PACKAGE_VERSION = "1.0.2"
   AGENT_PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
   AGENT_PLUGIN_MCP_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
   MCP_REGISTRY_SCHEMA = "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json"
@@ -90,6 +96,18 @@ class DistributionContractTest < Minitest::Test
       assert_path_exists relative_path
       assert_kind_of Hash, JSON.parse(File.read(File.join(ROOT, relative_path)))
     end
+  end
+
+  def test_versioned_package_manifests_use_the_same_release_version
+    versions = VERSIONED_MANIFESTS.to_h do |relative_path|
+      [relative_path, read_json(relative_path).fetch("version")]
+    end
+
+    assert_equal VERSIONED_MANIFESTS.to_h { |relative_path| [relative_path, PACKAGE_VERSION] }, versions
+  end
+
+  def test_changelog_documents_the_current_release
+    assert_includes changelog, "## #{PACKAGE_VERSION} — 2026-08-10"
   end
 
   def test_plugin_uses_the_agent_plugins_schema_and_name
@@ -189,6 +207,13 @@ class DistributionContractTest < Minitest::Test
     assert_match(/not yet listed/i, readme)
   end
 
+  def test_readme_cursor_install_keeps_the_checkout_inside_the_plugin_root
+    assert_includes readme,
+      "git clone https://github.com/FullEnrich/fullenrich-skills ~/.cursor/plugins/local/fullenrich"
+    assert_match(/copy the (?:complete )?repository (?:directly )?into `~\/.cursor\/plugins\/local\/fullenrich`/i, readme)
+    refute_match(/\bln\s+-s\b|\bsymlinks?\b/i, readme)
+  end
+
   def test_full_crm_uses_a_separate_connector_with_confirmation
     assert_includes full_crm_skill, "separately connected CRM MCP"
     assert_includes full_crm_skill, "FullEnrich MCP does not write to CRMs"
@@ -238,6 +263,10 @@ class DistributionContractTest < Minitest::Test
 
   def readme
     File.read(File.join(ROOT, "README.md"))
+  end
+
+  def changelog
+    File.read(File.join(ROOT, "CHANGELOG.md"))
   end
 
   def full_crm_skill

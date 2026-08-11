@@ -18,12 +18,14 @@ Install the plugin to connect the MCP server and add the 9 skills:
 
 ### Cursor local install
 
-Cursor loads root Agent Plugins from `~/.cursor/plugins/local`. Clone this repository, then symlink the checkout:
+Cursor loads root Agent Plugins from `~/.cursor/plugins/local`. Clone this repository directly into the local plugin directory:
 
 ```sh
 mkdir -p ~/.cursor/plugins/local
-ln -s /absolute/path/to/fullenrich-skills ~/.cursor/plugins/local/fullenrich
+git clone https://github.com/FullEnrich/fullenrich-skills ~/.cursor/plugins/local/fullenrich
 ```
+
+Alternatively, copy the complete repository directly into `~/.cursor/plugins/local/fullenrich`.
 
 Restart Cursor or run `Developer: Reload Window`, then verify that the 9 skills and the `fullenrich` MCP server appear. The package is not yet listed in the Cursor Marketplace or published to the official MCP Registry.
 
