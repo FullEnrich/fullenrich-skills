@@ -14,6 +14,10 @@ class DistributionContractTest < Minitest::Test
     SECURITY.md
   ].freeze
   JSON_MANIFESTS = %w[plugin.json mcp.json server.json].freeze
+  PACKAGE_JSON_MANIFESTS = (JSON_MANIFESTS + %w[
+    .claude-plugin/plugin.json
+    .claude-plugin/marketplace.json
+  ]).freeze
   EXPECTED_SKILLS = %w[
     full-crm
     full-csv
@@ -81,8 +85,8 @@ class DistributionContractTest < Minitest::Test
       "Unsupported Agent Skills frontmatter keys: #{unsupported_keys.inspect}"
   end
 
-  def test_portable_json_manifests_parse
-    JSON_MANIFESTS.each do |relative_path|
+  def test_package_json_manifests_parse
+    PACKAGE_JSON_MANIFESTS.each do |relative_path|
       assert_path_exists relative_path
       assert_kind_of Hash, JSON.parse(File.read(File.join(ROOT, relative_path)))
     end
@@ -95,8 +99,8 @@ class DistributionContractTest < Minitest::Test
     assert_equal "fullenrich", plugin.fetch("name")
   end
 
-  def test_portable_manifests_do_not_claim_direct_crm_writes
-    JSON_MANIFESTS.each do |relative_path|
+  def test_package_manifests_do_not_claim_direct_crm_writes
+    PACKAGE_JSON_MANIFESTS.each do |relative_path|
       claim = string_values(read_json(relative_path)).find { |value| direct_crm_claim?(value) }
 
       assert_nil claim, "#{relative_path} must not claim that FullEnrich writes directly to a CRM: #{claim.inspect}"
@@ -172,6 +176,30 @@ class DistributionContractTest < Minitest::Test
     assert_includes readme, "support@fullenrich.com"
   end
 
+  def test_readme_defines_the_fullenrich_and_separate_crm_boundaries
+    assert_includes readme,
+      "FullEnrich MCP searches B2B people and companies, enriches contacts, and exports results as CSV or JSON."
+    assert_includes readme, "separately connected CRM MCP"
+    assert_includes readme, "explicit confirmation"
+  end
+
+  def test_readme_documents_portable_local_install_and_unpublished_status
+    assert_includes readme, "Agent Plugins"
+    assert_includes readme, "~/.cursor/plugins/local"
+    assert_match(/not yet listed/i, readme)
+  end
+
+  def test_full_crm_uses_a_separate_connector_with_confirmation
+    assert_includes full_crm_skill, "separately connected CRM MCP"
+    assert_includes full_crm_skill, "FullEnrich MCP does not write to CRMs"
+    assert_includes full_crm_skill, "explicit confirmation"
+  end
+
+  def test_mcp_documentation_declares_thirteen_tools
+    assert_match(/\A# FullEnrich MCP\n\n13 MCP tools\b/, mcp_documentation)
+    refute_match(/\A# FullEnrich MCP\n\n10 MCP tools\b/, mcp_documentation)
+  end
+
   private
 
   def assert_path_exists(relative_path)
@@ -210,5 +238,13 @@ class DistributionContractTest < Minitest::Test
 
   def readme
     File.read(File.join(ROOT, "README.md"))
+  end
+
+  def full_crm_skill
+    File.read(File.join(ROOT, "skills", "full-crm", "SKILL.md"))
+  end
+
+  def mcp_documentation
+    File.read(File.join(ROOT, "fullenrich-mcp-documentation.md"))
   end
 end
