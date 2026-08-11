@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "fullenrich",
+  "version": "1.0.1",
+  "description": "Search B2B contacts, enrich verified emails and phone numbers, and export results through guided agent workflows.",
+  "author": {
+    "name": "FullEnrich",
+    "url": "https://fullenrich.com"
+  },
+  "homepage": "https://docs.fullenrich.com",
+  "repository": "https://github.com/FullEnrich/fullenrich-skills",
+  "license": "MIT",
+  "keywords": [
+    "b2b",
+    "contact-enrichment",
+    "prospecting",
+    "email-verification",
+    "phone-enrichment",
+    "mcp",
+    "sales",
+    "recruiting"
+  ]
+}
