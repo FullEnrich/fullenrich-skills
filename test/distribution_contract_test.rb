@@ -25,6 +25,28 @@ class DistributionContractTest < Minitest::Test
     full-talent
   ].freeze
   MCP_ENDPOINT = "https://mcp.fullenrich.com/mcp"
+  AGENT_PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
+  AGENT_PLUGIN_MCP_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
+  MCP_REGISTRY_SCHEMA = "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json"
+  CRM_TARGET = /(?:CRMs?|HubSpot|Salesforce|Attio|Pipedrive)/i
+  DIRECT_CRM_ACTION = /(?:
+    sync(?:s|ed|ing)? |
+    push(?:es|ed|ing)? |
+    writ(?:e|es|ten|ing) | wrote |
+    send(?:s|ing)? | sent |
+    sav(?:e|es|ed|ing) |
+    creat(?:e|es|ed|ing) |
+    updat(?:e|es|ed|ing) |
+    upsert(?:s|ed|ing)? |
+    insert(?:s|ed|ing)? |
+    import(?:s|ed|ing)? |
+    export(?:s|ed|ing)?
+  )/ix
+  DIRECT_CRM_CLAIMS = [
+    /\b(?:directly|straight)\s+(?:to|into)\s+(?:an?\s+|the\s+|your\s+)?#{CRM_TARGET}\b/i,
+    /\b#{DIRECT_CRM_ACTION}\b.{0,80}\b(?:directly\s+|straight\s+)?(?:to|into|in|with)\s+(?:an?\s+|the\s+|your\s+)?#{CRM_TARGET}\b/i,
+    /\b#{CRM_TARGET}\b.{0,40}\b(?:sync|syncs|write|writes|writing|push|pushes|create|creates|creation|update|updates|upsert|insert)\b/i
+  ].freeze
 
   def test_portable_distribution_files_exist
     PORTABLE_FILES.each do |relative_path|
@@ -50,15 +72,48 @@ class DistributionContractTest < Minitest::Test
   def test_plugin_uses_the_agent_plugins_schema_and_name
     plugin = read_json("plugin.json")
 
-    assert_equal "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", plugin.fetch("$schema")
+    assert_equal AGENT_PLUGIN_SCHEMA, plugin.fetch("$schema")
     assert_equal "fullenrich", plugin.fetch("name")
   end
 
-  def test_plugin_description_does_not_claim_direct_crm_writes
-    description = read_json("plugin.json").fetch("description")
-    direct_crm_claim = /\b(?:sync|push|write|send|save)(?:s|ed|ing)?\b.{0,80}\b(?:CRM|HubSpot|Salesforce|Attio|Pipedrive)\b/i
+  def test_portable_manifests_do_not_claim_direct_crm_writes
+    JSON_MANIFESTS.each do |relative_path|
+      claim = string_values(read_json(relative_path)).find { |value| direct_crm_claim?(value) }
 
-    refute_match direct_crm_claim, description
+      assert_nil claim, "#{relative_path} must not claim that FullEnrich writes directly to a CRM: #{claim.inspect}"
+    end
+  end
+
+  def test_direct_crm_guard_recognizes_direct_write_claims
+    claims = [
+      "Route enriched contacts directly to Salesforce/HubSpot/CRM.",
+      "Send enriched records into HubSpot.",
+      "Push contacts to your CRM.",
+      "Write contacts in Attio.",
+      "Pipedrive sync is built in.",
+      "Export contacts to Salesforce."
+    ]
+
+    claims.each do |claim|
+      assert direct_crm_claim?(claim), "Expected direct CRM claim to be rejected: #{claim.inspect}"
+    end
+  end
+
+  def test_direct_crm_guard_allows_truthful_file_export_claims
+    allowed_claims = [
+      "Export enriched contacts to CSV or JSON.",
+      "Export Salesforce-ready records as CSV.",
+      "Create a CSV for manual CRM import.",
+      "Use a separately connected CRM MCP to import exported CSV files."
+    ]
+
+    allowed_claims.each do |claim|
+      refute direct_crm_claim?(claim), "Expected portable file export claim to be allowed: #{claim.inspect}"
+    end
+  end
+
+  def test_mcp_uses_the_agent_plugins_schema
+    assert_equal AGENT_PLUGIN_MCP_SCHEMA, read_json("mcp.json").fetch("$schema")
   end
 
   def test_mcp_uses_streamable_http_at_the_public_endpoint
@@ -66,6 +121,10 @@ class DistributionContractTest < Minitest::Test
 
     assert_equal "streamable-http", fullenrich.fetch("type")
     assert_equal MCP_ENDPOINT, fullenrich.fetch("url")
+  end
+
+  def test_registry_manifest_uses_the_2025_12_11_schema
+    assert_equal MCP_REGISTRY_SCHEMA, read_json("server.json").fetch("$schema")
   end
 
   def test_registry_manifest_declares_the_expected_remote
@@ -96,6 +155,23 @@ class DistributionContractTest < Minitest::Test
   def read_json(relative_path)
     assert_path_exists relative_path
     JSON.parse(File.read(File.join(ROOT, relative_path)))
+  end
+
+  def direct_crm_claim?(value)
+    DIRECT_CRM_CLAIMS.any? { |pattern| pattern.match?(value) }
+  end
+
+  def string_values(value)
+    case value
+    when Hash
+      value.values.flat_map { |child| string_values(child) }
+    when Array
+      value.flat_map { |child| string_values(child) }
+    when String
+      [value]
+    else
+      []
+    end
   end
 
   def readme
