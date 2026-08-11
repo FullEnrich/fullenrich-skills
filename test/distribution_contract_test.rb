@@ -10,10 +10,11 @@ class DistributionContractTest < Minitest::Test
     plugin.json
     mcp.json
     server.json
+    gemini-extension.json
     assets/fullenrich-icon.svg
     SECURITY.md
   ].freeze
-  JSON_MANIFESTS = %w[plugin.json mcp.json server.json].freeze
+  JSON_MANIFESTS = %w[plugin.json mcp.json server.json gemini-extension.json].freeze
   PACKAGE_JSON_MANIFESTS = (JSON_MANIFESTS + %w[
     .claude-plugin/plugin.json
     .claude-plugin/marketplace.json
@@ -21,6 +22,7 @@ class DistributionContractTest < Minitest::Test
   VERSIONED_MANIFESTS = %w[
     plugin.json
     server.json
+    gemini-extension.json
     .claude-plugin/plugin.json
   ].freeze
   EXPECTED_SKILLS = %w[
@@ -182,6 +184,14 @@ class DistributionContractTest < Minitest::Test
     assert_equal [{ "type" => "streamable-http", "url" => MCP_ENDPOINT }], server.fetch("remotes")
   end
 
+  def test_gemini_extension_uses_the_remote_mcp_endpoint
+    extension = read_json("gemini-extension.json")
+    fullenrich = extension.dig("mcpServers", "fullenrich")
+
+    assert_equal "fullenrich", extension.fetch("name")
+    assert_equal({ "httpUrl" => MCP_ENDPOINT }, fullenrich)
+  end
+
   def test_readme_links_to_the_privacy_policy
     assert_includes readme, "https://fullenrich.com/privacy-policy"
   end
@@ -212,6 +222,19 @@ class DistributionContractTest < Minitest::Test
       "git clone https://github.com/FullEnrich/fullenrich-skills ~/.cursor/plugins/local/fullenrich"
     assert_match(/copy the (?:complete )?repository (?:directly )?into `~\/.cursor\/plugins\/local\/fullenrich`/i, readme)
     refute_match(/\bln\s+-s\b|\bsymlinks?\b/i, readme)
+  end
+
+  def test_readme_documents_gemini_cli_install_and_gallery_status
+    assert_includes readme,
+      "gemini extensions install https://github.com/FullEnrich/fullenrich-skills"
+    assert_includes readme, "gemini-cli-extension"
+    assert_match(/not yet listed in the Gemini CLI extension gallery/i, readme)
+    assert_includes readme, "`gemini-extension.json`"
+    assert_includes readme, "agy plugin import gemini"
+  end
+
+  def test_changelog_documents_the_gemini_cli_extension
+    assert_includes changelog, "Gemini CLI extension"
   end
 
   def test_full_crm_uses_a_separate_connector_with_confirmation

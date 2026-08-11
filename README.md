@@ -29,6 +29,22 @@ Alternatively, copy the complete repository directly into `~/.cursor/plugins/loc
 
 Restart Cursor or run `Developer: Reload Window`, then verify that the 9 skills and the `fullenrich` MCP server appear. The package is not yet listed in the Cursor Marketplace or published to the official MCP Registry.
 
+### Gemini CLI
+
+After this package is released, install the extension from the public repository:
+
+```sh
+gemini extensions install https://github.com/FullEnrich/fullenrich-skills
+```
+
+Gemini CLI loads the remote MCP server and the 9 skills. Authenticate with FullEnrich on the first MCP connection. The package is not yet listed in the Gemini CLI extension gallery; gallery discovery also requires the `gemini-cli-extension` GitHub topic.
+
+Antigravity CLI can convert the installed extension, including its skills and MCP configuration, into a native plugin:
+
+```sh
+agy plugin import gemini
+```
+
 ### Other Agent Plugins clients
 
 The repository root follows Agent Plugins 1.0. Point a compatible client's local plugin loader at this directory. Installation remains client-specific.
@@ -84,6 +100,7 @@ Invoke them directly (e.g. `/full-prospecting`) or just describe what you want a
 - `plugin.json` — portable Agent Plugins 1.0 manifest
 - `mcp.json` — portable MCP connection for `https://mcp.fullenrich.com/mcp`
 - `server.json` — unpublished MCP Registry metadata
+- `gemini-extension.json` — Gemini CLI extension manifest
 - `.claude-plugin/plugin.json` — plugin manifest
 - `.claude-plugin/marketplace.json` — self-hosted plugin marketplace
 - `.mcp.json` — connects the FullEnrich MCP server (`https://mcp.fullenrich.com/mcp`)
