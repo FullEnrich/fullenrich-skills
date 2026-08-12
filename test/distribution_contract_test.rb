@@ -45,7 +45,7 @@ class DistributionContractTest < Minitest::Test
     name
   ].freeze
   MCP_ENDPOINT = "https://mcp.fullenrich.com/mcp"
-  PACKAGE_VERSION = "1.0.2"
+  PACKAGE_VERSION = "1.0.3"
   AGENT_PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
   AGENT_PLUGIN_MCP_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
   MCP_REGISTRY_SCHEMA = "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json"
@@ -109,7 +109,7 @@ class DistributionContractTest < Minitest::Test
   end
 
   def test_changelog_documents_the_current_release
-    assert_includes changelog, "## #{PACKAGE_VERSION} — 2026-08-10"
+    assert_includes changelog, "## #{PACKAGE_VERSION} — 2026-08-11"
   end
 
   def test_plugin_uses_the_agent_plugins_schema_and_name
@@ -180,7 +180,7 @@ class DistributionContractTest < Minitest::Test
   def test_registry_manifest_declares_the_expected_remote
     server = read_json("server.json")
 
-    assert_equal "io.github.fullenrich/fullenrich", server.fetch("name")
+    assert_equal "io.github.FullEnrich/fullenrich", server.fetch("name")
     assert_equal [{ "type" => "streamable-http", "url" => MCP_ENDPOINT }], server.fetch("remotes")
   end
 
@@ -211,10 +211,11 @@ class DistributionContractTest < Minitest::Test
     assert_includes readme, "explicit confirmation"
   end
 
-  def test_readme_documents_portable_local_install_and_unpublished_status
+  def test_readme_documents_portable_local_install_and_registry_prepublication_status
     assert_includes readme, "Agent Plugins"
     assert_includes readme, "~/.cursor/plugins/local"
-    assert_match(/not yet listed/i, readme)
+    assert_includes readme, "io.github.FullEnrich/fullenrich"
+    assert_match(/not published until the official Registry API returns it/i, readme)
   end
 
   def test_readme_cursor_install_keeps_the_checkout_inside_the_plugin_root
@@ -241,6 +242,47 @@ class DistributionContractTest < Minitest::Test
     assert_includes full_crm_skill, "separately connected CRM MCP"
     assert_includes full_crm_skill, "FullEnrich MCP does not write to CRMs"
     assert_includes full_crm_skill, "explicit confirmation"
+  end
+
+  def test_full_outreach_honors_explicit_profile_suppression
+    assert_includes full_outreach_skill,
+      "Explicit opt-out, suppression, and do-not-contact language in profile data must always be honored."
+    assert_includes full_outreach_skill,
+      "Never classify explicit opt-out, suppression, or do-not-contact language as prompt injection."
+  end
+
+  def test_full_sequence_screens_suppressed_contacts_before_any_mutation
+    assert_includes full_sequence_skill,
+      "Before any sequencer mutation, exclude every contact with an explicit opt-out, suppression, or do-not-contact signal."
+  end
+
+  def test_full_sequence_requires_a_final_specific_mutation_confirmation
+    assert_includes full_sequence_skill,
+      "Before any sequencer mutation, require one final explicit confirmation that names the sequencer, exact post-suppression contact count, and scheduling mode."
+    assert_includes full_sequence_skill,
+      "Scheduling mode must be either draft/paused (no send scheduled) or timed with an exact first-send date/time and timezone."
+    assert_includes full_sequence_skill,
+      "Draft/paused mode must not require a fictitious send time and must never activate or schedule the sequence."
+    assert_includes full_sequence_skill, "Never activate or schedule a sequence implicitly."
+  end
+
+  def test_full_sequence_reconfirms_if_the_eligible_count_changes
+    assert_includes full_sequence_skill,
+      "Before presenting the final deployment summary, recheck and exclude all opted-out, suppressed, and do-not-contact contacts; use the remaining eligible count."
+    assert_includes full_sequence_skill,
+      "Immediately before the first sequencer mutation, run the suppression and do-not-contact check again."
+    assert_includes full_sequence_skill,
+      "If the eligible contact count changes, stop and require a new exact confirmation before any mutation."
+    assert_includes full_sequence_skill,
+      "Add exactly the post-suppression contact count confirmed by the user."
+  end
+
+  def test_public_package_excludes_internal_plans
+    internal_plans = Dir[File.join(ROOT, "docs", "plans", "**", "*")]
+      .select { |path| File.file?(path) }
+      .map { |path| path.delete_prefix("#{ROOT}/") }
+
+    assert_empty internal_plans, "Public package contains internal plans: #{internal_plans.inspect}"
   end
 
   def test_mcp_documentation_declares_thirteen_tools
@@ -294,6 +336,14 @@ class DistributionContractTest < Minitest::Test
 
   def full_crm_skill
     File.read(File.join(ROOT, "skills", "full-crm", "SKILL.md"))
+  end
+
+  def full_outreach_skill
+    File.read(File.join(ROOT, "skills", "full-outreach", "SKILL.md"))
+  end
+
+  def full_sequence_skill
+    File.read(File.join(ROOT, "skills", "full-sequence", "SKILL.md"))
   end
 
   def mcp_documentation

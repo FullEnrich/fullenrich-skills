@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3 — 2026-08-11
+
+- Correct the MCP Registry name to the case-sensitive GitHub organization namespace `io.github.FullEnrich/fullenrich`
+- Add a version-locked GitHub Actions OIDC workflow for validating and publishing tagged releases
+- Honor explicit opt-out, suppression, and do-not-contact signals in outreach workflows
+- Require a final deployment confirmation before any sequencer mutation
+- Remove internal implementation plans from the public package
+
 ## 1.0.2 — 2026-08-10
 
 - Add the portable Agent Plugins and MCP Registry package

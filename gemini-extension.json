@@ -1,6 +1,6 @@
 {
   "name": "fullenrich",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Search B2B contacts, enrich verified emails and phone numbers, and export results as CSV or JSON.",
   "mcpServers": {
     "fullenrich": {

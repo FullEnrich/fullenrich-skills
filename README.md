@@ -27,7 +27,9 @@ git clone https://github.com/FullEnrich/fullenrich-skills ~/.cursor/plugins/loca
 
 Alternatively, copy the complete repository directly into `~/.cursor/plugins/local/fullenrich`.
 
-Restart Cursor or run `Developer: Reload Window`, then verify that the 9 skills and the `fullenrich` MCP server appear. The package is not yet listed in the Cursor Marketplace or published to the official MCP Registry.
+Restart Cursor or run `Developer: Reload Window`, then verify that the 9 skills and the `fullenrich` MCP server appear. The package is not yet listed in the Cursor Marketplace.
+
+Registry publication is prepared under `io.github.FullEnrich/fullenrich`. It is not published until the official Registry API returns it.
 
 ### Gemini CLI
 
@@ -99,7 +101,7 @@ Invoke them directly (e.g. `/full-prospecting`) or just describe what you want a
 
 - `plugin.json` — portable Agent Plugins 1.0 manifest
 - `mcp.json` — portable MCP connection for `https://mcp.fullenrich.com/mcp`
-- `server.json` — unpublished MCP Registry metadata
+- `server.json` — MCP Registry metadata prepared for `io.github.FullEnrich/fullenrich`; this file alone is not evidence of a live listing
 - `gemini-extension.json` — Gemini CLI extension manifest
 - `.claude-plugin/plugin.json` — plugin manifest
 - `.claude-plugin/marketplace.json` — self-hosted plugin marketplace
