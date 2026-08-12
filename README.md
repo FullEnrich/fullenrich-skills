@@ -29,23 +29,31 @@ Alternatively, copy the complete repository directly into `~/.cursor/plugins/loc
 
 Restart Cursor or run `Developer: Reload Window`, then verify that the 9 skills and the `fullenrich` MCP server appear. The package is not yet listed in the Cursor Marketplace.
 
-Registry publication is prepared under `io.github.FullEnrich/fullenrich`. It is not published until the official Registry API returns it.
+[io.github.FullEnrich/fullenrich v1.0.3](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.FullEnrich%2Ffullenrich/versions/1.0.3) is live in the official MCP Registry. Cursor Marketplace remains a separate route.
 
 ### Gemini CLI
 
-After this package is released, install the extension from the public repository:
+Install the released extension from the public repository:
 
 ```sh
 gemini extensions install https://github.com/FullEnrich/fullenrich-skills
 ```
 
-Gemini CLI loads the remote MCP server and the 9 skills. Authenticate with FullEnrich on the first MCP connection. The package is not yet listed in the Gemini CLI extension gallery; gallery discovery also requires the `gemini-cli-extension` GitHub topic.
+Gemini CLI loads the remote MCP server and the 9 skills. The `gemini-cli-extension` topic is live, but the package is not yet listed in the Gemini CLI extension gallery. Google's current CLI says individual-account use is no longer supported; use an Enterprise or API-key runtime, or import the extension into Antigravity.
 
 Antigravity CLI can convert the installed extension, including its skills and MCP configuration, into a native plugin:
 
 ```sh
 agy plugin import gemini
 ```
+
+### Replit
+
+[![Add to Replit](https://replit.com/badge?caption=Add%20to%20Replit)](https://replit.com/integrations?mcp=eyJkaXNwbGF5TmFtZSI6IkZ1bGxFbnJpY2giLCJiYXNlVXJsIjoiaHR0cHM6Ly9tY3AuZnVsbGVucmljaC5jb20vbWNwIn0=)
+
+The custom MCP install is available now. The install link contains only the FullEnrich display name and public MCP endpoint; authentication happens through FullEnrich OAuth after installation. FullEnrich is not listed in the curated Replit MCP directory.
+
+After connecting, use the [zero-FullEnrich-credit, read-only sales-agent recipe](./examples/replit-sales-agent.md). It does not write contact data to project files. Replit plan or Agent usage may still consume Replit credits.
 
 ### Other Agent Plugins clients
 
@@ -101,7 +109,7 @@ Invoke them directly (e.g. `/full-prospecting`) or just describe what you want a
 
 - `plugin.json` — portable Agent Plugins 1.0 manifest
 - `mcp.json` — portable MCP connection for `https://mcp.fullenrich.com/mcp`
-- `server.json` — MCP Registry metadata prepared for `io.github.FullEnrich/fullenrich`; this file alone is not evidence of a live listing
+- `server.json` — metadata for the live official Registry entry `io.github.FullEnrich/fullenrich`
 - `gemini-extension.json` — Gemini CLI extension manifest
 - `.claude-plugin/plugin.json` — plugin manifest
 - `.claude-plugin/marketplace.json` — self-hosted plugin marketplace

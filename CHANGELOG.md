@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.4 — 2026-08-11
+
+- Add the official Replit one-click MCP install badge and a zero-FullEnrich-credit, read-only sales-agent recipe
+- Add a secretless install-link contract test and explicit paid-action confirmation gate
+- Update the README to reflect the live MCP Registry listing and current Gemini/Antigravity boundary
+
 ## 1.0.3 — 2026-08-11
 
 - Correct the MCP Registry name to the case-sensitive GitHub organization namespace `io.github.FullEnrich/fullenrich`

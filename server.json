@@ -3,7 +3,7 @@
   "name": "io.github.FullEnrich/fullenrich",
   "title": "FullEnrich",
   "description": "Search B2B contacts, enrich verified emails and phone numbers, and export results.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "remotes": [
     {
       "type": "streamable-http",

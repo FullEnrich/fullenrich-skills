@@ -45,7 +45,7 @@ class DistributionContractTest < Minitest::Test
     name
   ].freeze
   MCP_ENDPOINT = "https://mcp.fullenrich.com/mcp"
-  PACKAGE_VERSION = "1.0.3"
+  PACKAGE_VERSION = "1.0.4"
   AGENT_PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
   AGENT_PLUGIN_MCP_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
   MCP_REGISTRY_SCHEMA = "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json"
@@ -211,11 +211,13 @@ class DistributionContractTest < Minitest::Test
     assert_includes readme, "explicit confirmation"
   end
 
-  def test_readme_documents_portable_local_install_and_registry_prepublication_status
+  def test_readme_documents_portable_local_install_and_live_registry_status
     assert_includes readme, "Agent Plugins"
     assert_includes readme, "~/.cursor/plugins/local"
-    assert_includes readme, "io.github.FullEnrich/fullenrich"
-    assert_match(/not published until the official Registry API returns it/i, readme)
+    assert_includes readme,
+      "[io.github.FullEnrich/fullenrich v1.0.3](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.FullEnrich%2Ffullenrich/versions/1.0.3)"
+    assert_match(/live in the official MCP Registry/i, readme)
+    assert_match(/Cursor Marketplace remains a separate route/i, readme)
   end
 
   def test_readme_cursor_install_keeps_the_checkout_inside_the_plugin_root
@@ -230,8 +232,11 @@ class DistributionContractTest < Minitest::Test
       "gemini extensions install https://github.com/FullEnrich/fullenrich-skills"
     assert_includes readme, "gemini-cli-extension"
     assert_match(/not yet listed in the Gemini CLI extension gallery/i, readme)
+    assert_match(/topic is live/i, readme)
+    assert_match(/individual-account use is no longer supported/i, readme)
     assert_includes readme, "`gemini-extension.json`"
     assert_includes readme, "agy plugin import gemini"
+    refute_match(/After this package is released/i, readme)
   end
 
   def test_changelog_documents_the_gemini_cli_extension
