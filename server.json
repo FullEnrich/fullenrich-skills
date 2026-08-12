@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.fullenrich/fullenrich",
+  "name": "io.github.FullEnrich/fullenrich",
   "title": "FullEnrich",
   "description": "Search B2B contacts, enrich verified emails and phone numbers, and export results.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "remotes": [
     {
       "type": "streamable-http",

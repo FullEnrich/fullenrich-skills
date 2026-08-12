@@ -1,0 +1,202 @@
+name: Publish MCP Registry
+
+"on":
+  push:
+    tags:
+      - "v*"
+
+permissions: {}
+
+concurrency:
+  group: publish-mcp-registry
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'FullEnrich/fullenrich-skills'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    # Configure this environment with a required reviewer and main/tag deployment rules before enabling the workflow.
+    environment: mcp-registry-publish
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout release source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.ref }}
+
+      - name: Verify canonical source and release version
+        run: |
+          set -euo pipefail
+
+          if [[ "$GITHUB_REF_TYPE" != "tag" ]]; then
+            echo "::error::Publishing is restricted to version tags."
+            exit 1
+          fi
+          release_tag="$GITHUB_REF_NAME"
+
+          if [[ ! "$release_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Release tag is not valid v-prefixed SemVer: $release_tag"
+            exit 1
+          fi
+          tag_commit="$(git rev-parse "refs/tags/${release_tag}^{commit}")"
+          event_commit="$(git rev-parse "${GITHUB_SHA}^{commit}")"
+          if [[ "$event_commit" != "$tag_commit" || "$(git rev-parse HEAD)" != "$tag_commit" ]]; then
+            echo "::error::Event and checkout commits must match immutable tag $release_tag."
+            exit 1
+          fi
+          if [[ -n "$(git status --porcelain --untracked-files=all)" ]]; then
+            echo "::error::Release checkout must be clean before publishing."
+            exit 1
+          fi
+          git merge-base --is-ancestor "$tag_commit" refs/remotes/origin/main || {
+            echo "::error::The release tag must point to a commit on main."
+            exit 1
+          }
+          expected_version="${release_tag#v}"
+
+          manifest_name="$(jq --exit-status --raw-output '.name' server.json)"
+          expected_manifest_name="io.github.${GITHUB_REPOSITORY_OWNER}/fullenrich"
+          if [[ "$manifest_name" != "$expected_manifest_name" ]]; then
+            echo "::error::server.json name must exactly match $expected_manifest_name; got $manifest_name."
+            exit 1
+          fi
+          for manifest_path in \
+            server.json \
+            plugin.json \
+            .claude-plugin/plugin.json \
+            gemini-extension.json; do
+            manifest_version="$(jq --exit-status --raw-output '.version' "$manifest_path")"
+            if [[ "$manifest_version" != "$expected_version" ]]; then
+              echo "::error::$manifest_path version $manifest_version does not match $expected_version."
+              exit 1
+            fi
+          done
+
+          echo "MCP_SERVER_NAME=$manifest_name" >> "$GITHUB_ENV"
+          echo "MCP_SERVER_VERSION=$expected_version" >> "$GITHUB_ENV"
+
+      - name: Install verified mcp-publisher
+        run: |
+          set -euo pipefail
+
+          archive="$RUNNER_TEMP/mcp-publisher.tar.gz"
+          curl \
+            --proto '=https' \
+            --tlsv1.2 \
+            --fail \
+            --silent \
+            --show-error \
+            --location \
+            --retry 3 \
+            --retry-all-errors \
+            --output "$archive" \
+            "https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz"
+          printf '%s  %s\n' \
+            'a06c9096dcb9727c13555b6be26c7effa707b01f06a4c561ba7a3635443cf2cc' \
+            "$archive" | sha256sum --check --strict
+          tar --extract --gzip --file "$archive" --directory "$RUNNER_TEMP" mcp-publisher
+          chmod 0755 "$RUNNER_TEMP/mcp-publisher"
+
+          expected_publisher_version="1.8.1"
+          version_output="$("$RUNNER_TEMP/mcp-publisher" --version 2>&1)"
+          if [[ ! "$version_output" =~ (^|[[:space:]])mcp-publisher[[:space:]]+([0-9]+\.[0-9]+\.[0-9]+)([[:space:]]|$) ]]; then
+            echo "::error::Unable to parse publisher version: $version_output"
+            exit 1
+          fi
+          actual_publisher_version="${BASH_REMATCH[2]}"
+          if [[ "$actual_publisher_version" != "$expected_publisher_version" ]]; then
+            echo "::error::Unexpected publisher version: $actual_publisher_version"
+            exit 1
+          fi
+
+      - name: Validate server.json
+        run: '"$RUNNER_TEMP/mcp-publisher" validate server.json'
+
+      - name: Check existing Registry version
+        id: registry
+        run: |
+          set -euo pipefail
+
+          encoded_name="$(jq --null-input --raw-output --arg value "$MCP_SERVER_NAME" '$value | @uri')"
+          response="$RUNNER_TEMP/registry-version.json"
+          url="https://registry.modelcontextprotocol.io/v0.1/servers/$encoded_name/versions/$MCP_SERVER_VERSION?include_deleted=true"
+          status="$(curl \
+            --proto '=https' \
+            --tlsv1.2 \
+            --silent \
+            --show-error \
+            --location \
+            --output "$response" \
+            --write-out '%{http_code}' \
+            "$url")"
+
+          case "$status" in
+            200)
+              jq --exit-status --slurpfile manifest server.json \
+                '.server == $manifest[0] and ._meta["io.modelcontextprotocol.registry/official"].status == "active"' \
+                "$response" >/dev/null || {
+                  echo "::error::Registry already contains this version with different metadata or a non-active status."
+                  exit 1
+                }
+              echo "publish_needed=false" >> "$GITHUB_OUTPUT"
+              ;;
+            404)
+              echo "publish_needed=true" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "::error::Registry preflight returned HTTP $status."
+              jq --compact-output . "$response" >&2 || true
+              exit 1
+              ;;
+          esac
+
+      - name: Authenticate with GitHub OIDC
+        if: steps.registry.outputs.publish_needed == 'true'
+        env:
+          XDG_CONFIG_HOME: ${{ runner.temp }}/mcp-publisher-config
+        run: >-
+          "$RUNNER_TEMP/mcp-publisher" login github-oidc
+          --registry=https://registry.modelcontextprotocol.io
+
+      - name: Publish server.json
+        if: steps.registry.outputs.publish_needed == 'true'
+        env:
+          XDG_CONFIG_HOME: ${{ runner.temp }}/mcp-publisher-config
+        run: '"$RUNNER_TEMP/mcp-publisher" publish server.json'
+
+      - name: Verify published Registry version
+        run: |
+          set -euo pipefail
+
+          encoded_name="$(jq --null-input --raw-output --arg value "$MCP_SERVER_NAME" '$value | @uri')"
+          response="$RUNNER_TEMP/published-registry-version.json"
+          url="https://registry.modelcontextprotocol.io/v0.1/servers/$encoded_name/versions/$MCP_SERVER_VERSION?include_deleted=true"
+
+          for _attempt in {1..10}; do
+            if status="$(curl \
+                --proto '=https' \
+                --tlsv1.2 \
+                --silent \
+                --show-error \
+                --location \
+                --output "$response" \
+                --write-out '%{http_code}' \
+                "$url")" && \
+              [[ "$status" == "200" ]] && \
+              jq --exit-status --slurpfile manifest server.json \
+                '.server == $manifest[0] and ._meta["io.modelcontextprotocol.registry/official"].status == "active"' \
+                "$response" >/dev/null; then
+              exit 0
+            fi
+            sleep 3
+          done
+
+          echo "::error::Published Registry version was not verified."
+          jq --compact-output . "$response" >&2 || true
+          exit 1
