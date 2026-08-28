@@ -2,7 +2,6 @@
 
 require "json"
 require "minitest/autorun"
-require "rexml/document"
 require "yaml"
 
 class DistributionContractTest < Minitest::Test
@@ -13,8 +12,7 @@ class DistributionContractTest < Minitest::Test
     server.json
     gemini-extension.json
     assets/fullenrich-icon.svg
-    assets/readme/hero.svg
-    assets/readme/workflow.svg
+    assets/readme/hero.png
     SECURITY.md
   ].freeze
   JSON_MANIFESTS = %w[plugin.json mcp.json server.json gemini-extension.json].freeze
@@ -216,8 +214,7 @@ class DistributionContractTest < Minitest::Test
 
   def test_readme_leads_with_the_remote_mcp_product_path
     assert_includes readme, "https://mcp.fullenrich.com/mcp"
-    assert_includes readme, "assets/readme/hero.svg"
-    assert_includes readme, "assets/readme/workflow.svg"
+    assert_includes readme, "assets/readme/hero.png"
     assert_includes readme, "Claude"
     assert_includes readme, "ChatGPT"
     assert_includes readme, "Grok"
@@ -231,17 +228,17 @@ class DistributionContractTest < Minitest::Test
     end
   end
 
-  def test_readme_visuals_have_accessible_svg_metadata
-    %w[assets/readme/hero.svg assets/readme/workflow.svg].each do |relative_path|
-      assert_path_exists relative_path
-      document = REXML::Document.new(File.read(File.join(ROOT, relative_path)))
-      root = document.root
+  def test_readme_hero_is_a_valid_accessible_png_asset
+    relative_path = "assets/readme/hero.png"
+    assert_path_exists relative_path
 
-      assert_equal "svg", root&.name, "#{relative_path} must have an SVG root"
-      refute_empty root.attributes["viewBox"].to_s, "#{relative_path} must declare a viewBox"
-      refute_empty root.elements["title"]&.text.to_s.strip, "#{relative_path} must have a title"
-      refute_empty root.elements["desc"]&.text.to_s.strip, "#{relative_path} must have a description"
-    end
+    payload = File.binread(File.join(ROOT, relative_path))
+    assert_equal "\x89PNG\r\n\x1A\n".b, payload.byteslice(0, 8)
+    assert_equal [1774, 887], payload.byteslice(16, 8).unpack("NN")
+    assert_match(/<img[^>]+assets\/readme\/hero\.png[^>]+alt="[^"]+"/i, readme)
+
+    refute_path_exists "assets/readme/hero.svg"
+    refute_path_exists "assets/readme/workflow.svg"
   end
 
   def test_readme_links_to_the_trust_center
@@ -342,6 +339,10 @@ class DistributionContractTest < Minitest::Test
 
   def assert_path_exists(relative_path)
     assert File.file?(File.join(ROOT, relative_path)), "Expected #{relative_path} to exist"
+  end
+
+  def refute_path_exists(relative_path)
+    refute File.exist?(File.join(ROOT, relative_path)), "Expected #{relative_path} not to exist"
   end
 
   def read_json(relative_path)

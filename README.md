@@ -1,24 +1,142 @@
-# FullEnrich MCP — B2B contact enrichment for AI agents
+# FullEnrich MCP
 
-[![License: MIT](https://img.shields.io/github/license/FullEnrich/fullenrich-skills)](./LICENSE)
-[![Version](https://img.shields.io/github/v/tag/FullEnrich/fullenrich-skills?label=version)](./CHANGELOG.md)
+<p align="center">
+  <img src="./assets/readme/hero.png" alt="FullEnrich MCP turns one prompt into verified work emails and mobile numbers through waterfall enrichment." width="1774">
+</p>
 
-[FullEnrich](https://fullenrich.com) finds verified B2B contact data (emails and mobile phone numbers) through waterfall enrichment across 25+ data providers. This repository is the official FullEnrich integration for AI agents: a remote MCP server and a Claude Code plugin with 9 guided skills for prospecting, enrichment, outreach, and recruiting.
+<p align="center">
+  <strong>Verified B2B contact data, directly inside your AI agent.</strong>
+</p>
 
-## Install
+<p align="center">
+  <a href="https://github.com/FullEnrich/fullenrich-skills/releases"><img alt="Version" src="https://img.shields.io/github/v/tag/FullEnrich/fullenrich-skills?label=version"></a>
+  <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/FullEnrich/fullenrich-skills"></a>
+</p>
 
-### Claude Code
+FullEnrich MCP lets an AI agent search for B2B people and companies, enrich verified work emails and mobile numbers, and export the results without leaving the conversation.
 
-Install the plugin to connect the MCP server and add the 9 skills:
+## Connect in under a minute
 
+Add this custom remote MCP URL to your AI client:
+
+```text
+https://mcp.fullenrich.com/mcp
 ```
+
+Then:
+
+1. Sign in with your FullEnrich account through OAuth.
+2. Ask the agent to check your credits or preview a search.
+3. Confirm before any paid enrichment or export.
+
+Try:
+
+> Find VP Sales at software companies in France, show me a preview, then enrich 10 contacts after I confirm.
+
+## Works with your AI platform
+
+FullEnrich is available as a **custom remote MCP connection** wherever the client supports remote Streamable HTTP servers and OAuth.
+
+| Platform | How to connect |
+|---|---|
+| **Claude** | Add the endpoint as a custom connector on supported Claude plans, or install the Claude Code plugin below. |
+| **ChatGPT** | Create a custom MCP app in ChatGPT developer mode. Availability and permissions depend on the workspace plan. |
+| **Grok** | Add the endpoint from Grok's **Connectors → New Connector → Custom** flow. |
+| **Gemini** | Use the remote MCP server from the Gemini API or install the Gemini CLI extension below. |
+| **Other MCP clients** | Add the endpoint to any client that supports remote Streamable HTTP and OAuth. |
+
+These are custom MCP connections. They do not imply a native marketplace listing. Platform availability, plan requirements, and permissions are controlled by each client.
+
+## What the agent can do
+
+```text
+Your prompt
+    ↓
+Search people or companies
+    ↓
+Preview results and check credits
+    ↓
+Confirm a paid action
+    ↓
+Run waterfall enrichment
+    ↓
+Return or export verified results
+```
+
+- **Search first.** Find the right people or companies with structured filters.
+- **Enrich second.** Run waterfall enrichment for verified work emails and mobile numbers.
+- **Export when ready.** Download contact, company, or enrichment results as CSV or JSON.
+- **Keep control.** FullEnrich shows the credit boundary before paid actions.
+
+## 13 MCP tools
+
+### Account and filter metadata
+
+| Tool | What it does |
+|---|---|
+| `get_credits` | Returns the current credit balance before paid actions. |
+| `list_industries` | Lists valid industry codes and labels for company filters. |
+| `list_seniorities` | Lists valid seniority levels for people filters. |
+| `list_functions_subfunctions` | Lists valid function and subfunction codes for people filters. |
+
+### Search
+
+| Tool | What it does |
+|---|---|
+| `search_people` | Searches people with structured contact and company filters. |
+| `search_companies` | Searches companies with structured company filters. |
+| `search_contact_by_email` | Finds a contact from an email address. |
+
+### Enrichment
+
+| Tool | What it does |
+|---|---|
+| `enrich_search_contact` | Enriches contacts matching search filters with verified emails and phones. |
+| `enrich_bulk` | Enriches multiple known contacts in one batch. |
+| `get_enrichment_results` | Polls status and fetches async or bulk enrichment results. |
+
+### Export
+
+| Tool | What it does |
+|---|---|
+| `export_contacts` | Exports contact search results to CSV. |
+| `export_companies` | Exports company search results to CSV. |
+| `export_enrichment_results` | Exports enrichment job results to CSV or JSON. |
+
+See the [complete MCP server reference](./fullenrich-mcp-documentation.md) for behavior, limitations, and reviewer guidance.
+
+## MCP plus guided skills
+
+The MCP server exposes reliable tools. The plugin adds nine skills that teach compatible agents how to combine those tools into complete workflows.
+
+| Skill | Workflow |
+|---|---|
+| `full-prospecting` | Find and enrich contacts matching an ICP. |
+| `full-csv` | Bulk-enrich a CSV with verified emails and phone numbers. |
+| `full-outreach` | Draft personalized emails, LinkedIn messages, and call scripts from enriched data. |
+| `full-sequence` | Design multi-touch outreach sequences with confirmation safeguards. |
+| `full-meeting` | Prepare a meeting brief with person and company context. |
+| `full-talent` | Source, enrich, and rank candidates for a role. |
+| `full-lookalike` | Find people similar to a reference LinkedIn profile. |
+| `full-org` | Map a company's team and identify relevant contacts. |
+| `full-crm` | Coordinate a separately connected CRM MCP after explicit confirmation. |
+
+Invoke a skill directly, such as `/full-prospecting`, or describe the outcome you want and let the client select the workflow.
+
+## Installation options
+
+### Claude Code plugin
+
+Install the remote MCP connection and all nine skills:
+
+```text
 /plugin marketplace add FullEnrich/fullenrich-skills
 /plugin install fullenrich@fullenrich
 ```
 
-### Cursor local install
+### Cursor local plugin
 
-Cursor loads root Agent Plugins from `~/.cursor/plugins/local`. Clone this repository directly into the local plugin directory:
+Cursor loads root Agent Plugins from `~/.cursor/plugins/local`:
 
 ```sh
 mkdir -p ~/.cursor/plugins/local
@@ -27,21 +145,19 @@ git clone https://github.com/FullEnrich/fullenrich-skills ~/.cursor/plugins/loca
 
 Alternatively, copy the complete repository directly into `~/.cursor/plugins/local/fullenrich`.
 
-Restart Cursor or run `Developer: Reload Window`, then verify that the 9 skills and the `fullenrich` MCP server appear. The package is not yet listed in the Cursor Marketplace.
+Restart Cursor or run `Developer: Reload Window`, then verify that the nine skills and the `fullenrich` MCP server appear. The package is not yet listed in the Cursor Marketplace.
 
-Registry publication is prepared under `io.github.FullEnrich/fullenrich`. It is not published until the official Registry API returns it.
-
-### Gemini CLI
-
-After this package is released, install the extension from the public repository:
+### Gemini CLI extension
 
 ```sh
 gemini extensions install https://github.com/FullEnrich/fullenrich-skills
 ```
 
-Gemini CLI loads the remote MCP server and the 9 skills. Authenticate with FullEnrich on the first MCP connection. The package is not yet listed in the Gemini CLI extension gallery; gallery discovery also requires the `gemini-cli-extension` GitHub topic.
+Gemini CLI loads the remote MCP server and the nine skills. Authenticate with FullEnrich on the first connection.
 
-Antigravity CLI can convert the installed extension, including its skills and MCP configuration, into a native plugin:
+The package is not yet listed in the Gemini CLI extension gallery. Gallery discovery also requires the `gemini-cli-extension` GitHub topic.
+
+Antigravity CLI can convert the installed Gemini extension into a native plugin:
 
 ```sh
 agy plugin import gemini
@@ -51,15 +167,40 @@ agy plugin import gemini
 
 The repository root follows Agent Plugins 1.0. Point a compatible client's local plugin loader at this directory. Installation remains client-specific.
 
-### MCP only
+## Technical details
 
-Connect the public endpoint from any MCP-compatible client:
+| Property | Value |
+|---|---|
+| Endpoint | `https://mcp.fullenrich.com/mcp` |
+| Transport | Streamable HTTP |
+| Authentication | OAuth 2.1 browser flow |
+| Static API key | Not required |
+| Tools | 13 |
+| Guided skills | 9 |
+| Registry name | `io.github.FullEnrich/fullenrich` |
 
+The official MCP Registry listing is active at **v1.0.3**.
+
+Minimal configuration:
+
+```json
+{
+  "mcpServers": {
+    "fullenrich": {
+      "type": "streamable-http",
+      "url": "https://mcp.fullenrich.com/mcp"
+    }
+  }
+}
 ```
-https://mcp.fullenrich.com/mcp
-```
 
-On first use, authenticate with your FullEnrich account (OAuth). You need a FullEnrich workspace with credits.
+## Credits, confirmations, and safety
+
+- Checking credits is free.
+- Search previews are free within the MCP preview limit.
+- Enrichment and exports can consume credits.
+- Preview the scope and check the balance before larger runs.
+- Require explicit confirmation before paid enrichment, exports, or batch actions.
 
 ## Capability boundary
 
@@ -67,54 +208,23 @@ FullEnrich MCP searches B2B people and companies, enriches contacts, and exports
 
 The `full-crm` skill can orchestrate a separately connected CRM MCP. It checks field mapping and duplicates, then requires explicit confirmation before the separate CRM connector creates or updates records.
 
-## Why FullEnrich
-
-- **Waterfall enrichment across 25+ providers.** Each contact is looked up provider by provider until a verified email or phone number is found. Coverage is higher than any single data source.
-- **Credits refunded on invalid data.** You pay for a verified contact, not a query. If a contact comes back invalid, the credits are refunded.
-- **Free preview, paid enrichment.** Search previews are free (within the MCP preview limit). Exporting search results and enriching contacts cost credits: about 1 credit per email found, 10 per phone found. The skills always state the estimated cost before spending.
-- **Remote MCP server with OAuth 2.1.** No API key to copy around. The server at `https://mcp.fullenrich.com/mcp` uses the standard OAuth 2.1 flow and works from any MCP client (Claude, Cursor, Windsurf, custom agents).
-
-## Skills
-
-| Skill | What it does |
-|---|---|
-| `full-prospecting` | Find and enrich B2B contacts matching an ICP (title, industry, location, company size) |
-| `full-csv` | Bulk-enrich a CSV of contacts with verified emails and phone numbers |
-| `full-outreach` | Draft hyper-personalized cold emails, LinkedIn DMs, and call scripts from enriched data |
-| `full-sequence` | Design and deploy multi-touch outreach sequences |
-| `full-meeting` | Brief before a meeting: profile, company context, talking points |
-| `full-talent` | Source, enrich, and rank candidates for a role |
-| `full-lookalike` | Find people similar to a given LinkedIn profile (ICP expansion) |
-| `full-org` | Map a company's team structure and identify who to contact |
-| `full-crm` | Coordinate a separately connected CRM MCP, with explicit confirmation before any create or update |
-
-Invoke them directly (e.g. `/full-prospecting`) or just describe what you want and Claude picks the right skill.
-
-## Example prompts
-
-- "Find me 20 VP Sales in Software Development companies in France, enrich their emails"
-- "Enrich this CSV with emails and phones"
-- "I have a call with [name] at [company] tomorrow, brief me"
-- "Map the org chart of [company] and tell me who to talk to"
-
-## What's in this repo
+## What's in this repository
 
 - `plugin.json` — portable Agent Plugins 1.0 manifest
-- `mcp.json` — portable MCP connection for `https://mcp.fullenrich.com/mcp`
-- `server.json` — MCP Registry metadata prepared for `io.github.FullEnrich/fullenrich`; this file alone is not evidence of a live listing
+- `mcp.json` — portable Streamable HTTP MCP configuration
+- `server.json` — active official MCP Registry metadata for `io.github.FullEnrich/fullenrich`
 - `gemini-extension.json` — Gemini CLI extension manifest
-- `.claude-plugin/plugin.json` — plugin manifest
-- `.claude-plugin/marketplace.json` — self-hosted plugin marketplace
-- `.mcp.json` — connects the FullEnrich MCP server (`https://mcp.fullenrich.com/mcp`)
-- `skills/` — the 9 skills
-- `fullenrich-mcp-documentation.md` — MCP server tool reference
+- `.claude-plugin/` — Claude Code plugin and marketplace manifests
+- `.mcp.json` — Claude-compatible remote MCP configuration
+- `skills/` — the nine guided skills
+- `fullenrich-mcp-documentation.md` — complete MCP tool reference
 
 ## Links
 
 - [FullEnrich](https://fullenrich.com)
+- [Documentation](https://docs.fullenrich.com)
 - [Help center](https://help.fullenrich.com)
 - [Pricing](https://fullenrich.com/pricing)
-- [Documentation](https://docs.fullenrich.com)
 - [Privacy policy](https://fullenrich.com/privacy-policy)
 - [Trust Center](https://fullenrich.com/trust)
 - [Support](mailto:support@fullenrich.com)
