@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4 — 2026-08-27
+
+- Link the public FullEnrich distribution repository from `server.json` for GitHub Copilot review and display
+- Correct the README to reflect the live official MCP Registry listing
+
 ## 1.0.3 — 2026-08-11
 
 - Correct the MCP Registry name to the case-sensitive GitHub organization namespace `io.github.FullEnrich/fullenrich`

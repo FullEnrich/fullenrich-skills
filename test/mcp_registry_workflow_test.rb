@@ -140,7 +140,7 @@ class McpRegistryWorkflowTest < Minitest::Test
 
         refute status.success?, "Expected #{manifest_path} version mismatch to fail"
         assert_includes "#{stdout}\n#{stderr}",
-          "#{manifest_path} version 9.9.9 does not match 1.0.3"
+          "#{manifest_path} version 9.9.9 does not match 1.0.4"
       end
     end
   end
@@ -190,7 +190,7 @@ class McpRegistryWorkflowTest < Minitest::Test
       "GITHUB_ENV" => File.join(directory, "github-env"),
       "GITHUB_REPOSITORY_OWNER" => "FullEnrich"
     }
-    script = "set -euo pipefail\nrelease_tag=v1.0.3\n#{manifest_guard_script}"
+    script = "set -euo pipefail\nrelease_tag=v1.0.4\n#{manifest_guard_script}"
 
     Open3.capture3(env, "bash", "-c", script, chdir: directory)
   end
@@ -205,7 +205,7 @@ class McpRegistryWorkflowTest < Minitest::Test
         "gemini-extension.json" => "fullenrich"
       }
       manifests.each do |path, name|
-        payload = { "name" => name, "version" => versions.fetch(path, "1.0.3") }
+        payload = { "name" => name, "version" => versions.fetch(path, "1.0.4") }
         File.write(File.join(directory, path), JSON.generate(payload))
       end
 
