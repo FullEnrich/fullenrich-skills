@@ -2,6 +2,7 @@
 
 require "json"
 require "minitest/autorun"
+require "rexml/document"
 require "yaml"
 
 class DistributionContractTest < Minitest::Test
@@ -12,6 +13,8 @@ class DistributionContractTest < Minitest::Test
     server.json
     gemini-extension.json
     assets/fullenrich-icon.svg
+    assets/readme/hero.svg
+    assets/readme/workflow.svg
     SECURITY.md
   ].freeze
   JSON_MANIFESTS = %w[plugin.json mcp.json server.json gemini-extension.json].freeze
@@ -35,6 +38,21 @@ class DistributionContractTest < Minitest::Test
     full-prospecting
     full-sequence
     full-talent
+  ].freeze
+  EXPECTED_MCP_TOOLS = %w[
+    get_credits
+    list_industries
+    list_seniorities
+    list_functions_subfunctions
+    search_people
+    search_companies
+    search_contact_by_email
+    enrich_search_contact
+    enrich_bulk
+    get_enrichment_results
+    export_contacts
+    export_companies
+    export_enrichment_results
   ].freeze
   AGENT_SKILLS_FRONTMATTER_KEYS = %w[
     allowed-tools
@@ -196,6 +214,36 @@ class DistributionContractTest < Minitest::Test
     assert_includes readme, "https://fullenrich.com/privacy-policy"
   end
 
+  def test_readme_leads_with_the_remote_mcp_product_path
+    assert_includes readme, "https://mcp.fullenrich.com/mcp"
+    assert_includes readme, "assets/readme/hero.svg"
+    assert_includes readme, "assets/readme/workflow.svg"
+    assert_includes readme, "Claude"
+    assert_includes readme, "ChatGPT"
+    assert_includes readme, "Grok"
+    assert_includes readme, "Gemini API"
+    assert_match(/custom remote MCP/i, readme)
+  end
+
+  def test_readme_lists_every_mcp_tool
+    EXPECTED_MCP_TOOLS.each do |tool|
+      assert_includes readme, "`#{tool}`"
+    end
+  end
+
+  def test_readme_visuals_have_accessible_svg_metadata
+    %w[assets/readme/hero.svg assets/readme/workflow.svg].each do |relative_path|
+      assert_path_exists relative_path
+      document = REXML::Document.new(File.read(File.join(ROOT, relative_path)))
+      root = document.root
+
+      assert_equal "svg", root&.name, "#{relative_path} must have an SVG root"
+      refute_empty root.attributes["viewBox"].to_s, "#{relative_path} must declare a viewBox"
+      refute_empty root.elements["title"]&.text.to_s.strip, "#{relative_path} must have a title"
+      refute_empty root.elements["desc"]&.text.to_s.strip, "#{relative_path} must have a description"
+    end
+  end
+
   def test_readme_links_to_the_trust_center
     assert_includes readme, "https://fullenrich.com/trust"
   end
@@ -211,11 +259,11 @@ class DistributionContractTest < Minitest::Test
     assert_includes readme, "explicit confirmation"
   end
 
-  def test_readme_documents_portable_local_install_and_registry_prepublication_status
+  def test_readme_documents_portable_local_install_and_active_registry_status
     assert_includes readme, "Agent Plugins"
     assert_includes readme, "~/.cursor/plugins/local"
     assert_includes readme, "io.github.FullEnrich/fullenrich"
-    assert_match(/not published until the official Registry API returns it/i, readme)
+    assert_match(/official MCP Registry.+active.+v1\.0\.3/i, readme)
   end
 
   def test_readme_cursor_install_keeps_the_checkout_inside_the_plugin_root
