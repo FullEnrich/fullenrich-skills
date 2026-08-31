@@ -45,10 +45,15 @@ class DistributionContractTest < Minitest::Test
     name
   ].freeze
   MCP_ENDPOINT = "https://mcp.fullenrich.com/mcp"
-  PACKAGE_VERSION = "1.0.3"
+  PACKAGE_VERSION = "1.0.4"
   AGENT_PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
   AGENT_PLUGIN_MCP_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
   MCP_REGISTRY_SCHEMA = "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json"
+  PUBLIC_REPOSITORY = {
+    "url" => "https://github.com/FullEnrich/fullenrich-skills",
+    "source" => "github",
+    "id" => "1184562208"
+  }.freeze
   CRM_TARGET = /(?:CRMs?|HubSpot|Salesforce|Attio|Pipedrive)/i
   DIRECT_CRM_ACTION = /(?:
     sync(?:s|ed|ing)? |
@@ -109,7 +114,7 @@ class DistributionContractTest < Minitest::Test
   end
 
   def test_changelog_documents_the_current_release
-    assert_includes changelog, "## #{PACKAGE_VERSION} — 2026-08-11"
+    assert_includes changelog, "## #{PACKAGE_VERSION} — 2026-08-27"
   end
 
   def test_plugin_uses_the_agent_plugins_schema_and_name
@@ -170,11 +175,10 @@ class DistributionContractTest < Minitest::Test
     assert_equal MCP_REGISTRY_SCHEMA, read_json("server.json").fetch("$schema")
   end
 
-  def test_registry_manifest_does_not_claim_the_skills_repo_as_server_source
+  def test_registry_manifest_points_copilot_reviewers_to_the_public_distribution_repository
     server = read_json("server.json")
 
-    refute server.key?("repository"),
-      "server.json must not identify the public skills repository as the private MCP server source"
+    assert_equal PUBLIC_REPOSITORY, server.fetch("repository")
   end
 
   def test_registry_manifest_declares_the_expected_remote
@@ -211,11 +215,11 @@ class DistributionContractTest < Minitest::Test
     assert_includes readme, "explicit confirmation"
   end
 
-  def test_readme_documents_portable_local_install_and_registry_prepublication_status
+  def test_readme_documents_portable_local_install_and_live_registry_status
     assert_includes readme, "Agent Plugins"
     assert_includes readme, "~/.cursor/plugins/local"
     assert_includes readme, "io.github.FullEnrich/fullenrich"
-    assert_match(/not published until the official Registry API returns it/i, readme)
+    assert_match(/published in the official MCP Registry/i, readme)
   end
 
   def test_readme_cursor_install_keeps_the_checkout_inside_the_plugin_root
