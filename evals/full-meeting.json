@@ -1,0 +1,18 @@
+{
+  "skill": "full-meeting",
+  "cases": [
+    { "input": "I have a call with Sarah Chen at Stripe in 30 minutes", "expect": "trigger" },
+    { "input": "Brief me on this person: linkedin.com/in/johndoe", "expect": "trigger" },
+    { "input": "Prep my meeting with the CEO of Dust", "expect": "trigger" },
+    { "input": "Who is Stanislas Polu?", "expect": "trigger" },
+    { "input": "Help me prepare for my 2pm meeting", "expect": "trigger" },
+    { "input": "Meeting prep for tomorrow's call with the VP Engineering", "expect": "trigger" },
+    { "input": "I need background on someone before a call", "expect": "trigger" },
+    { "input": "Research this person before my interview with them", "expect": "trigger" },
+    { "input": "Find me 20 VP Sales in France", "expect": "no_trigger", "note": "full-prospecting" },
+    { "input": "Map the org chart at Stripe", "expect": "no_trigger", "note": "full-org" },
+    { "input": "Draft a cold email", "expect": "no_trigger", "note": "full-outreach" },
+    { "input": "Source candidates for a role", "expect": "no_trigger", "note": "full-talent" },
+    { "input": "Enrich this CSV", "expect": "no_trigger", "note": "full-csv" }
+  ]
+}

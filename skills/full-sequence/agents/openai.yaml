@@ -1,0 +1,11 @@
+interface:
+  display_name: "FullEnrich Sequence"
+  short_description: "Design and deploy multi-touch outreach sequences"
+  default_prompt: "Use $full-sequence to build a 5-touch email + LinkedIn sequence."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "fullenrich"
+      description: "FullEnrich MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.fullenrich.com/mcp"

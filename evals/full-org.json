@@ -1,0 +1,18 @@
+{
+  "skill": "full-org",
+  "cases": [
+    { "input": "Map the org chart at Stripe", "expect": "trigger" },
+    { "input": "Who works at dust.tt?", "expect": "trigger" },
+    { "input": "Show me the team structure at Datadog", "expect": "trigger" },
+    { "input": "I want to sell a DevOps tool to Datadog — who should I talk to?", "expect": "trigger" },
+    { "input": "Organigramme de Alan", "expect": "trigger" },
+    { "input": "Show me the leadership team at Mistral AI", "expect": "trigger" },
+    { "input": "Account map for this company", "expect": "trigger" },
+    { "input": "Who should I talk to at this company for a partnership?", "expect": "trigger" },
+    { "input": "Find me 20 VP Sales", "expect": "no_trigger", "note": "full-prospecting" },
+    { "input": "Find similar profiles", "expect": "no_trigger", "note": "full-lookalike" },
+    { "input": "Source candidates for a role", "expect": "no_trigger", "note": "full-talent" },
+    { "input": "Brief me before my meeting", "expect": "no_trigger", "note": "full-meeting" },
+    { "input": "Draft outreach messages", "expect": "no_trigger", "note": "full-outreach" }
+  ]
+}

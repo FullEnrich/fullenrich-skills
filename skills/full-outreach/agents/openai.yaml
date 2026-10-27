@@ -1,0 +1,11 @@
+interface:
+  display_name: "FullEnrich Outreach"
+  short_description: "Draft personalized cold emails, LinkedIn DMs, or call scripts"
+  default_prompt: "Use $full-outreach to draft cold emails for these 10 enriched contacts."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "fullenrich"
+      description: "FullEnrich MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.fullenrich.com/mcp"

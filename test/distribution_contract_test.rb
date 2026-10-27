@@ -294,6 +294,98 @@ class DistributionContractTest < Minitest::Test
     refute_match(/\A# FullEnrich MCP\n\n10 MCP tools\b/, mcp_documentation)
   end
 
+  def test_shared_reference_copies_are_identical_to_source
+    source = File.read(File.join(ROOT, "shared", "fullenrich-reference.md"))
+
+    EXPECTED_SKILLS.each do |skill_name|
+      copy_path = File.join(ROOT, "skills", skill_name, "references", "fullenrich-reference.md")
+      assert File.file?(copy_path), "Expected #{copy_path} to exist"
+      assert_equal source, File.read(copy_path),
+        "skills/#{skill_name}/references/fullenrich-reference.md differs from shared/fullenrich-reference.md"
+    end
+  end
+
+  def test_openai_yaml_exists_for_every_skill
+    EXPECTED_SKILLS.each do |skill_name|
+      yaml_path = File.join(ROOT, "skills", skill_name, "agents", "openai.yaml")
+      assert File.file?(yaml_path), "Expected #{yaml_path} to exist"
+
+      config = YAML.safe_load(File.read(yaml_path), permitted_classes: [], aliases: false)
+      assert_kind_of Hash, config
+      assert config.dig("interface", "display_name"), "Missing interface.display_name in #{yaml_path}"
+      assert config.dig("interface", "short_description"), "Missing interface.short_description in #{yaml_path}"
+      assert config.dig("dependencies", "tools"), "Missing dependencies.tools in #{yaml_path}"
+
+      mcp_tool = config.dig("dependencies", "tools")&.find { |t| t["type"] == "mcp" }
+      assert mcp_tool, "Expected an MCP tool dependency in #{yaml_path}"
+      assert_equal "fullenrich", mcp_tool["value"]
+      assert_equal MCP_ENDPOINT, mcp_tool["url"]
+    end
+  end
+
+  # Description and body quality tests — these enforce the rewritten skill format.
+  # They are expected to pass once PR2 (descriptions) and PR3-5 (bodies) land.
+
+  def test_skill_descriptions_are_at_most_300_characters
+    EXPECTED_SKILLS.each do |skill_name|
+      desc = skill_frontmatter(skill_name)["description"].to_s
+      assert desc.length <= 300,
+        "skills/#{skill_name} description is #{desc.length} chars (max 300): #{desc[0..80]}..."
+    end
+  end
+
+  def test_skill_descriptions_do_not_contain_persona_phrases
+    EXPECTED_SKILLS.each do |skill_name|
+      desc = skill_frontmatter(skill_name)["description"].to_s
+      refute_match(/\bActs as\b/i, desc,
+        "skills/#{skill_name} description contains 'Acts as' — descriptions should not assign personas")
+      refute_match(/\bYou are\b/i, desc,
+        "skills/#{skill_name} description contains 'You are' — descriptions should not assign personas")
+    end
+  end
+
+  def test_skill_bodies_do_not_have_persona_heading
+    EXPECTED_SKILLS.each do |skill_name|
+      body = File.read(File.join(ROOT, "skills", skill_name, "SKILL.md"))
+      refute_match(/^## Persona\b/, body,
+        "skills/#{skill_name}/SKILL.md contains '## Persona' heading — remove persona blocks")
+    end
+  end
+
+  def test_skill_bodies_do_not_have_level_metadata
+    EXPECTED_SKILLS.each do |skill_name|
+      body = File.read(File.join(ROOT, "skills", skill_name, "SKILL.md"))
+      refute_match(/^\*\*Level:\*\*/, body,
+        "skills/#{skill_name}/SKILL.md contains '**Level:**' — remove level metadata")
+    end
+  end
+
+  def test_plugin_json_has_openai_interface_extension
+    plugin = read_json("plugin.json")
+    openai = plugin.dig("extensions", "com.openai.interface")
+
+    assert openai, "plugin.json must have extensions.com.openai.interface"
+    assert openai["displayName"], "Missing displayName in OpenAI interface extension"
+    assert openai["category"], "Missing category in OpenAI interface extension"
+  end
+
+  def test_eval_files_exist_for_every_skill
+    EXPECTED_SKILLS.each do |skill_name|
+      eval_path = File.join(ROOT, "evals", "#{skill_name}.json")
+      assert File.file?(eval_path), "Expected #{eval_path} to exist"
+
+      data = JSON.parse(File.read(eval_path))
+      assert_equal skill_name, data["skill"]
+      assert_kind_of Array, data["cases"]
+      assert data["cases"].length >= 8, "Expected at least 8 eval cases for #{skill_name}"
+
+      triggers = data["cases"].select { |c| c["expect"] == "trigger" }
+      no_triggers = data["cases"].select { |c| c["expect"] == "no_trigger" }
+      assert triggers.length >= 5, "Expected at least 5 trigger cases for #{skill_name}"
+      assert no_triggers.length >= 3, "Expected at least 3 no_trigger cases for #{skill_name}"
+    end
+  end
+
   private
 
   def assert_path_exists(relative_path)

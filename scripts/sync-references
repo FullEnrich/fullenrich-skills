@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Copies shared/fullenrich-reference.md into each skill's references/ directory.
+# Each skill folder must remain self-contained for ChatGPT/Codex compatibility.
+set -euo pipefail
+
+root="$(cd "$(dirname "$0")/.." && pwd)"
+source="$root/shared/fullenrich-reference.md"
+
+if [[ ! -f "$source" ]]; then
+  echo "error: $source not found" >&2
+  exit 1
+fi
+
+for skill_dir in "$root"/skills/full-*/; do
+  dest="$skill_dir/references"
+  mkdir -p "$dest"
+  cp "$source" "$dest/fullenrich-reference.md"
+done
+
+echo "Synced fullenrich-reference.md to $(ls -d "$root"/skills/full-*/ | wc -l) skills."

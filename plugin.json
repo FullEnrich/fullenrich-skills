@@ -19,5 +19,16 @@
     "mcp",
     "sales",
     "recruiting"
-  ]
+  ],
+  "extensions": {
+    "com.openai.interface": {
+      "displayName": "FullEnrich",
+      "shortDescription": "Search B2B contacts, enrich verified emails and phone numbers, and export results.",
+      "developerName": "FullEnrich",
+      "category": "Sales",
+      "privacyPolicyUrl": "https://fullenrich.com/privacy-policy",
+      "termsOfServiceUrl": "https://fullenrich.com/trust",
+      "defaultPrompt": "Find 20 VP Sales in Software Development companies in France and enrich their emails."
+    }
+  }
 }

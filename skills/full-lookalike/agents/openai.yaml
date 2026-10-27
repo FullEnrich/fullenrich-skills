@@ -1,0 +1,11 @@
+interface:
+  display_name: "FullEnrich Lookalike"
+  short_description: "Find people similar to a LinkedIn profile"
+  default_prompt: "Use $full-lookalike to find 10 profiles like linkedin.com/in/sarah-chen."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "fullenrich"
+      description: "FullEnrich MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.fullenrich.com/mcp"

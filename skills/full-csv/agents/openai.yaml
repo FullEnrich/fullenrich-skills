@@ -1,0 +1,11 @@
+interface:
+  display_name: "FullEnrich CSV Enrichment"
+  short_description: "Enrich a CSV of contacts with verified emails and phones"
+  default_prompt: "Use $full-csv to enrich this uploaded contact list."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "fullenrich"
+      description: "FullEnrich MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.fullenrich.com/mcp"
