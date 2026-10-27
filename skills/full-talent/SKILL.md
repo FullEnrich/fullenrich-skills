@@ -37,7 +37,7 @@ Call `fullenrich:get_credits`. Estimate: [count] × ~11 credits (email + phone).
 
 If industry filter → call `fullenrich:list_industries`. Call `fullenrich:search_people` as preview. If volume < requested → suggest adjustments.
 
-Show cost estimate, wait for explicit "yes", then call `fullenrich:enrich_search_contact` once with `["contact.work_emails", "contact.phones"]`. Poll → export.
+Show cost estimate, wait for explicit "yes", then call `fullenrich:enrich_search_contact` once with `limit` set to the exact count the user confirmed and fields `["contact.work_emails", "contact.phones"]` — the default limit is 10000, so omitting it will enrich far more contacts than the user approved. Poll `fullenrich:get_enrichment_results` every ~20s (progress only). After FINISHED, call `fullenrich:export_contacts` (csv) for all results.
 
 ### 4. Rank
 

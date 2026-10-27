@@ -370,12 +370,36 @@ class DistributionContractTest < Minitest::Test
   end
 
   CREDIT_CONSUMING_TOOLS = %w[
+    fullenrich:search_contact_by_email
     fullenrich:enrich_search_contact
     fullenrich:enrich_bulk
     fullenrich:export_contacts
     fullenrich:export_companies
     fullenrich:export_enrichment_results
   ].freeze
+
+  def test_credit_consuming_tools_list_matches_shared_reference
+    reference = File.read(File.join(ROOT, "shared", "fullenrich-reference.md"))
+    credit_section = reference[reference.index("### Credit-consuming")..]
+
+    CREDIT_CONSUMING_TOOLS.each do |tool|
+      assert_includes credit_section, tool,
+        "Test constant CREDIT_CONSUMING_TOOLS lists #{tool} but the shared reference " \
+        "does not include it in the credit-consuming section — keep them in sync"
+    end
+  end
+
+  def test_enrich_search_contact_always_has_explicit_limit
+    EXPECTED_SKILLS.each do |skill_name|
+      body = File.read(File.join(ROOT, "skills", skill_name, "SKILL.md"))
+      next unless body.include?("fullenrich:enrich_search_contact")
+
+      assert_match(/\blimit\b/i, body,
+        "skills/#{skill_name}/SKILL.md calls fullenrich:enrich_search_contact but does not " \
+        "mention `limit` — omitting limit uses the default (10000) and can enrich far more " \
+        "contacts than the user confirmed")
+    end
+  end
 
   def test_skills_mentioning_credit_consuming_tools_include_inline_credit_confirmation
     EXPECTED_SKILLS.each do |skill_name|

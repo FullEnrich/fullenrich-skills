@@ -18,12 +18,12 @@ Use the canonical `fullenrich:<tool>` form when referencing tools in skill instr
 | `fullenrich:list_functions_subfunctions` | Valid function/subfunction codes for people filters |
 | `fullenrich:search_people` | Search people (max 20 results, no pagination); use `metadata.total` for volume |
 | `fullenrich:search_companies` | Search companies with structured filters |
-| `fullenrich:search_contact_by_email` | Reverse-lookup a contact from an email address |
 
 ### Credit-consuming
 
 | Tool | Purpose |
 |------|---------|
+| `fullenrich:search_contact_by_email` | Reverse-lookup a contact from an email address (costs credits despite the name) |
 | `fullenrich:enrich_search_contact` | Enrich contacts matching search filters (~1 credit/email, ~10/phone) |
 | `fullenrich:enrich_bulk` | Batch-enrich known contacts (max 100 per call) |
 | `fullenrich:get_enrichment_results` | Poll async enrichment status; returns max 10 results — never use for final data |
