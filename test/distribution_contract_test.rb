@@ -45,7 +45,7 @@ class DistributionContractTest < Minitest::Test
     name
   ].freeze
   MCP_ENDPOINT = "https://mcp.fullenrich.com/mcp"
-  PACKAGE_VERSION = "1.0.4"
+  PACKAGE_VERSION = "1.1.0"
   AGENT_PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
   AGENT_PLUGIN_MCP_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
   MCP_REGISTRY_SCHEMA = "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json"
@@ -114,7 +114,7 @@ class DistributionContractTest < Minitest::Test
   end
 
   def test_changelog_documents_the_current_release
-    assert_includes changelog, "## #{PACKAGE_VERSION} — 2026-08-27"
+    assert_includes changelog, "## #{PACKAGE_VERSION} — 2026-10-27"
   end
 
   def test_plugin_uses_the_agent_plugins_schema_and_name

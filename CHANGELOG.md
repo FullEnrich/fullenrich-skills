@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.0 — 2026-10-27
+
+- Rewrite all 9 skills following Anthropic/OpenAI agent skills best practices
+- Remove persona blocks, level metadata, and example sections from all skills
+- Add shared MCP reference (shared/fullenrich-reference.md) with tool names, response schema, statuses, and business rules
+- Add sync script (scripts/sync-references) to keep per-skill reference copies identical
+- Add OpenAI Codex/ChatGPT compatibility manifests (agents/openai.yaml per skill)
+- Add extensions.com.openai.interface to plugin.json
+- Add trigger/no-trigger eval files for all 9 skills (evals/)
+- Add CI tests for reference sync, OpenAI manifests, description length, and persona/level guards
+- Reduce total skill line count from 1751 to 555 (-68%) while preserving all business constraints
+
 ## 1.0.4 — 2026-08-27
 
 - Link the public FullEnrich distribution repository from `server.json` for GitHub Copilot review and display
