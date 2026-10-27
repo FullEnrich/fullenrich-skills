@@ -46,7 +46,7 @@ For each lookalike, present: name, title, company, industry, headcount, LinkedIn
 
 ### 5. Optional enrichment
 
-If the user wants emails/phones, follow the standard credit-confirmation flow: `fullenrich:get_credits` → estimate → wait for "yes" → `fullenrich:enrich_search_contact` (once) → poll → `fullenrich:export_contacts`.
+If the user wants emails/phones: call `fullenrich:get_credits` first. Show: "Enriching [N] contacts will cost ~[estimate] credits. You have [balance]. Proceed?" — credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once with the same filters. Poll `fullenrich:get_enrichment_results`, then `fullenrich:export_contacts` (csv).
 
 ## Gotchas
 

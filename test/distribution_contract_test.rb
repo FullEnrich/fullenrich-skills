@@ -369,6 +369,34 @@ class DistributionContractTest < Minitest::Test
     assert openai["category"], "Missing category in OpenAI interface extension"
   end
 
+  CREDIT_CONSUMING_TOOLS = %w[
+    fullenrich:enrich_search_contact
+    fullenrich:enrich_bulk
+    fullenrich:export_contacts
+    fullenrich:export_companies
+    fullenrich:export_enrichment_results
+  ].freeze
+
+  def test_skills_mentioning_credit_consuming_tools_include_inline_credit_confirmation
+    EXPECTED_SKILLS.each do |skill_name|
+      body = File.read(File.join(ROOT, "skills", skill_name, "SKILL.md"))
+
+      mentions_credit_tool = CREDIT_CONSUMING_TOOLS.any? { |tool| body.include?(tool) }
+      next unless mentions_credit_tool
+
+      assert_includes body, "fullenrich:get_credits",
+        "skills/#{skill_name}/SKILL.md mentions a credit-consuming tool but does not mention " \
+        "fullenrich:get_credits — the credit check must be inline, not delegated to a reference"
+
+      has_confirmation = body.match?(/explicit.{0,20}(?:yes|confirm)/i) ||
+                         body.match?(/wait.{0,30}(?:yes|confirm)/i) ||
+                         body.match?(/after.{0,30}(?:yes|confirm)/i)
+      assert has_confirmation,
+        "skills/#{skill_name}/SKILL.md mentions a credit-consuming tool but does not include " \
+        "an explicit confirmation step (wait for yes/confirm) — enrichment cannot be undone"
+    end
+  end
+
   def test_eval_files_exist_for_every_skill
     EXPECTED_SKILLS.each do |skill_name|
       eval_path = File.join(ROOT, "evals", "#{skill_name}.json")

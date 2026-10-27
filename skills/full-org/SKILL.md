@@ -57,7 +57,7 @@ For each recommended person: name, title, LinkedIn URL, why they're the right co
 
 ### 7. Optional enrichment
 
-If the user wants email/phone for recommended contacts, follow the standard credit-confirmation flow.
+If the user wants email/phone for recommended contacts: call `fullenrich:get_credits` first. Show: "Enriching [N] contacts will cost ~[estimate] credits (email + phone). You have [balance]. Proceed?" — credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once. Poll `fullenrich:get_enrichment_results`, then `fullenrich:export_contacts` (csv).
 
 ## Org chart analysis
 

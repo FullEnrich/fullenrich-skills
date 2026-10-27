@@ -36,9 +36,9 @@ Call `fullenrich:search_people` to validate filters and volume. Show: "[total] c
 
 ### 4. Confirm and enrich
 
-Show cost estimate and current balance. Wait for the user's explicit "yes" before proceeding.
+No credits are spent until the user says "yes". Show: "[X] contacts found. Enriching [N] with [fields] will cost ~[estimate] credits. You have [balance]. Proceed?" — credits are the user's money and enrichment cannot be undone.
 
-Call `fullenrich:enrich_search_contact` once with the same filters and the user's requested `limit` (never the default 10000).
+Only after explicit confirmation, call `fullenrich:enrich_search_contact` once with the same filters and the user's requested `limit` (never the default 10000).
 
 ### 5. Poll and export
 
