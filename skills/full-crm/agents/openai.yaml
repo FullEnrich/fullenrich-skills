@@ -1,0 +1,11 @@
+interface:
+  display_name: "FullEnrich CRM Push"
+  short_description: "Push enriched contacts to a CRM via a separately connected MCP"
+  default_prompt: "Use $full-crm to push these enriched contacts to HubSpot."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "fullenrich"
+      description: "FullEnrich MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.fullenrich.com/mcp"

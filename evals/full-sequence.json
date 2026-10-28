@@ -1,0 +1,18 @@
+{
+  "skill": "full-sequence",
+  "cases": [
+    { "input": "Build me a 5-touch outreach sequence", "expect": "trigger" },
+    { "input": "Create a sequence and push it to my sequencer", "expect": "trigger" },
+    { "input": "Design a multi-touch campaign: email, LinkedIn, then phone", "expect": "trigger" },
+    { "input": "Set up a drip sequence with follow-ups", "expect": "trigger" },
+    { "input": "Build a cadence for these contacts", "expect": "trigger" },
+    { "input": "Create follow-up emails after the first cold email", "expect": "trigger" },
+    { "input": "Multi-touch outreach plan for 20 leads", "expect": "trigger" },
+    { "input": "Set up follow-ups for my outreach campaign", "expect": "trigger" },
+    { "input": "Draft a single cold email", "expect": "no_trigger", "note": "full-outreach" },
+    { "input": "Write a LinkedIn DM", "expect": "no_trigger", "note": "full-outreach" },
+    { "input": "Find me 20 VP Sales", "expect": "no_trigger", "note": "full-prospecting" },
+    { "input": "Push contacts to HubSpot", "expect": "no_trigger", "note": "full-crm" },
+    { "input": "Enrich this CSV", "expect": "no_trigger", "note": "full-csv" }
+  ]
+}

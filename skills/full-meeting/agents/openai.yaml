@@ -1,0 +1,11 @@
+interface:
+  display_name: "FullEnrich Meeting Prep"
+  short_description: "Brief before a meeting with profile and talking points"
+  default_prompt: "Use $full-meeting to prep my call with the VP Engineering at Stripe."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "fullenrich"
+      description: "FullEnrich MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.fullenrich.com/mcp"
