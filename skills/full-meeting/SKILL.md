@@ -30,7 +30,7 @@ Before pulling data, ask:
 
 ### 3. Pull contact data
 
-Call `fullenrich:search_people` with `include_descriptions: true`. Extract: name, title, seniority, work history, education, skills, LinkedIn URL.
+Call `fullenrich:search_people` with `include_descriptions: true` and the person's LinkedIn URL, or their name plus company domain. Resolve ambiguous matches before continuing. Extract: name, title, seniority, work history, education, skills, LinkedIn URL.
 
 Call `fullenrich:search_companies` with `include_descriptions: true` for company context: industry, headcount, HQ, description, specialties.
 
@@ -53,7 +53,7 @@ Structure:
 
 ### 6. Offer enrichment if needed
 
-If email or phone is missing: call `fullenrich:get_credits` first. Show: "I don't have [field] for this person. Enriching will cost ~1 credit (email) or ~10 (phone). You have [balance]. Proceed?" — credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once with `limit` set to 1 (a single contact) — omitting limit uses the default (10000).
+If email or phone is missing: call `fullenrich:get_credits` first. Show: "I don't have [field] for this person. Enriching will cost ~1 credit (email) or ~10 (phone). You have [balance]. Proceed?" — credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once with the same identifiers and filters that selected the person in step 3, and `limit` set to 1 (a single contact). If those filters do not identify exactly that person, clarify before submitting. Omitting limit uses the default (10000).
 
 ## Gotchas
 

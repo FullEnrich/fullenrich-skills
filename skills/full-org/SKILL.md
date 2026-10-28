@@ -57,7 +57,7 @@ For each recommended person: name, title, LinkedIn URL, why they're the right co
 
 ### 7. Optional enrichment
 
-Enrich only the specific contacts the user approved — not the entire company search. Call `fullenrich:get_credits` first. Show: "Enriching [N] recommended contacts will cost ~[estimate] credits (email + phone). You have [balance]. Proceed?" — credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once with the company domain filter plus name filters that match exactly the approved contacts, and `limit` set to the exact count confirmed — the default limit is 10000, so omitting it risks enriching every employee at the company. Poll `fullenrich:get_enrichment_results`, then `fullenrich:export_contacts` (csv).
+Enrich only the specific contacts the user approved — not the entire company search. Call `fullenrich:get_credits` first. Show: "Enriching [N] recommended contacts will cost ~[estimate] credits (email + phone). You have [balance]. Proceed?" — credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once with the company domain filter plus name filters that match exactly the approved contacts, and `limit` set to the exact count confirmed — the default limit is 10000, so omitting it risks enriching every employee at the company. Poll `fullenrich:get_enrichment_results`, then `fullenrich:export_enrichment_results` (csv, using the returned enrichment ID).
 
 ## Org chart analysis
 

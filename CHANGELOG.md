@@ -10,7 +10,10 @@
 - Add extensions.com.openai.interface to plugin.json
 - Add trigger/no-trigger eval files for all 9 skills (evals/)
 - Add CI tests for reference sync, OpenAI manifests, description length, and persona/level guards
-- Reduce total skill line count from 1751 to 555 (-68%) while preserving all business constraints
+- Separate free polling/job exports from paid search exports and keep approval scoped to the agreed work
+- Export completed enrichments by their returned job ID; keep single-contact meeting enrichment targeted to the identified person
+- Clarify that workflow and tone preferences do not authorize extra spending or bypass suppression rules
+- Shorten skill instructions while preserving spending, suppression, and approval constraints
 
 ## 1.0.4 — 2026-08-27
 

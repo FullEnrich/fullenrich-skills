@@ -375,18 +375,14 @@ class DistributionContractTest < Minitest::Test
     fullenrich:enrich_bulk
     fullenrich:export_contacts
     fullenrich:export_companies
-    fullenrich:export_enrichment_results
   ].freeze
 
   def test_credit_consuming_tools_list_matches_shared_reference
     reference = File.read(File.join(ROOT, "shared", "fullenrich-reference.md"))
-    credit_section = reference[reference.index("### Credit-consuming")..]
-
-    CREDIT_CONSUMING_TOOLS.each do |tool|
-      assert_includes credit_section, tool,
-        "Test constant CREDIT_CONSUMING_TOOLS lists #{tool} but the shared reference " \
-        "does not include it in the credit-consuming section — keep them in sync"
-    end
+    credit_section = reference.split("### Credit-consuming", 2).last.split(/^## /, 2).first
+    actual = credit_section.scan(/^\| `(fullenrich:[^`]+)`/).flatten
+    assert_equal CREDIT_CONSUMING_TOOLS.sort, actual.sort,
+      "Credit-consuming tool table must match the verified billing contract; polling and job exports are not new paid work"
   end
 
   def test_enrich_search_contact_always_has_explicit_limit

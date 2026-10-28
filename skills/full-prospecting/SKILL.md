@@ -44,7 +44,7 @@ Only after explicit confirmation, call `fullenrich:enrich_search_contact` once w
 
 Poll `fullenrich:get_enrichment_results` for progress (it caps at 10 results — never use it for final data).
 
-After status = FINISHED, call `fullenrich:export_contacts` (format: csv) to retrieve all results. Present: Full Name, Title, Company, Headcount, Location, LinkedIn, Email, Phone.
+After status = FINISHED, call `fullenrich:export_enrichment_results` (format: csv) with the returned enrichment ID to retrieve all results. Present: Full Name, Title, Company, Headcount, Location, LinkedIn, Email, Phone.
 
 ## Gotchas
 
