@@ -47,6 +47,22 @@ Antigravity CLI can convert the installed extension, including its skills and MC
 agy plugin import gemini
 ```
 
+### Hermes Agent
+
+Install the portable plugin, then configure OAuth through Hermes:
+
+```sh
+hermes plugins install FullEnrich/fullenrich-skills --no-enable
+hermes plugins enable fullenrich
+hermes mcp add fullenrich --url https://mcp.fullenrich.com/mcp --auth oauth
+```
+
+The explicit MCP configuration enables OAuth for the server named `fullenrich` and takes precedence over the portable package entry. Complete sign-in with your FullEnrich account. The plugin is submitted separately to the Hermes catalog; repository installation does not imply catalog acceptance.
+
+Start with `get_credits`, then request a search preview. Review the estimated credit cost and approve the scope before enrichment or export. For Hermes tool approval prompts, set `trust: untrusted` on the `fullenrich` MCP server in your active Hermes configuration. Read-only tool annotations do not guarantee that an action is free.
+
+**Data and permissions:** MCP requests go to FullEnrich's hosted service. Contact identifiers, submitted contacts and search filters are sent when needed by the requested operation. OAuth credentials are managed by Hermes; this package contains no credentials, local executable code, background process or telemetry implementation. Skills can ask the assistant to read user-selected CSV files or use separately connected tools. CRM writes and message delivery require those separate connectors and explicit user authorization. FullEnrich enrichment and exports can consume account credits; see [pricing](https://fullenrich.com/pricing) and [privacy](https://fullenrich.com/privacy-policy).
+
 ### Other Agent Plugins clients
 
 The repository root follows Agent Plugins 1.0. Point a compatible client's local plugin loader at this directory. Installation remains client-specific.
