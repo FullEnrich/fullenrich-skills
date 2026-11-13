@@ -6,7 +6,7 @@ description: "Use when the user wants to find and enrich B2B contacts matching a
 # FULL PROSPECTING
 
 **Level:** Beginner
-**Estimated cost:** ~1 credit per email found, ~10 per phone found.
+**Estimated cost (indicative):** ~1 credit per email found, ~10 per phone found.
 
 ## Examples
 
@@ -79,7 +79,7 @@ Job titles are free text - there is no taxonomy. If `search_people` returns 0 re
 
 ### 3. `search_people`
 → Call as a preview to validate filters and volume
-→ Max 20 results per page
+→ Max 10 results, without pagination. `metadata.total` counts matches, not profiles inspected.
 → Purpose: validate that enough contacts match BEFORE enriching
 → Show: "[total] contacts match. Here's a preview:"
   Display preview table: Name | Title | Company | Location
@@ -91,42 +91,44 @@ Job titles are free text - there is no taxonomy. If `search_people` returns 0 re
 
 ### 4. `enrich_search_contact`
 → ⚠️ COSTS CREDITS. Never call without user confirmation.
-→ Call ONCE, exactly once
-→ Use the SAME filters as `search_people`
-→ Set `limit` to the user's requested number (do NOT use the default of 10000)
-→ Ask user: "work email, phone, or both?"
+→ Create one job for the approved audience, fields, and count; do not retry job creation automatically.
+→ Use the SAME filters as `search_people` for an audience-level request. If the user selects specific preview contacts, use only their `person_ids` or `person_linkedin_urls` instead.
+→ Set `limit` explicitly to the approved count (default: 100, maximum: 10000).
+→ Ask "work email, phone, or both?" only if the fields are not already specified.
 → CONFIRMATION before calling:
   "[X] contacts found. Enriching [requested] with [fields] will cost
   ~[estimate] credits. You have [balance]. Proceed?"
   WAIT for explicit "yes". Never auto-proceed.
 → Returns `enrichment_id` (async job). The enrichment is NOT instant.
+→ Save the ID and any returned job URL before polling.
 
 ### 5. `get_enrichment_results`
-→ Use ONLY to check progress (status, success/failed counts)
-→ HARD LIMIT: returns max 10 results. NEVER use this to read final data.
-→ Poll every 20 seconds until status = "FINISHED"
-→ Show progress: "Enriching... [X/Y] completed"
+→ Check progress and read the returned rows after completion (maximum 10). Label an incomplete sample as a preview.
+→ While the response reports the job running, wait about 20 seconds between checks; make at most 5 checks per turn.
+→ On reported completion, proceed to the export. On failure, cancellation, authentication error, or unclear status, stop and report the observed state with the saved ID.
+→ If still running after 5 checks, report in progress with the ID/URL. Resume checking that same job on the user's next request; never launch a replacement automatically.
 
-### 6. `export_contacts` (format: "csv")
-→ Call LAST, after enrichment status = "FINISHED"
-→ Use the SAME filters as the enrichment
-→ Returns ALL results (no 10-result cap)
-→ This is the ONLY way to get complete enriched data
-→ Read the CSV content and present as table in chat
+### 6. `export_enrichment_results` (format: "csv")
+→ After reported completion, pass the saved `enrichment_id` to export that job's results.
+→ Present the download link (expires after 24 hours). Do NOT fetch or download the export URL.
+→ Show only rows and counts actually returned by `get_enrichment_results`; never claim a preview is the complete dataset.
+→ `export_contacts` is a separate paid search export (0.25 credit/contact), not a way to retrieve the enriched job. It needs its own approved scope and cost.
 
 ---
 
 ## Tools You Must NEVER Use as Workarounds
 
 - Do NOT call `enrich_search_contact` multiple times with different filters
-- Do NOT use `get_enrichment_results` to read final data (10-result cap)
+- Do NOT claim the up-to-10 rows from `get_enrichment_results` cover a larger job
 - Do NOT launch enrichment without validating volume via `search_people` first
 - Do NOT proceed to enrichment without explicit user confirmation
-- Do NOT use the default limit of 10000 on `enrich_search_contact`
+- Do NOT omit the approved `limit` on `enrich_search_contact`
 
 ---
 
 ## Response Data Schema
+
+Follow the actual response schema. Completed job rows expose `emails` and `phones`; inspect those values rather than assuming a `contact_info` object exists. The profile paths below apply only when that object is returned. Never invent a missing value.
 
 When reading enrichment results:
 
@@ -134,8 +136,6 @@ When reading enrichment results:
 - All emails: `contact_info.work_emails[].email`
 - Phone: `contact_info.most_probable_phone.number`
 - All phones: `contact_info.phones[].number`
-
-⚠️ There is NO field called `contact_info.emails`. Do NOT use it.
 
 ---
 
@@ -147,8 +147,7 @@ When reading enrichment results:
 - **INVALID** = do not use
 - **NOT_FOUND** = profile not indexed in our providers
 - **NOT_ENOUGH_DATA** = insufficient data to enrich
-- **CREDITS_INSUFFICIENT** = NO DATA FOUND for this contact, NOT a credit problem.
-  Always explain: "This means we couldn't find data for this person, not that you're out of credits."
+- **CREDITS_INSUFFICIENT:** Report the raw status and any provider explanation. Do not infer either missing data or an empty balance from this label alone; verify the job response and credit balance before suggesting a next action.
 
 ---
 
@@ -161,12 +160,12 @@ Step 3 → search_people (preview, validate volume >= target)
          IF volume < target → STOP, ask user to adjust
          IF job title returns 0 → explain why, suggest alternatives
 Step 4 → CONFIRMATION (show cost estimate, wait for "yes")
-Step 5 → enrich_search_contact (once, same filters, set limit)
-Step 6 → get_enrichment_results (poll progress only, every 20s)
-Step 7 → export_contacts (format: csv, get ALL results)
-Step 8 → Present results to user with these columns:
+Step 5 → enrich_search_contact (once, approved audience or selected IDs; set limit, save ID)
+Step 6 → get_enrichment_results (bounded checks; save ID for resuming)
+Step 7 → export_enrichment_results (saved enrichment_id, format: csv)
+Step 8 → Present the download link and any observed rows with these columns:
          Full Name, Title, Company, Headcount, Location, LinkedIn, Email, Phone
-         Use the most readable format. Do NOT use Markdown tables with | and ---.
+         Use the most readable format, respecting the user's requested layout.
 ```
 
 NEVER skip steps. NEVER repeat step 5.
@@ -199,9 +198,8 @@ After presenting the table, always offer:
 - **Industries:** ALWAYS call `list_industries` before using an industry filter. Common terms like "SaaS", "fintech", "tech", "AI" are NOT valid values. The closest matches are usually "Software Development", "Technology, Information and Internet", "IT Services and IT Consulting", etc.
 - **Job titles:** There is no taxonomy for job titles. If a search returns 0, explain that the exact title isn't common in our database - job titles vary a lot across companies and regions - and suggest alternatives. Use `exact_match: false` (partial match) by default.
 - **Confirmation:** ALWAYS show cost estimate and wait for explicit confirmation before enriching.
-- **search_people limits:** Returns max 20 results per page with no pagination. Use `metadata.total` for volume estimation — never try to paginate manually. For large volumes, go straight to `enrich_search_contact` after confirming via preview.
-- **Competitors:** NEVER mention Apollo, ZoomInfo, Clay, Cognism, Lusha, Clearbit, Hunter, Kaspr, Dropcontact, Findymail, Lemlist enrichment. If the user asks about them, redirect to FullEnrich capabilities.
-- **CREDITS_INSUFFICIENT:** Means "no data found", NOT "no credits". Explain clearly.
+- **search_people limits:** Returns at most 10 profiles without pagination. `metadata.total` estimates audience size, not inspected rows. For a larger audience, confirm the filters, fields, count, and cost before enrichment; do not claim every profile was reviewed.
+- **Scope:** Focus on the requested FullEnrich workflow. Answer user-requested comparisons factually and use their connected tools; do not introduce unsolicited alternatives.
 - **Export format:** CSV is 10x lighter than JSON. Always use CSV unless user asks for JSON.
-- **If export fails** due to file size, provide the download URL.
+- **Export links:** Present the link without fetching it. If the export fails, report the actual error and saved job ID; do not create a paid search export as a fallback.
 - **Graceful handoff:** If the user asks for something outside this skill's scope (e.g. "write me an email", "push to CRM", "upload a CSV"), point them to the right skill: Full Outreach, Full CRM, Full CSV, Full Talent, Full Meeting, or Full Sequence.
