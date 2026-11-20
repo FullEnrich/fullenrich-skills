@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.1.0 — 2026-10-27
+
+- Rewrite all 9 skills following Anthropic/OpenAI agent skills best practices
+- Remove persona blocks, level metadata, and example sections from all skills
+- Add shared MCP reference (shared/fullenrich-reference.md) with tool names, response schema, statuses, and business rules
+- Add sync script (scripts/sync-references) to keep per-skill reference copies identical
+- Add OpenAI Codex/ChatGPT compatibility manifests (agents/openai.yaml per skill)
+- Add extensions.com.openai.interface to plugin.json
+- Add trigger/no-trigger eval files for all 9 skills (evals/)
+- Add CI tests for reference sync, OpenAI manifests, description length, and persona/level guards
+- Separate free polling/job exports from paid search exports and keep approval scoped to the agreed work
+- Export completed enrichments by their returned job ID; keep single-contact meeting enrichment targeted to the identified person
+- Clarify that workflow and tone preferences do not authorize extra spending or bypass suppression rules
+- Shorten skill instructions while preserving spending, suppression, and approval constraints
+
 ## 1.0.4 — 2026-08-27
 
 - Link the public FullEnrich distribution repository from `server.json` for GitHub Copilot review and display

@@ -1,0 +1,11 @@
+interface:
+  display_name: "FullEnrich Talent Sourcing"
+  short_description: "Source and rank candidates for a role"
+  default_prompt: "Use $full-talent to find 15 Senior Backend Engineers in France."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "fullenrich"
+      description: "FullEnrich MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.fullenrich.com/mcp"

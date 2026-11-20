@@ -1,0 +1,18 @@
+{
+  "skill": "full-prospecting",
+  "cases": [
+    { "input": "Find me 20 VP Sales in France", "expect": "trigger" },
+    { "input": "Build a prospect list of HR directors at companies with 500+ employees", "expect": "trigger" },
+    { "input": "Search for people in Software Development industry in Germany", "expect": "trigger" },
+    { "input": "I need 10 Head of Growth at startups in London with emails and phones", "expect": "trigger" },
+    { "input": "Enrich leads matching my ICP", "expect": "trigger" },
+    { "input": "Find me contacts who are CTOs at SaaS companies", "expect": "trigger" },
+    { "input": "Build a list of marketing managers in New York", "expect": "trigger" },
+    { "input": "I need emails for SDRs at mid-market companies", "expect": "trigger" },
+    { "input": "Here's a CSV of 50 LinkedIn URLs, enrich them", "expect": "no_trigger", "note": "full-csv" },
+    { "input": "Find me 5 people like this LinkedIn profile", "expect": "no_trigger", "note": "full-lookalike" },
+    { "input": "Source me candidates for a Senior Backend Engineer role", "expect": "no_trigger", "note": "full-talent" },
+    { "input": "Draft a cold email for the VP Engineering at Stripe", "expect": "no_trigger", "note": "full-outreach" },
+    { "input": "Push these contacts to HubSpot", "expect": "no_trigger", "note": "full-crm" }
+  ]
+}

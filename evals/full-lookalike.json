@@ -1,0 +1,18 @@
+{
+  "skill": "full-lookalike",
+  "cases": [
+    { "input": "Find me 5 people like this: linkedin.com/in/sarah-chen", "expect": "trigger" },
+    { "input": "Find lookalikes for this prospect", "expect": "trigger" },
+    { "input": "Clone this prospect's profile and find similar people", "expect": "trigger" },
+    { "input": "This customer converted, find more like them", "expect": "trigger" },
+    { "input": "Expand my ICP from this LinkedIn profile", "expect": "trigger" },
+    { "input": "Find people who look like linkedin.com/in/johndoe", "expect": "trigger" },
+    { "input": "More profiles like this one", "expect": "trigger" },
+    { "input": "Find similar profiles in Europe", "expect": "trigger" },
+    { "input": "Find me 20 VP Sales in France", "expect": "no_trigger", "note": "full-prospecting" },
+    { "input": "Source candidates for a role", "expect": "no_trigger", "note": "full-talent" },
+    { "input": "Map the org chart at Stripe", "expect": "no_trigger", "note": "full-org" },
+    { "input": "Enrich this CSV", "expect": "no_trigger", "note": "full-csv" },
+    { "input": "Draft outreach messages", "expect": "no_trigger", "note": "full-outreach" }
+  ]
+}

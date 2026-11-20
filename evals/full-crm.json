@@ -1,0 +1,18 @@
+{
+  "skill": "full-crm",
+  "cases": [
+    { "input": "Push these enriched contacts to HubSpot", "expect": "trigger" },
+    { "input": "Sync contacts to Salesforce", "expect": "trigger" },
+    { "input": "Add these leads to Attio", "expect": "trigger" },
+    { "input": "Push to CRM", "expect": "trigger" },
+    { "input": "Update my CRM with the enriched list", "expect": "trigger" },
+    { "input": "Add these to Pipedrive", "expect": "trigger" },
+    { "input": "Import enriched contacts into my CRM", "expect": "trigger" },
+    { "input": "Sync my enrichment results to Salesforce with notes", "expect": "trigger" },
+    { "input": "Find me 20 VP Sales", "expect": "no_trigger", "note": "full-prospecting" },
+    { "input": "Enrich this CSV", "expect": "no_trigger", "note": "full-csv" },
+    { "input": "Draft a cold email", "expect": "no_trigger", "note": "full-outreach" },
+    { "input": "Build a sequence", "expect": "no_trigger", "note": "full-sequence" },
+    { "input": "Find contacts to enrich", "expect": "no_trigger", "note": "full-prospecting" }
+  ]
+}

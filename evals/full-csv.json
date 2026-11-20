@@ -1,0 +1,18 @@
+{
+  "skill": "full-csv",
+  "cases": [
+    { "input": "Enrich this CSV with emails and phones", "expect": "trigger" },
+    { "input": "I uploaded a file with names and companies, find their emails", "expect": "trigger" },
+    { "input": "Bulk enrich this spreadsheet of contacts", "expect": "trigger" },
+    { "input": "Here's a CSV of 50 LinkedIn URLs, enrich them with emails", "expect": "trigger" },
+    { "input": "Enrich my file with verified phone numbers", "expect": "trigger" },
+    { "input": "I have a list of contacts to enrich", "expect": "trigger" },
+    { "input": "Process this uploaded contact file", "expect": "trigger" },
+    { "input": "Find emails for this spreadsheet", "expect": "trigger" },
+    { "input": "Find me 20 VP Sales in France", "expect": "no_trigger", "note": "full-prospecting" },
+    { "input": "Draft outreach for these contacts", "expect": "no_trigger", "note": "full-outreach" },
+    { "input": "Push these to my CRM", "expect": "no_trigger", "note": "full-crm" },
+    { "input": "Source candidates for a backend role", "expect": "no_trigger", "note": "full-talent" },
+    { "input": "Find people like this LinkedIn profile", "expect": "no_trigger", "note": "full-lookalike" }
+  ]
+}

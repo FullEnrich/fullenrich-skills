@@ -1,0 +1,11 @@
+interface:
+  display_name: "FullEnrich Org Chart"
+  short_description: "Map a company's team structure and identify who to contact"
+  default_prompt: "Use $full-org to map the engineering team at Datadog."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "fullenrich"
+      description: "FullEnrich MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.fullenrich.com/mcp"

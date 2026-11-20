@@ -1,0 +1,18 @@
+{
+  "skill": "full-talent",
+  "cases": [
+    { "input": "I need to hire a Senior Backend Engineer in France", "expect": "trigger" },
+    { "input": "Source me 15 Product Managers at scale-ups in London", "expect": "trigger" },
+    { "input": "Find candidates for a Head of Sales role", "expect": "trigger" },
+    { "input": "Help me source a Senior Designer", "expect": "trigger" },
+    { "input": "I'm hiring, find me people for this role", "expect": "trigger" },
+    { "input": "Talent sourcing for a VP Engineering position", "expect": "trigger" },
+    { "input": "Recruitment search for data scientists", "expect": "trigger" },
+    { "input": "Help me fill this role", "expect": "trigger" },
+    { "input": "Find me 20 VP Sales for my prospect list", "expect": "no_trigger", "note": "full-prospecting" },
+    { "input": "Find me people like this LinkedIn profile", "expect": "no_trigger", "note": "full-lookalike" },
+    { "input": "Draft outreach for these contacts", "expect": "no_trigger", "note": "full-outreach" },
+    { "input": "Map the org chart at Stripe", "expect": "no_trigger", "note": "full-org" },
+    { "input": "Enrich this CSV", "expect": "no_trigger", "note": "full-csv" }
+  ]
+}

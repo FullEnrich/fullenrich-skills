@@ -1,0 +1,18 @@
+{
+  "skill": "full-outreach",
+  "cases": [
+    { "input": "Draft a cold email for the VP Engineering at Stripe", "expect": "trigger" },
+    { "input": "Write a LinkedIn DM for this person", "expect": "trigger" },
+    { "input": "Help me write outreach messages for these contacts", "expect": "trigger" },
+    { "input": "Prepare a cold call script for the Head of Sales", "expect": "trigger" },
+    { "input": "Write outreach to these 10 enriched contacts", "expect": "trigger" },
+    { "input": "Draft a personalized message for this prospect", "expect": "trigger" },
+    { "input": "Let's do some outreach", "expect": "trigger" },
+    { "input": "Write me a message for each of these leads", "expect": "trigger" },
+    { "input": "Build a 5-touch outreach sequence", "expect": "no_trigger", "note": "full-sequence" },
+    { "input": "Create a drip campaign with follow-ups", "expect": "no_trigger", "note": "full-sequence" },
+    { "input": "Find me 20 VP Sales", "expect": "no_trigger", "note": "full-prospecting" },
+    { "input": "Push these to my CRM", "expect": "no_trigger", "note": "full-crm" },
+    { "input": "Enrich this CSV", "expect": "no_trigger", "note": "full-csv" }
+  ]
+}

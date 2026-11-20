@@ -1,0 +1,11 @@
+interface:
+  display_name: "FullEnrich Prospecting"
+  short_description: "Find and enrich B2B contacts by ICP"
+  default_prompt: "Use $full-prospecting to find 20 VP Sales at SaaS companies in France."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "fullenrich"
+      description: "FullEnrich MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.fullenrich.com/mcp"
