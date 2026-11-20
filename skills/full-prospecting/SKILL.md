@@ -1,6 +1,6 @@
 ---
 name: full-prospecting
-description: "Finds B2B contacts matching an ICP with FullEnrich search, then enriches emails and phones after the user confirms the credit cost. Use when the user wants a prospect or lead list by title, seniority, industry, location, or company size."
+description: "Finds B2B contacts matching an ICP with FullEnrich search, then enriches emails and phones after the user confirms the credit cost. Use when the user wants a prospect or lead list by title, seniority, industry, location, or company size. Not for contact files (full-csv) or hiring (full-talent)."
 ---
 
 # Full Prospecting

@@ -1,6 +1,6 @@
 ---
 name: full-talent
-description: "Sources job candidates with FullEnrich: clarifies the role, searches and ranks profiles, enriches contact details after cost confirmation. Use when the user is hiring or recruiting."
+description: "Sources job candidates with FullEnrich: clarifies the role, searches and ranks profiles, enriches contact details after cost confirmation. Use when the user is hiring or recruiting. Not for sales prospecting (full-prospecting)."
 ---
 
 # Full Talent Sourcing

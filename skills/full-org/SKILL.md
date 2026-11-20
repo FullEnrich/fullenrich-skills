@@ -1,6 +1,6 @@
 ---
 name: full-org
-description: "Maps a company's team structure from FullEnrich search results into an org chart (Mermaid) and recommends who to contact for a sales, partnership, or hiring goal. Use when the user asks \"who works at X\" or \"org chart\"."
+description: "Maps a company's team structure from FullEnrich search results into an org chart (Mermaid) and recommends who to contact for a sales, partnership, or hiring goal. Use when the user asks \"who works at X\" or \"org chart\". Not for prospect lists across companies (full-prospecting)."
 ---
 
 # Full Org Chart

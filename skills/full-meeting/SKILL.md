@@ -1,6 +1,6 @@
 ---
 name: full-meeting
-description: "Builds a pre-meeting brief on a person and their company from FullEnrich profile data plus web search: background, talking points, questions to ask. Use when the user has a call or meeting with someone."
+description: "Builds a pre-meeting brief on a person and their company from FullEnrich profile data plus web search: background, talking points, questions to ask. Use when the user has a call or meeting with someone. Not for drafting outreach messages (full-outreach)."
 ---
 
 # Full Meeting Prep

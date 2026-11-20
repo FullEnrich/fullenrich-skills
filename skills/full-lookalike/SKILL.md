@@ -1,6 +1,6 @@
 ---
 name: full-lookalike
-description: "Finds people similar to a given LinkedIn profile (same role, seniority, industry, company size) with FullEnrich search. Use when the user shares a profile and says \"find more like this\", \"lookalikes\", or wants to expand an ICP from a won customer."
+description: "Finds people similar to a given LinkedIn profile (same role, seniority, industry, company size) with FullEnrich search. Use when the user shares a profile and says \"find more like this\", \"lookalikes\", or wants to expand an ICP from a won customer. Without a reference profile use full-prospecting."
 ---
 
 # Full Lookalike

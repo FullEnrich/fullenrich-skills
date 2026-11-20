@@ -1,6 +1,6 @@
 ---
 name: full-csv
-description: "Enriches a CSV or spreadsheet of contacts (LinkedIn URLs, or names plus company) with verified emails and phones via FullEnrich bulk enrichment. Use when the user uploads or pastes a contact file."
+description: "Enriches a CSV or spreadsheet of contacts (LinkedIn URLs, or names plus company) with verified emails and phones via FullEnrich bulk enrichment. Use when the user uploads or pastes a contact file. Not for building a list from search criteria (full-prospecting)."
 ---
 
 # Full CSV Enrichment
