@@ -11,7 +11,7 @@ See [references/fullenrich-reference.md](references/fullenrich-reference.md) for
 
 - Always visualize the sequence structure (flowchart + timeline) and get approval before writing messages.
 - Never less than 2 days between touches (feels desperate); never more than 10 (they forget).
-- Every sequence needs a breakup email as the final touch — it consistently converts the highest.
+- Every sequence needs a breakup email as the final touch: it consistently converts the highest.
 - Personalization degrades over a sequence: deep personalization on touch 1, lighter on touch 4–5.
 - Before any sequencer mutation, exclude every contact with an explicit opt-out, suppression, or do-not-contact signal.
 - Before any sequencer mutation, require one final explicit confirmation that names the sequencer, exact post-suppression contact count, and scheduling mode.
@@ -29,7 +29,7 @@ Need: enriched contacts (from prospecting, CSV, or user-provided) and either exi
 
 Ask:
 1. Goal (book meeting, get reply, drive to landing page).
-2. Target audience (seniority, role type — affects channel mix and tone).
+2. Target audience (seniority and role type, which affect channel mix and tone).
 3. Aggressiveness: light (3–4 emails, 2 weeks), standard (5 touches multi-channel, 3 weeks), or heavy (6–7 with phone, 4 weeks).
 
 Probe: do they actually make cold calls? Targeting C-level (fewer touches, phone earlier)? Deadline?
@@ -73,6 +73,6 @@ Report: sequencer name, sequence name, touchpoints, channels, contacts added, sc
 ## Gotchas
 
 - Email-only sequences plateau at touch 3. Push the user to add at least one non-email touchpoint.
-- The breakup email is mandatory — if the user says "no breakup", explain that it consistently converts the highest because it triggers loss aversion.
+- The breakup email is mandatory. If the user says "no breakup", explain that it consistently converts the highest because it triggers loss aversion.
 - If no sequencer is connected, present everything cleanly in chat so the user can copy-paste.
 - Add exactly the post-suppression contact count confirmed by the user.

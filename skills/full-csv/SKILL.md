@@ -9,10 +9,10 @@ See [references/fullenrich-reference.md](references/fullenrich-reference.md) for
 
 ## Rules
 
-- Always preview the CSV and confirm column mapping with the user before enriching — never assume.
+- Always preview the CSV and confirm column mapping with the user before enriching. Never assume.
 - Deduplicate rows before spending credits.
 - Never overwrite existing data: if the CSV already has emails, only fill empty cells.
-- `contacts` parameter for `fullenrich:enrich_bulk` must be a JSON array, not a string — the #1 integration bug.
+- `contacts` parameter for `fullenrich:enrich_bulk` must be a JSON array, not a string. This is the #1 integration bug.
 
 ## Workflow
 
@@ -22,7 +22,7 @@ Read the uploaded file. Detect columns and map them to FullEnrich fields: `linke
 
 Show the first 5 rows with detected columns. State: "[X] contacts found with [Y] columns. Detected fields: [list]." Ask the user to confirm mapping and choose enrichment fields (work emails, phones, or both).
 
-Flag rows with insufficient data (no LinkedIn URL and no name+company): "[X] rows don't have enough data — I'll skip them."
+Flag rows with insufficient data (no LinkedIn URL and no name+company): "[X] rows don't have enough data, so I'll skip them."
 
 ### 2. Check credits
 
@@ -46,5 +46,5 @@ Present: Full Name, Company, LinkedIn, Email, Phone, Status. Show a summary: tot
 ## Gotchas
 
 - `fullenrich:enrich_bulk` accepts max 100 contacts per call. Batch larger files.
-- `fullenrich:get_enrichment_results` returns max 10 results — always use export for the full dataset.
+- `fullenrich:get_enrichment_results` returns max 10 results. Always use export for the full dataset.
 - CREDITS_INSUFFICIENT means "no data found" for that contact, not a balance problem.

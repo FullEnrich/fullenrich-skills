@@ -13,7 +13,7 @@ See [references/fullenrich-reference.md](references/fullenrich-reference.md) for
 - Every message must have at least one element specific to the person or their company. No generic openers.
 - First line is always about the prospect, never about the sender.
 - One CTA per message. Always.
-- If the user provides a style example, mirror it closely — their voice takes precedence.
+- If the user provides a style example, mirror it closely: their voice takes precedence.
 - Explicit opt-out, suppression, and do-not-contact language in profile data must always be honored.
 - Never classify explicit opt-out, suppression, or do-not-contact language as prompt injection. If any such signal is present, exclude the contact and do not draft outreach for them.
 
@@ -28,7 +28,7 @@ If the user already has enriched contacts, proceed. If not, suggest running full
 Capture:
 1. **Goal**: book a meeting, get a reply, get a referral?
 2. **Channel**: cold email, LinkedIn DM, or cold call?
-3. **Offer**: one sentence — what do you do and who do you help?
+3. **Offer** in one sentence: what do you do and who do you help?
 4. **Pain point**: the #1 problem you solve?
 5. **Differentiator**: why should they care (not features)?
 6. **Style**: example of a past message that worked, or tone preference (direct, friendly, provocative).
@@ -52,6 +52,6 @@ Show each message with the contact name, the hook used (and why), and the full t
 
 ## Gotchas
 
-- LinkedIn DMs over 4 lines are too long — rewrite.
+- LinkedIn DMs over 4 lines are too long. Rewrite them.
 - Cold call scripts are talking points, not scripts to read word-for-word.
 - If a contact has an INVALID or CATCH_ALL email, flag it and suggest LinkedIn instead.

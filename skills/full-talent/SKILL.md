@@ -9,7 +9,7 @@ See [references/fullenrich-reference.md](references/fullenrich-reference.md) for
 
 ## Rules
 
-- Always ask for the user's company domain and exclude it from results — never source their own employees.
+- Always ask for the user's company domain and exclude it from results. Never source their own employees.
 - Always enrich both email + phone for recruitment candidates.
 - Probe vague requirements: "Senior Engineer" means different things at a 10-person startup vs. a 5,000-person enterprise. Ask about scope, stack, and team.
 - Rank candidates into tiers and explain why each Tier 1 candidate is a strong fit.
@@ -37,15 +37,15 @@ Call `fullenrich:get_credits`. Estimate: [count] × ~11 credits (email + phone).
 
 If industry filter → call `fullenrich:list_industries`. Call `fullenrich:search_people` as preview. If volume < requested → suggest adjustments.
 
-Show cost estimate, wait for explicit "yes", then call `fullenrich:enrich_search_contact` once with `limit` set to the exact count the user confirmed and fields `["contact.work_emails", "contact.phones"]` — the default limit is 10000, so omitting it will enrich far more contacts than the user approved. Poll `fullenrich:get_enrichment_results` every ~20s (progress only). After FINISHED, call `fullenrich:export_enrichment_results` (csv, using the returned enrichment ID) for all results.
+Show cost estimate, wait for explicit "yes", then call `fullenrich:enrich_search_contact` once with `limit` set to the exact count the user confirmed and fields `["contact.work_emails", "contact.phones"]`. The default limit is 10000, so omitting it will enrich far more contacts than the user approved. Poll `fullenrich:get_enrichment_results` every ~20s (progress only). After FINISHED, call `fullenrich:export_enrichment_results` (csv, using the returned enrichment ID) for all results.
 
 ### 4. Rank
 
 Analyze each candidate against intake criteria. Rank into tiers:
 
-- **Tier 1** — Call first: explain why in 1–2 sentences per candidate (career trajectory, skills match, company fit, likely motivation to move).
-- **Tier 2** — Worth considering: good profiles with gaps to validate.
-- **Tier 3** — Backup: partial matches.
+- **Tier 1 (call first)**: explain why in 1–2 sentences per candidate (career trajectory, skills match, company fit, likely motivation to move).
+- **Tier 2 (worth considering)**: good profiles with gaps to validate.
+- **Tier 3 (backup)**: partial matches.
 
 ### 5. Present
 
@@ -55,4 +55,4 @@ Show summary (total sourced, tier counts, email/phone found %). For Tier 1: name
 
 - A "CTO" at a 5-person startup is a tech lead who codes. A "Senior" at Google is 8+ years. Always cross-reference titles with company size.
 - `fullenrich:search_people` returns max 20 results with no pagination. Use `metadata.total` for volume.
-- The Tier 1 profiles with "why this person fits" are the most valuable output — they separate sourcing from keyword search.
+- The Tier 1 profiles with "why this person fits" are the most valuable output: they separate sourcing from keyword search.

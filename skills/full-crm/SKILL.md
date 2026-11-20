@@ -15,7 +15,7 @@ See [references/fullenrich-reference.md](references/fullenrich-reference.md) for
 
 ## Rules
 
-- Always check for duplicates before creating CRM records — match on email, LinkedIn URL, or name + company.
+- Always check for duplicates before creating CRM records: match on email, LinkedIn URL, or name + company.
 - Never overwrite existing CRM data without explicit user permission; fill empty fields only.
 - Always show a summary (new/update/skip counts) and wait for explicit "yes" before pushing.
 - If the CRM MCP returns an auth error, stop immediately and ask the user to reconnect.

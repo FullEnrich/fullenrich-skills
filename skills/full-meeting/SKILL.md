@@ -9,9 +9,9 @@ See [references/fullenrich-reference.md](references/fullenrich-reference.md) for
 
 ## Rules
 
-- Always ask the meeting type and objective before building the brief — they shape the talking points and strategy.
+- Always ask the meeting type and objective before building the brief: they shape the talking points and strategy.
 - Talking points must reference specific details from the person's profile or company, not generic advice.
-- Questions must show homework — anything Google-able in 5 seconds is a wasted question.
+- Questions must show homework: anything Google-able in 5 seconds is a wasted question.
 - Never fabricate data. "No recent news found" is better than inventing context.
 - If the meeting is imminent (< 15 minutes), skip web search and build the brief from FullEnrich data only.
 
@@ -53,7 +53,7 @@ Structure:
 
 ### 6. Offer enrichment if needed
 
-If email or phone is missing: call `fullenrich:get_credits` first. Show: "I don't have [field] for this person. Enriching will cost ~1 credit (email) or ~10 (phone). You have [balance]. Proceed?" — credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once with the same identifiers and filters that selected the person in step 3, and `limit` set to 1 (a single contact). If those filters do not identify exactly that person, clarify before submitting. Omitting limit uses the default (10000).
+If email or phone is missing: call `fullenrich:get_credits` first. Show: "I don't have [field] for this person. Enriching will cost ~1 credit (email) or ~10 (phone). You have [balance]. Proceed?" Credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once with the same identifiers and filters that selected the person in step 3, and `limit` set to 1 (a single contact). If those filters do not identify exactly that person, clarify before submitting. Omitting limit uses the default (10000).
 
 ## Gotchas
 

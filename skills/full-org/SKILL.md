@@ -9,7 +9,7 @@ See [references/fullenrich-reference.md](references/fullenrich-reference.md) for
 
 ## Rules
 
-- Always ask the user's objective (selling, partnership, recruitment, research) before recommending who to contact — the same org chart serves different purposes.
+- Always ask the user's objective (selling, partnership, recruitment, research) before recommending who to contact: the same org chart serves different purposes.
 - For companies with 50+ employees, strongly recommend scoping to a department or leadership layer rather than mapping the entire company.
 - The hierarchy is inferred from titles and seniority, not actual reporting lines. Always include this disclaimer.
 - Calibrate titles to company size: a CTO at a 10-person startup and a CTO at Google are completely different roles.
@@ -57,13 +57,13 @@ For each recommended person: name, title, LinkedIn URL, why they're the right co
 
 ### 7. Optional enrichment
 
-Enrich only the specific contacts the user approved — not the entire company search. Call `fullenrich:get_credits` first. Show: "Enriching [N] recommended contacts will cost ~[estimate] credits (email + phone). You have [balance]. Proceed?" — credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once with the company domain filter plus name filters that match exactly the approved contacts, and `limit` set to the exact count confirmed — the default limit is 10000, so omitting it risks enriching every employee at the company. Poll `fullenrich:get_enrichment_results`, then `fullenrich:export_enrichment_results` (csv, using the returned enrichment ID).
+Enrich only the specific contacts the user approved, not the entire company search. Call `fullenrich:get_credits` first. Show: "Enriching [N] recommended contacts will cost ~[estimate] credits (email + phone). You have [balance]. Proceed?" Credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once with the company domain filter plus name filters that match exactly the approved contacts, and `limit` set to the exact count confirmed. The default limit is 10000, so omitting it risks enriching every employee at the company. Poll `fullenrich:get_enrichment_results`, then `fullenrich:export_enrichment_results` (csv, using the returned enrichment ID).
 
 ## Org chart analysis
 
 After presenting the chart, add 3–4 observations the data supports:
-- Team size signals (e.g. "15 engineers vs. 3 in sales — product-led company").
-- Gaps (e.g. "No Head of Security — could be a hiring signal").
+- Team size signals (e.g. "15 engineers vs. 3 in sales: product-led company").
+- Gaps (e.g. "No Head of Security: could be a hiring signal").
 - Recent changes (< 6 months in role → still building their stack/team).
 - Flat vs. deep structure.
 
@@ -71,4 +71,4 @@ After presenting the chart, add 3–4 observations the data supports:
 
 - `fullenrich:search_people` returns max 20 results. Scoping by department or seniority is essential for large companies.
 - Don't force structure: some companies are genuinely flat. If everyone is "Co-Founder" or "Engineer", present what the data shows.
-- The Mermaid diagram must stay readable — more than 20 nodes makes it messy.
+- The Mermaid diagram must stay readable: more than 20 nodes makes it messy.

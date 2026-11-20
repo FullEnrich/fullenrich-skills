@@ -9,9 +9,9 @@ See [references/fullenrich-reference.md](references/fullenrich-reference.md) for
 
 ## Rules
 
-- Confirm matching criteria (title, seniority, industry, company size, geography) with the user before searching — result quality depends on which attributes are matched.
+- Confirm matching criteria (title, seniority, industry, company size, geography) with the user before searching: result quality depends on which attributes are matched.
 - Use `exact_match: false` for job titles by default because title wording varies across companies and regions.
-- Explain *why* each lookalike matches, not just that they do — cite the specific attributes.
+- Explain *why* each lookalike matches, not just that they do. Cite the specific attributes.
 - Prefer fewer strong matches over padding with weak ones.
 - If the source profile is not found in FullEnrich, ask the user for key attributes and build the search from those.
 
@@ -46,7 +46,7 @@ For each lookalike, present: name, title, company, industry, headcount, LinkedIn
 
 ### 5. Optional enrichment
 
-If the user wants emails/phones: call `fullenrich:get_credits` first. Show: "Enriching [N] contacts will cost ~[estimate] credits. You have [balance]. Proceed?" — credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once with `limit` set to the exact count the user confirmed and the same search filters — the default limit is 10000, so omitting it will enrich far more contacts than approved. Poll `fullenrich:get_enrichment_results`, then `fullenrich:export_enrichment_results` (csv, using the returned enrichment ID).
+If the user wants emails/phones: call `fullenrich:get_credits` first. Show: "Enriching [N] contacts will cost ~[estimate] credits. You have [balance]. Proceed?" Credits are the user's money and enrichment cannot be undone. Only after explicit "yes", call `fullenrich:enrich_search_contact` once with `limit` set to the exact count the user confirmed and the same search filters. The default limit is 10000, so omitting it will enrich far more contacts than approved. Poll `fullenrich:get_enrichment_results`, then `fullenrich:export_enrichment_results` (csv, using the returned enrichment ID).
 
 ## Gotchas
 
