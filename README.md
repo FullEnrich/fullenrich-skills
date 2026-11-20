@@ -9,7 +9,7 @@
 
 ### Claude web and desktop
 
-Open [FullEnrich in the Claude directory](https://claude.ai/directory/fullenrich-mcp), click **Add**, and authorize your FullEnrich account. Start a new chat and ask Claude to check your FullEnrich credits.
+Open [FullEnrich in the Claude directory](https://claude.ai/directory/fullenrich-mcp), click **Connect to Claude**, and authorize your FullEnrich account. Start a new chat and ask Claude to check your FullEnrich credits.
 
 ### Claude Code
 
