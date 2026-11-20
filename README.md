@@ -7,6 +7,10 @@
 
 ## Install
 
+### Claude web and desktop
+
+Open [FullEnrich in the Claude directory](https://claude.ai/directory/fullenrich-mcp), click **Add**, and authorize your FullEnrich account. Start a new chat and ask Claude to check your FullEnrich credits.
+
 ### Claude Code
 
 Install the plugin to connect the MCP server and add the 9 skills:
