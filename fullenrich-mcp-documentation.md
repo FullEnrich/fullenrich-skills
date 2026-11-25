@@ -129,6 +129,12 @@ From user research and internal testing, the critical trust pattern is:
 
 That pattern is important both for user trust and for reviewer evaluation.
 
+## Data sources, legal basis, and opt-out
+
+- **Sources**: contact data comes from third-party B2B data providers (25+, queried in a waterfall). FullEnrich does not collect it directly from the people listed.
+- **Legal basis**: FullEnrich's legitimate interest, as set out in its [privacy policy](https://fullenrich.com/privacy-policy).
+- **Opt-out**: a listed person can object or ask for deletion at any time at [fullenrich.com/optout](https://fullenrich.com/optout) or [support@fullenrich.com](mailto:support@fullenrich.com).
+
 ## MCP vs Skills
 
 The MCP server exposes the tools.

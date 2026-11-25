@@ -71,6 +71,14 @@ FullEnrich MCP searches B2B people and companies, enriches contacts, and exports
 
 The `full-crm` skill can orchestrate a separately connected CRM MCP. It checks field mapping and duplicates, then requires explicit confirmation before the separate CRM connector creates or updates records.
 
+## Data sources, legal basis, and opt-out
+
+FullEnrich returns business contact details for named people, so here is where that data comes from and how to be removed from it.
+
+- **Where the data comes from.** Third-party B2B data providers. FullEnrich queries 25+ of them in a waterfall and does not collect the data directly from the people listed.
+- **Legal basis.** FullEnrich processes this data on the basis of its legitimate interest, as set out in its [privacy policy](https://fullenrich.com/privacy-policy).
+- **How a listed person opts out.** Anyone can object to the processing or ask for deletion at any time, through the form at [fullenrich.com/optout](https://fullenrich.com/optout) or by email at [support@fullenrich.com](mailto:support@fullenrich.com).
+
 ## Why FullEnrich
 
 - **Waterfall enrichment across 25+ providers.** Each contact is looked up provider by provider until a verified email or phone number is found. Coverage is higher than any single data source.
@@ -87,7 +95,7 @@ The `full-crm` skill can orchestrate a separately connected CRM MCP. It checks f
 | `full-outreach` | Draft hyper-personalized cold emails, LinkedIn DMs, and call scripts from enriched data |
 | `full-sequence` | Design and deploy multi-touch outreach sequences |
 | `full-meeting` | Brief before a meeting: profile, company context, talking points |
-| `full-talent` | Source, enrich, and rank candidates for a role |
+| `full-talent` | Search for people who match a role's criteria and enrich their contact details. Search only: no scoring, ranking, or screening |
 | `full-lookalike` | Find people similar to a given LinkedIn profile (ICP expansion) |
 | `full-org` | Map a company's team structure and identify who to contact |
 | `full-crm` | Coordinate a separately connected CRM MCP, with explicit confirmation before any create or update |
@@ -108,6 +116,7 @@ Invoke them directly (e.g. `/full-prospecting`) or just describe what you want a
 - `server.json` — MCP Registry metadata for the live `io.github.FullEnrich/fullenrich` listing, including this public distribution repository for client display and review
 - `gemini-extension.json` — Gemini CLI extension manifest
 - `.claude-plugin/plugin.json` — plugin manifest
+- `.claude-plugin/icon.png` — plugin icon
 - `.claude-plugin/marketplace.json` — self-hosted plugin marketplace
 - `.mcp.json` — connects the FullEnrich MCP server (`https://mcp.fullenrich.com/mcp`)
 - `skills/` — the 9 skills
@@ -120,6 +129,7 @@ Invoke them directly (e.g. `/full-prospecting`) or just describe what you want a
 - [Pricing](https://fullenrich.com/pricing)
 - [Documentation](https://docs.fullenrich.com)
 - [Privacy policy](https://fullenrich.com/privacy-policy)
+- [Opt-out form](https://fullenrich.com/optout)
 - [Trust Center](https://fullenrich.com/trust)
 - [Support](mailto:support@fullenrich.com)
 - [MCP server reference](./fullenrich-mcp-documentation.md)

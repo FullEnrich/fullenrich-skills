@@ -13,6 +13,7 @@
     { "input": "Source candidates for a role", "expect": "no_trigger", "note": "full-talent" },
     { "input": "Map the org chart at Stripe", "expect": "no_trigger", "note": "full-org" },
     { "input": "Enrich this CSV", "expect": "no_trigger", "note": "full-csv" },
-    { "input": "Draft outreach messages", "expect": "no_trigger", "note": "full-outreach" }
+    { "input": "Draft outreach messages", "expect": "no_trigger", "note": "full-outreach" },
+    { "input": "Find candidates like this LinkedIn profile for our open role", "expect": "no_trigger", "note": "full-talent" }
   ]
 }

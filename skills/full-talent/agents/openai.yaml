@@ -1,6 +1,6 @@
 interface:
   display_name: "FullEnrich Talent Sourcing"
-  short_description: "Source and rank candidates for a role"
+  short_description: "Search people for a role and get contact details"
   default_prompt: "Use $full-talent to find 15 Senior Backend Engineers in France."
 dependencies:
   tools:

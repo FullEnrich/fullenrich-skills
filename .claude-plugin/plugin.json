@@ -1,12 +1,13 @@
 {
   "name": "fullenrich",
-  "description": "FullEnrich MCP search, enrichment, and CSV/JSON export for AI agents. Find prospects, enrich verified emails and phone numbers via waterfall enrichment (25+ data providers), and export results. Includes 9 guided skills for prospecting, CSV enrichment, outreach, sequences, meeting prep, talent sourcing, lookalikes, org charts, and optional orchestration of a separately connected CRM MCP.",
-  "version": "1.1.0",
+  "description": "FullEnrich MCP search, enrichment, and CSV/JSON export for AI agents. Find prospects, enrich verified emails and phone numbers via waterfall enrichment (25+ data providers), and export results. Includes 9 guided skills for prospecting, CSV enrichment, outreach, sequences, meeting prep, talent sourcing, lookalikes, org charts, and optional orchestration of a separately connected CRM MCP. Contact data comes from third-party B2B data providers and is processed on the basis of legitimate interest; a listed person can opt out at https://fullenrich.com/optout or support@fullenrich.com.",
+  "version": "1.1.1",
   "author": {
     "name": "FullEnrich",
     "url": "https://fullenrich.com"
   },
   "homepage": "https://docs.fullenrich.com",
+  "privacyPolicyUrl": "https://fullenrich.com/privacy-policy",
   "repository": "https://github.com/FullEnrich/fullenrich-skills",
   "keywords": [
     "enrichment",

@@ -1,6 +1,6 @@
 ---
 name: full-lookalike
-description: "Finds people similar to a given LinkedIn profile (same role, seniority, industry, company size) with FullEnrich search. Use when the user shares a profile and says \"find more like this\", \"lookalikes\", or wants to expand an ICP from a won customer. Without a reference profile use full-prospecting."
+description: "Finds sales prospects similar to a LinkedIn profile (same role, seniority, industry, company size) via FullEnrich search. Use when the user shares a profile and wants \"more like this\", \"lookalikes\", or to expand an ICP from a won customer. No reference profile: full-prospecting. Hiring: full-talent."
 ---
 
 # Full Lookalike
@@ -9,6 +9,7 @@ See [references/fullenrich-reference.md](references/fullenrich-reference.md) for
 
 ## Rules
 
+- This skill is for sales and partnership targeting. Its similarity ordering is never applied to job candidates: for hiring, use full-talent.
 - Confirm matching criteria (title, seniority, industry, company size, geography) with the user before searching: result quality depends on which attributes are matched.
 - Use `exact_match: false` for job titles by default because title wording varies across companies and regions.
 - Explain *why* each lookalike matches, not just that they do. Cite the specific attributes.
@@ -51,5 +52,5 @@ If the user wants emails/phones: call `fullenrich:get_credits` first. Show: "Enr
 ## Gotchas
 
 - The "why this person matches" explanation is the most valuable output. Without it, this is just a search.
-- Similarity scoring is a guide, not a science. If a profile has the exact same career trajectory, weight that even if the formal score is lower.
+- Similarity is a guide, not a science. If a profile has the exact same career trajectory, weight that even when fewer attributes match.
 - `fullenrich:search_people` returns max 20 results. Use tight filters to get the best results and present the top N by similarity.
