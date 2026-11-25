@@ -51,7 +51,7 @@ Also provide a text summary below the diagram for clients that don't render Merm
 Based on the objective:
 - **Selling**: decision-maker (budget authority), champion (day-to-day user), potential blocker (security/procurement).
 - **Partnership**: partnership lead, executive sponsor.
-- **Recruitment**: hiring manager, team lead, HR/Talent.
+- **Recruitment** (reaching the people who run hiring there): hiring manager, team lead, HR/Talent.
 
 For each recommended person: name, title, LinkedIn URL, why they're the right contact (1–2 sentences), and suggested approach order.
 

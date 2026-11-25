@@ -45,7 +45,7 @@ class DistributionContractTest < Minitest::Test
     name
   ].freeze
   MCP_ENDPOINT = "https://mcp.fullenrich.com/mcp"
-  PACKAGE_VERSION = "1.1.0"
+  PACKAGE_VERSION = "1.1.1"
   AGENT_PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
   AGENT_PLUGIN_MCP_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
   MCP_REGISTRY_SCHEMA = "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json"
@@ -114,7 +114,7 @@ class DistributionContractTest < Minitest::Test
   end
 
   def test_changelog_documents_the_current_release
-    assert_includes changelog, "## #{PACKAGE_VERSION} — 2026-10-27"
+    assert_includes changelog, "## #{PACKAGE_VERSION} — 2026-11-25"
   end
 
   def test_plugin_uses_the_agent_plugins_schema_and_name
@@ -434,7 +434,106 @@ class DistributionContractTest < Minitest::Test
     end
   end
 
+  # Claude directory policy guards. Each one maps to a finding that held v1.1.0 back.
+
+  OTHER_VENDOR_BAR = /\b(?:never|do not|don't)\s+(?:mention|recommend|name|suggest|cite)\b[^.\n]{0,200}\b(?:competitors?|alternatives?|vendors?)\b/i
+  CANDIDATE_EVALUATION = [
+    /\btiers?\b/i,
+    /^\#{2,3}\s.*\brank/i,
+    /\brank(?:s|ed|ing)?\s+(?:the\s+)?(?:candidates?|profiles?|people|them)\b/i,
+    /\b(?:strong|good|best|poor|weak)\s+fit\b/i,
+    /\bwhy\s+(?:they|this\s+person|each\s+candidate)\s+fits?\b/i,
+    /\bcall\s+first\b/i,
+    /\bbackup\b/i
+  ].freeze
+  DATA_NOTICE_FILES = %w[
+    README.md
+    shared/fullenrich-reference.md
+    fullenrich-mcp-documentation.md
+  ].freeze
+
+  def test_no_text_bars_other_vendors_or_puts_fullenrich_first
+    instruction_files.each do |relative_path|
+      refute_match OTHER_VENDOR_BAR, File.read(File.join(ROOT, relative_path)),
+        "#{relative_path} must not tell the agent to avoid naming other vendors; use a plain scope line"
+    end
+  end
+
+  def test_full_talent_searches_without_scoring_ranking_or_screening
+    body = File.read(File.join(ROOT, "skills", "full-talent", "SKILL.md"))
+
+    assert_includes body, "It does not score, rank, tier, shortlist, or screen people"
+    assert_includes body, "Present results in the order the search returns them"
+
+    workflow = body.split("## Scope", 2).last.split("## Rules", 2).last
+    CANDIDATE_EVALUATION.each do |pattern|
+      refute_match pattern, workflow,
+        "skills/full-talent/SKILL.md must stay search and contact lookup only (matched #{pattern.inspect})"
+    end
+  end
+
+  def test_full_talent_listing_copy_does_not_promise_ranking
+    listing_copy = [
+      skill_frontmatter("full-talent")["description"].to_s,
+      YAML.safe_load(File.read(File.join(ROOT, "skills", "full-talent", "agents", "openai.yaml")))
+        .dig("interface", "short_description").to_s,
+      readme[/^\| `full-talent` \|.*$/].to_s.sub(/Search only:.*\z/, "")
+    ]
+
+    listing_copy.each do |copy|
+      refute_empty copy
+      refute_match(/\b(?:rank|scor|screen|shortlist|tier)/i, copy,
+        "full-talent listing copy must not promise candidate evaluation: #{copy.inspect}")
+    end
+  end
+
+  def test_full_lookalike_sends_hiring_requests_to_full_talent
+    body = File.read(File.join(ROOT, "skills", "full-lookalike", "SKILL.md"))
+
+    assert_includes body, "Its similarity ordering is never applied to job candidates: for hiring, use full-talent."
+  end
+
+  def test_data_sources_legal_basis_and_opt_out_are_stated
+    DATA_NOTICE_FILES.each do |relative_path|
+      text = File.read(File.join(ROOT, relative_path))
+
+      assert_match(/third-party B2B data providers/i, text, "#{relative_path} must name the data sources")
+      assert_match(/legitimate interest/i, text, "#{relative_path} must state the legal basis")
+      assert_includes text, "fullenrich.com/optout", "#{relative_path} must give the opt-out form address"
+      assert_includes text, "support@fullenrich.com", "#{relative_path} must give the opt-out e-mail address"
+    end
+
+    description = read_json(".claude-plugin/plugin.json").fetch("description")
+    assert_match(/third-party B2B data providers/i, description)
+    assert_match(/legitimate interest/i, description)
+    assert_includes description, "https://fullenrich.com/optout"
+  end
+
+  def test_claude_plugin_declares_the_privacy_policy_url
+    assert_equal "https://fullenrich.com/privacy-policy",
+      read_json(".claude-plugin/plugin.json").fetch("privacyPolicyUrl")
+  end
+
+  def test_claude_plugin_ships_a_square_png_icon_within_directory_limits
+    icon_path = File.join(ROOT, ".claude-plugin", "icon.png")
+    assert File.file?(icon_path), "Expected .claude-plugin/icon.png to exist"
+
+    header = File.binread(icon_path, 24)
+    assert_equal "\x89PNG\r\n\x1A\n".b, header[0, 8], ".claude-plugin/icon.png must be a PNG"
+    width, height = header[16, 8].unpack("N2")
+
+    assert_equal width, height, "Icon must be square"
+    assert_includes 512..2048, width, "Icon side must be 512 to 2048 px"
+    assert_operator File.size(icon_path), :<, 2 * 1024 * 1024, "Icon must be under 2 MB"
+  end
+
   private
+
+  def instruction_files
+    Dir[File.join(ROOT, "{skills,shared}", "**", "*.{md,yaml}")]
+      .map { |path| path.delete_prefix("#{ROOT}/") } +
+      %w[README.md fullenrich-mcp-documentation.md]
+  end
 
   def assert_path_exists(relative_path)
     assert File.file?(File.join(ROOT, relative_path)), "Expected #{relative_path} to exist"

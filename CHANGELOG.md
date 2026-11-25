@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1 — 2026-11-25
+
+- Replace the instruction about other enrichment vendors in the shared reference with a plain scope line
+- Limit `full-talent` to search and contact lookup: no scoring, ranking, tiers, or screening of job candidates
+- Keep `full-lookalike` similarity ordering to sales and partnership targeting; hiring requests go to `full-talent`
+- State where contact data comes from, the legal basis, and how a listed person opts out (README, shared reference, MCP documentation, plugin description)
+- Add `privacyPolicyUrl` and a PNG icon to the Claude plugin manifest
+
 ## 1.1.0 — 2026-10-27
 
 - Rewrite all 9 skills following Anthropic/OpenAI agent skills best practices
